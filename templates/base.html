@@ -1,12 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+	<style>
+		
+	</style>
+	<head>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+	<body>
+		<header id="header">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link" id="menu-logo" data-toggle="pill" href="base.html" role="tab" aria-selected="true">Logo / Nom</a>
+                <a class="nav-link" id="menu-avatar" data-toggle="pill" href="#" role="tab" aria-selected="false"></a>
+                <a class="nav-link" id="" data-toggle="pill" href="#" role="tab" aria-selected="false">Profile</a>
+                <a class="nav-link" id="" data-toggle="pill" href="#" role="tab" aria-selected="false">Messagerie</a>
+                <a class="nav-link" id="" data-toggle="pill" href="#" role="tab" aria-selected="false">Deconnexion</a>
+                <span class="ln-solid"></span>
+                <a class="nav-link menu-univers" id="" data-toggle="pill" href="#" role="tab" aria-selected="false"><span>Univers 1</span></a>
+                <a class="nav-link" id="" data-toggle="pill" href="#" role="tab" aria-selected="false"><i class="fas fa-plus"></i></a>
+            </div>
+        </header>
+        <div id="btn-menu">
+                <span><i class="fas fa-bars"></i></span>
+            </div>
+		<div id="main" class="container-fluid"  style="padding-left: 150px">
+			<div class="row">
+				<div class="col-md-2" style="margin-top: 100px;">
+					<h1>Test</h1>
+				</div>
+			</div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script>
+            $( document ).ready(function() {
+                var h = parseInt($('.menu-univers').css('height'));
+                var h2 = parseInt($('.menu-univers span').css('height'));
+                var h3 = h/2 - h2/2;
+                $('.menu-univers').css('margin-top', h3 + 'px');
+
+                var a = parseInt($('#menu-logo').css('height'));
+                $('#btn-menu').css('height', a  + 'px');
+            });
+        </script>
+	</body>
 </html>

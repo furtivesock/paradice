@@ -1,0 +1,44 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+header{
+    width: 150px;
+    height: 100%;
+    position : absolute;
+    overflow-y: auto; 
+    background: #333333;
+}
+.nav-link{
+    text-align: center;
+    vertical-align: middle;
+    background: #333333;
+    border-radius: unset !important;
+    border-bottom: 1px solid #fff;
+}
+.nav-link.active{
+    background: #8c8c8c !important;
+}
+a{
+    color: #fff !important;
+}
+#menu-avatar{
+    background-image: url('../medias/img/avatar.png');
+    height: 150px;
+    background-size: 100%;
+}
+.ln-solid{
+    height: 10px;
+    background: #fff;
+}
+.menu-univers{
+    height: 70px;
+}
+#btn-menu{
+    position: absolute;
+    margin-left: 150px;
+    color: red;
+    font-size: 1.5em;
+    background: #333333;
+    border: 1px solid #fff;
+}
