@@ -54,16 +54,19 @@ class Universe
      */
     private $universeApplications;
 
-    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $logoURL;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $bannerURL;
 
 
     public function __construct()
     {
-        $this->messageSupports = new ArrayCollection();
-        $this->locations = new ArrayCollection();
-        $this->characteristics = new ArrayCollection();
-        $this->types = new ArrayCollection();
-        $this->members = new ArrayCollection();
         $this->moderators = new ArrayCollection();
         $this->universeMembers = new ArrayCollection();
         $this->universeApplications = new ArrayCollection();
@@ -206,6 +209,30 @@ class Universe
                 $universeApplication->setUniverse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLogoURL(): ?string
+    {
+        return $this->LogoURL;
+    }
+
+    public function setLogoURL(?string $LogoURL): self
+    {
+        $this->LogoURL = $LogoURL;
+
+        return $this;
+    }
+
+    public function getBannerURL(): ?string
+    {
+        return $this->BannerURL;
+    }
+
+    public function setBannerURL(?string $BannerURL): self
+    {
+        $this->BannerURL = $BannerURL;
 
         return $this;
     }

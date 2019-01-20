@@ -61,11 +61,6 @@ class OnlineUser
 
     public function __construct()
     {
-        $this->createdUniverses = new ArrayCollection();
-        $this->messageSupports = new ArrayCollection();
-        $this->stories = new ArrayCollection();
-        $this->personas = new ArrayCollection();
-        $this->universes = new ArrayCollection();
         $this->moderatedUniverses = new ArrayCollection();
         $this->universeMembers = new ArrayCollection();
         $this->universeApplications = new ArrayCollection();
