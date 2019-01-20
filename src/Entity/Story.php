@@ -77,6 +77,11 @@ class Story
      */
     private $storyApplications;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $summary;
+
     public function __construct()
     {
         $this->storyPlayers = new ArrayCollection();
@@ -254,6 +259,18 @@ class Story
                 $storyApplication->setStory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(?string $summary): self
+    {
+        $this->summary = $summary;
 
         return $this;
     }
