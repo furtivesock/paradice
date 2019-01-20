@@ -46,10 +46,6 @@ class Location
      */
     private $universe;
 
-    public function __construct()
-    {
-        $this->sublocations = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {

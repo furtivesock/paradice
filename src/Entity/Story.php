@@ -79,7 +79,6 @@ class Story
 
     public function __construct()
     {
-        $this->chapters = new ArrayCollection();
         $this->storyPlayers = new ArrayCollection();
         $this->storyApplications = new ArrayCollection();
     }
