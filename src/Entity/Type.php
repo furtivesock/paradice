@@ -36,11 +36,6 @@ class Type
      */
     private $universe;
 
-    public function __construct()
-    {
-        $this->subtypes = new ArrayCollection();
-        $this->characteristics = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
