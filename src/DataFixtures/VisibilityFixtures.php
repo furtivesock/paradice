@@ -9,8 +9,17 @@ class VisibilityFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $visibility = new Visibility();
+        $manager->setName('ALL');
+        $manager->persist($visisbility);
+        
+        $visibility = new Visibility();
+        $manager->setName('UNIVERSE');
+        $manager->persist($visisbility);
+        
+        $visibility = new Visibility();
+        $manager->setName('STORY');
+        $manager->persist($visisbility);
 
         $manager->flush();
     }
