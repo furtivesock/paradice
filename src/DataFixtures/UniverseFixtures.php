@@ -23,6 +23,8 @@ class UniverseFixtures extends Fixture
         $manager->persist($universe);
 
         $manager->flush();
+
+        $this->addReference('The-Universe', $universe);
     }
 
     public function getDependences()
