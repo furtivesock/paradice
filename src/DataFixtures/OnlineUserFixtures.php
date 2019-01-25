@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use App\Entity\OnlineUser;
 
 class OnlineUserFixtures extends Fixture
 {
@@ -11,7 +12,6 @@ class OnlineUserFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
-
         $manager->flush();
     }
 }
