@@ -4,9 +4,11 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+
 use App\Entity\Type;
 
-class TypeFixtures extends Fixture
+class TypeFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -29,7 +31,7 @@ class TypeFixtures extends Fixture
         $manager->persist($type3);
 
         $type4 = new Type();
-        $type4->setName('ARME');
+        $type4->setName('ARC');
         $type4->setParentType($type3);
         $type4->setUniverse($this->getReference('The-Universe'));
         $manager->persist($type4);
