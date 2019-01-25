@@ -17,6 +17,8 @@ class MessageSupportFixtures extends Fixture implements DependentFixtureInterfac
         $messageSupport->setCreationDate(new \DateTime());
         $messageSupport->setUniverse($this->getReference('The-Universe'));
         $messageSupport->setSender($this->getReference('Sloky'));
+
+        $manager->persist($messageSupport);
         $manager->flush();
     }
 
