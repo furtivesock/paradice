@@ -4,14 +4,33 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ChapterFixtures extends Fixture
+use App\Entity\Chapter;
+use App\DataFixtures\LocationFixtures;
+use App\DataFixtures\StoryFixtures;
+
+class ChapterFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $chapter = new Chapter();
+        $chapter->setName('Le début de la fin');
+        $chapter->setNumero(0);
+        $chapter->setLocation($this->getReference('Fossilis'));
+        $chapter->setStory($this->getReference('SuperStory'));
+        $chapter->setEnd(false);
+
+        $manager->persist($chapter);
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            LocationFixtures::class,
+            StoryFixtures::class
+        );
     }
 }

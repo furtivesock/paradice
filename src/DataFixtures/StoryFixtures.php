@@ -26,6 +26,8 @@ class StoryFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($story);
 
         $manager->flush(); 
+
+        $this->addReference('SuperStory', $story);
     }
 
     public function getDependencies()

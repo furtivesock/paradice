@@ -32,6 +32,9 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($location2);
 
         $manager->flush();
+
+
+        $this->addReference('Fossilis', $location1);
     }
 
     public function getDependencies()
