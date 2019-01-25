@@ -6,7 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Status;
 
-class StatusFixtures extends Fixture
+class StatusFixtures extends Fixture 
 {
     public function load(ObjectManager $manager)
     {
@@ -27,5 +27,7 @@ class StatusFixtures extends Fixture
         $manager->persist($status);
 
         $manager->flush();
+
+        $this->addReference('IN_PROGRESS', $status);
     }
 }

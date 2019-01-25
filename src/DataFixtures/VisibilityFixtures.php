@@ -23,5 +23,7 @@ class VisibilityFixtures extends Fixture
         $manager->persist($visibility);
 
         $manager->flush();
+
+        $this->addReference('STORY', $visibility);
     }
 }
