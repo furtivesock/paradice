@@ -10,8 +10,16 @@ class OnlineUserFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $onlineUser = new OnlineUser();
+        $onlineUser->setUsername('Sloky');
+        $onlineUser->setPassword('jesuisunmdp');
+        $onlineUser->setCreationDate(new \DateTime());
+        $onlineUser->setEmail('email@info.fr');
+        $onlineUser->setAvatarURL(NULL);
+        $manager->persist($onlineUser);
+
         $manager->flush();
+
+        $this->addReference('Sloky',$onlineUser);
     }
 }
