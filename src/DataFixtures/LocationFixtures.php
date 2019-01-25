@@ -7,7 +7,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 use App\Entity\Location;
-use App\DataFixtures\UniverseFixtures;
 
 class LocationFixtures extends Fixture implements DependentFixtureInterface
 {

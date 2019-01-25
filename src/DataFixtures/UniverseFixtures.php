@@ -6,8 +6,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-use App\Entity\Universe;
-use App\Entity\OnlineUser;
+use App\Entity\{OnlineUser, Universe};
+
 
 class UniverseFixtures extends Fixture implements DependentFixtureInterface
 {

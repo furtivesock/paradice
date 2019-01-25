@@ -39,12 +39,11 @@ class PersonaFixtures extends Fixture implements DependentFixtureInterface
         $persona->setAge(14);
         $persona->setUniverse($this->getReference('The-Universe'));
         $persona->setUser($this->getReference('Sloky'));
-
-        // $product = new Product();
-        // $manager->persist($product);
-
         $manager->persist($persona);
+
         $manager->flush();
+
+        $this->addReference('Xeyh', $persona);
     }
 
     public function getDependencies()

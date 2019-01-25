@@ -7,8 +7,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 use App\Entity\Chapter;
-use App\DataFixtures\LocationFixtures;
-use App\DataFixtures\StoryFixtures;
 
 class ChapterFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -24,6 +22,8 @@ class ChapterFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($chapter);
 
         $manager->flush();
+
+        $this->addReference('ChapterOne', $chapter);
     }
 
     public function getDependencies()
