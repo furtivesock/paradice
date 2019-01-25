@@ -36,7 +36,7 @@ class PersonaFixtures extends Fixture implements DependentFixtureInterface
         le village de la petite fille et remarqua que son âme était toujours présente. Il comprit alors que son sort n\'avait que partiellement
         fonctionné, liant les âmes de ces deux entités à jamais. Désormais, l\'entité contrôlant le corps de la fillette
         alterne entre Xeyh et Astra, changeant radicalement leur manière d\'être selon celui qui le contrôle.');
-        $persona->setAge(31);
+        $persona->setAge(14);
         $persona->setUniverse($this->getReference('The-Universe'));
         $persona->setUser($this->getReference('Sloky'));
 
