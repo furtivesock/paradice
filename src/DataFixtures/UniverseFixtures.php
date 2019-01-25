@@ -27,7 +27,7 @@ class UniverseFixtures extends Fixture
         $this->addReference('The-Universe', $universe);
     }
 
-    public function getDependences()
+    public function getDependencies()
     {
         return array(OnlineUserFixtures::class);
     }
