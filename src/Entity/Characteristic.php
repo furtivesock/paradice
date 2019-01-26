@@ -31,11 +31,6 @@ class Characteristic
      */
     private $imageURL;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="characteristics")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
-    private $universe;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="characteristics")
@@ -80,18 +75,6 @@ class Characteristic
     public function setImageURL(?string $imageURL): self
     {
         $this->imageURL = $imageURL;
-
-        return $this;
-    }
-
-    public function getUniverse(): ?Universe
-    {
-        return $this->universe;
-    }
-
-    public function setUniverse(?Universe $universe): self
-    {
-        $this->universe = $universe;
 
         return $this;
     }
