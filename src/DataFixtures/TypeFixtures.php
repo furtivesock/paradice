@@ -37,6 +37,10 @@ class TypeFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($type4);
 
         $manager->flush();
+
+        $this->addReference('Race', $type1);
+        $this->addReference('Classe', $type2);
+        $this->addReference('Arc', $type3);
     }
 
     public function getDependencies()
