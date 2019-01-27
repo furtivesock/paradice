@@ -58,12 +58,18 @@ class OnlineUser
      */
     private $universeApplications;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MessageRead", mappedBy="user", orphanRemoval=true)
+     */
+    private $messagesRead;
+
 
     public function __construct()
     {
         $this->moderatedUniverses = new ArrayCollection();
         $this->universeMembers = new ArrayCollection();
         $this->universeApplications = new ArrayCollection();
+        $this->messagesRead = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -215,6 +221,37 @@ class OnlineUser
             // set the owning side to null (unless already changed)
             if ($universeApplication->getApplicant() === $this) {
                 $universeApplication->setApplicant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MessageRead[]
+     */
+    public function getMessagesRead(): Collection
+    {
+        return $this->messagesRead;
+    }
+
+    public function addMessagesRead(MessageRead $messagesRead): self
+    {
+        if (!$this->messagesRead->contains($messagesRead)) {
+            $this->messagesRead[] = $messagesRead;
+            $messagesRead->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesRead(MessageRead $messagesRead): self
+    {
+        if ($this->messagesRead->contains($messagesRead)) {
+            $this->messagesRead->removeElement($messagesRead);
+            // set the owning side to null (unless already changed)
+            if ($messagesRead->getUser() === $this) {
+                $messagesRead->setUser(null);
             }
         }
 
