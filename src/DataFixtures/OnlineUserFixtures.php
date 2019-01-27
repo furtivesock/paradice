@@ -26,8 +26,17 @@ class OnlineUserFixtures extends Fixture
         $onlineUser->setAvatarURL(NULL);
         $manager->persist($onlineUser);
 
+        $this->addReference('Sloky', $onlineUser);
+
+        $onlineUser = new OnlineUser();
+        $onlineUser->setUsername('Cyrela');
+        $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'bonjour'));
+        $onlineUser->setCreationDate(new \DateTime());
+        $onlineUser->setEmail('cyrela@yahoo.fr');
+        $onlineUser->setAvatarURL(NULL);
+        $manager->persist($onlineUser);
+
         $manager->flush();
 
-        $this->addReference('Sloky', $onlineUser);
     }
 }
