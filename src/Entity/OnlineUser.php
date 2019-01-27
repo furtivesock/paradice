@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\OnlineUserRepository")
  */
 class OnlineUser implements UserInterface
 {
@@ -68,6 +69,14 @@ class OnlineUser implements UserInterface
      */
     private $messagesRead;
 
+    public function __construct()
+    {
+        $this->moderatedUniverses = new ArrayCollection();
+        $this->universeMembers = new ArrayCollection();
+        $this->universeApplications = new ArrayCollection();
+        $this->messagesRead = new ArrayCollection();
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
