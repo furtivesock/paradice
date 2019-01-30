@@ -34,7 +34,7 @@ class Universe
     private $creationDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="createdUniverses")
+     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $creator;
