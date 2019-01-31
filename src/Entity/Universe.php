@@ -64,12 +64,23 @@ class Universe
      */
     private $bannerURL;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Story", mappedBy="universe", orphanRemoval=true)
+     */
+    private $stories;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="universe", orphanRemoval=true)
+     */
+    private $locations;
 
     public function __construct()
     {
         $this->moderators = new ArrayCollection();
         $this->universeMembers = new ArrayCollection();
         $this->universeApplications = new ArrayCollection();
+        $this->stories = new ArrayCollection();
+        $this->locations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,6 +224,37 @@ class Universe
         return $this;
     }
 
+    /**
+     * @return Collection|Story[]
+     */
+    public function getStories(): Collection
+    {
+        return $this->stories;
+    }
+
+    public function addStory(Story $story): self
+    {
+        if (!$this->stories->contains($story)) {
+            $this->stories[] = $story;
+            $story->setUniverse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStory(Story $story): self
+    {
+        if ($this->stories->contains($story)) {
+            $this->stories->removeElement($story);
+            // set the owning side to null (unless already changed)
+            if ($story->getUniverse() === $this) {
+                $story->setUniverse(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getLogoURL(): ?string
     {
         return $this->LogoURL;
@@ -233,6 +275,37 @@ class Universe
     public function setBannerURL(?string $BannerURL): self
     {
         $this->BannerURL = $BannerURL;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $location->setUniverse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->locations->contains($location)) {
+            $this->locations->removeElement($location);
+            // set the owning side to null (unless already changed)
+            if ($location->getUniverse() === $this) {
+                $location->setUniverse(null);
+            }
+        }
 
         return $this;
     }

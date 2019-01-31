@@ -33,18 +33,29 @@ class Location
      */
     private $imageURL;
 
+
+
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="sublocations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="subLocations")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $parentLocation;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="parentLocation")
+     */
+    private $subLocations;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="locations")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     * @ORM\JoinColumn(nullable=false, onDelete="cascade")
      */
     private $universe;
+
+    public function __construct()
+    {
+        $this->subLocations = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -88,6 +99,7 @@ class Location
         return $this;
     }
 
+
     public function getParentLocation(): ?self
     {
         return $this->parentLocation;
@@ -100,6 +112,36 @@ class Location
         return $this;
     }
 
+    /**
+     * @return Collection|self[]
+     */
+    public function getSubLocations(): Collection
+    {
+        return $this->subLocations;
+    }
+
+    public function addSubLocation(self $subLocation): self
+    {
+        if (!$this->subLocations->contains($subLocation)) {
+            $this->subLocations[] = $subLocation;
+            $subLocation->setParentLocation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubLocation(self $subLocation): self
+    {
+        if ($this->subLocations->contains($subLocation)) {
+            $this->subLocations->removeElement($subLocation);
+            // set the owning side to null (unless already changed)
+            if ($subLocation->getParentLocation() === $this) {
+                $subLocation->setParentLocation(null);
+            }
+        }
+
+        return $this;
+    }
 
     public function getUniverse(): ?Universe
     {
