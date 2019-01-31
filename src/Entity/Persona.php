@@ -60,12 +60,6 @@ class Persona
     private $universe;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="personas")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
-    private $user;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Characteristic")
      */
     private $characteristics;
@@ -84,6 +78,12 @@ class Persona
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="sender")
      */
     private $messages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="personas")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */
+    private $user;
 
     public function __construct()
     {
@@ -194,17 +194,6 @@ class Persona
         return $this;
     }
 
-    public function getUser(): ?OnlineUser
-    {
-        return $this->user;
-    }
-
-    public function setUser(?OnlineUser $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Characteristic[]
@@ -321,6 +310,18 @@ class Persona
                 $message->setSender(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?OnlineUser
+    {
+        return $this->user;
+    }
+
+    public function setUser(?OnlineUser $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
