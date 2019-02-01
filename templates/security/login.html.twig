@@ -7,16 +7,18 @@
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+    <div class="row mt-5">
+        <div class="container mt-5">
+            <div class="offset-md-3 offset-lg-3 col-xs-12 col-sm-12 col-md-6 col-lg-6 align-middle">
+                <h1 class="mt-5 h3 mb-4 font-weight-normal text-center">Connexion</h1>
+                <label for="inputUsername" class="sr-only">Username</label>
+                <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control mb-3" placeholder="Nom d'utilisateur" required autofocus>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control mb-3" placeholder="Mot de passe" required>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername" class="sr-only">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+                <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                >
 
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -26,11 +28,14 @@
             <label>
                 <input type="checkbox" name="_remember_me"> Remember me
             </label>
-        </div>
+        </div>s
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+                <button class="btn btn-lg btn-primary" type="submit" style="width: 100%;">
+                    Sign in
+                </button>
+            </div>
+        </div>
+    </div>
 </form>
 {% endblock %}

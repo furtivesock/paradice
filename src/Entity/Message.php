@@ -28,21 +28,22 @@ class Message
      */
     private $creationDate;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Persona")
-     */
-    private $sender;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Chapter")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $chapter;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\MessageRead", mappedBy="message", orphanRemoval=true)
      */
     private $messagesRead;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Chapter", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     */
+    private $chapter;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Persona", inversedBy="messages")
+     */
+    private $sender;
 
     public function __construct()
     {
@@ -78,29 +79,6 @@ class Message
         return $this;
     }
 
-    public function getSender(): ?Persona
-    {
-        return $this->sender;
-    }
-
-    public function setSender(?Persona $sender): self
-    {
-        $this->sender = $sender;
-
-        return $this;
-    }
-
-    public function getChapter(): ?Chapter
-    {
-        return $this->chapter;
-    }
-
-    public function setChapter(?Chapter $chapter): self
-    {
-        $this->chapter = $chapter;
-
-        return $this;
-    }
 
     /**
      * @return Collection|MessageRead[]
@@ -129,6 +107,30 @@ class Message
                 $messagesRead->setMessage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getChapter(): ?Chapter
+    {
+        return $this->chapter;
+    }
+
+    public function setChapter(?Chapter $chapter): self
+    {
+        $this->chapter = $chapter;
+
+        return $this;
+    }
+
+    public function getSender(): ?Persona
+    {
+        return $this->sender;
+    }
+
+    public function setSender(?Persona $sender): self
+    {
+        $this->sender = $sender;
 
         return $this;
     }

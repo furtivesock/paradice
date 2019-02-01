@@ -1,0 +1,6 @@
+input{
+    padding: 30px 30px !important;
+}
+#registration-form label{
+    display: none;
+}

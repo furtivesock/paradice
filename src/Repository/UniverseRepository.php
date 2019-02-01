@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Universe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query\Expr\OrderBy;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @method Universe|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +19,31 @@ class UniverseRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Universe::class);
+    }
+
+    /**
+     * @return Universe[]
+     */
+    public function findTopUniversesAfterDate(\DateTime $after, int $nbMaxResult)
+    {
+        $results = $this->createQueryBuilder('u')
+            ->addSelect('count(m.id)')
+            ->leftJoin('u.stories', 's')
+            ->leftJoin('s.chapters', 'c')
+            ->leftJoin('c.messages', 'm')
+            ->andWhere('m.creationDate > :date')
+            ->setParameter('date', $after)
+            ->groupBy('u')
+            ->addOrderBy(new OrderBy('count(m.id)', 'DESC'))
+            ->setMaxResults($nbMaxResult)
+            ->getQuery()
+            ->getResult();
+
+        $universes = new ArrayCollection();
+        foreach ($results as $result) {
+            $universes[] = $result[0];
+        }   
+        return $universes;
     }
 
     // /**

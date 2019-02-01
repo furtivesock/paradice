@@ -19,6 +19,8 @@ class UniverseMemberFixtures extends Fixture implements DependentFixtureInterfac
         $manager->persist($universeMember);
 
         $manager->flush();
+
+        
     }
 
     public function getDependencies() 

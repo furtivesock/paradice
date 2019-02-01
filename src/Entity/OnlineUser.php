@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -73,6 +74,11 @@ class OnlineUser implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Story", mappedBy="author")
      */
     private $stories;
+    
+    /*
+     * @ORM\OneToMany(targetEntity="App\Entity\Persona", mappedBy="user", orphanRemoval=true)
+     */
+    private $personas;
 
     public function __construct()
     {
@@ -81,6 +87,7 @@ class OnlineUser implements UserInterface
         $this->universeApplications = new ArrayCollection();
         $this->messagesRead = new ArrayCollection();
         $this->stories = new ArrayCollection();
+        $this->personas = new ArrayCollection();
     }
     
     public function getId(): ?int
@@ -327,7 +334,7 @@ class OnlineUser implements UserInterface
             $this->stories[] = $story;
             $story->setAuthor($this);
         }
-
+        
         return $this;
     }
 
@@ -338,6 +345,37 @@ class OnlineUser implements UserInterface
             // set the owning side to null (unless already changed)
             if ($story->getAuthor() === $this) {
                 $story->setAuthor(null);
+            }
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * @return Collection|Persona[]
+     */
+    public function getPersonas(): Collection
+    {
+        return $this->personas;
+    }
+
+    public function addPersona(Persona $persona): self
+    {
+        if (!$this->personas->contains($persona)) {
+            $this->personas[] = $persona;
+            $persona->setUser($this);
+        }
+
+        return $this;
+    }
+    
+    public function removePersona(Persona $persona): self
+    {
+        if ($this->personas->contains($persona)) {
+            $this->personas->removeElement($persona);
+            // set the owning side to null (unless already changed)
+            if ($persona->getUser() === $this) {
+                $persona->setUser(null);
             }
         }
 
