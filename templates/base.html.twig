@@ -18,7 +18,7 @@
 
             {% for universeMember in user.getUniverseMembers %}
                 {% set universe = universeMember.getUniverse %}
-                <a href="/u/{{ universe.getId }}">{{ universe.getName }}</a>
+                <a href="/universe/{{ universe.getId }}">{{ universe.getName }}</a>
             {% endfor %}
         {% endif %}
 
