@@ -11,12 +11,37 @@ class UniverseMemberFixtures extends Fixture implements DependentFixtureInterfac
 {
     public function load(ObjectManager $manager)
     {
+        // The Universe
         $universeMember = new UniverseMember();
         $universeMember->setMember($this->getReference('Sloky'));
         $universeMember->setUniverse($this->getReference('The-Universe'));
         $universeMember->setAcceptationDate(new \DateTime());
         
         $manager->persist($universeMember);
+
+        // Lune-Noire
+        $universeMember = new UniverseMember();
+        $universeMember->setMember($this->getReference('Landry'));
+        $universeMember->setUniverse($this->getReference('Lune-Noire'));
+        $universeMember->setAcceptationDate(new \DateTime());
+        
+        $manager->persist($universeMember);
+
+        $universeMember = new UniverseMember();
+        $universeMember->setMember($this->getReference('Eggoer'));
+        $universeMember->setUniverse($this->getReference('Lune-Noire'));
+        $universeMember->setAcceptationDate(new \DateTime());
+        
+        $manager->persist($universeMember);
+
+        $universeMember = new UniverseMember();
+        $universeMember->setMember($this->getReference('Sequentia'));
+        $universeMember->setUniverse($this->getReference('Lune-Noire'));
+        $universeMember->setAcceptationDate(new \DateTime());
+        
+        $manager->persist($universeMember);
+
+
 
         $manager->flush();
     }
