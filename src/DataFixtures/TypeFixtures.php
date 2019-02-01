@@ -20,7 +20,7 @@ class TypeFixtures extends Fixture implements DependentFixtureInterface
 
         $type2 = new Type();
         $type2->setName('CLASSE');
-        $type2->setParentType($type2);
+        $type2->setParentType(NULL);
         $type2->setUniverse($this->getReference('The-Universe'));
         $manager->persist($type2);
 

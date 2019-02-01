@@ -44,11 +44,11 @@ class Story
     private $endRegistrationDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser")
+     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="stories")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $author;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Visibility")
      * @ORM\JoinColumn(nullable=false)
@@ -60,12 +60,6 @@ class Story
      * @ORM\JoinColumn(nullable=false)
      */
     private $status;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="stories")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
-    private $universe;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\StoryPlayer", mappedBy="story", orphanRemoval=true)
@@ -83,10 +77,16 @@ class Story
     private $summary;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="stories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $universe;
+    
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Chapter", mappedBy="story", orphanRemoval=true)
      */
     private $chapters;
-
+    
     public function __construct()
     {
         $this->storyPlayers = new ArrayCollection();
@@ -159,17 +159,6 @@ class Story
         return $this;
     }
 
-    public function getAuthor(): ?OnlineUser
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?OnlineUser $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
 
     public function getVisibility(): ?Visibility
     {
@@ -195,17 +184,6 @@ class Story
         return $this;
     }
 
-    public function getUniverse(): ?Universe
-    {
-        return $this->universe;
-    }
-
-    public function setUniverse(?Universe $universe): self
-    {
-        $this->universe = $universe;
-
-        return $this;
-    }
 
     /**
      * @return Collection|StoryPlayer[]
@@ -308,6 +286,30 @@ class Story
     public function setSummary(?string $summary): self
     {
         $this->summary = $summary;
+
+        return $this;
+    }
+
+    public function getUniverse(): ?Universe
+    {
+        return $this->universe;
+    }
+
+    public function setUniverse(?Universe $universe): self
+    {
+        $this->universe = $universe;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?OnlineUser
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?OnlineUser $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

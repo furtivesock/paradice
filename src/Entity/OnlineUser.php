@@ -71,6 +71,11 @@ class OnlineUser implements UserInterface
     private $messagesRead;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Story", mappedBy="author")
+     */
+    private $stories;
+    
+    /*
      * @ORM\OneToMany(targetEntity="App\Entity\Persona", mappedBy="user", orphanRemoval=true)
      */
     private $personas;
@@ -81,6 +86,7 @@ class OnlineUser implements UserInterface
         $this->universeMembers = new ArrayCollection();
         $this->universeApplications = new ArrayCollection();
         $this->messagesRead = new ArrayCollection();
+        $this->stories = new ArrayCollection();
         $this->personas = new ArrayCollection();
     }
     
@@ -315,6 +321,37 @@ class OnlineUser implements UserInterface
     }
 
     /**
+     * @return Collection|Story[]
+     */
+    public function getStories(): Collection
+    {
+        return $this->stories;
+    }
+
+    public function addStory(Story $story): self
+    {
+        if (!$this->stories->contains($story)) {
+            $this->stories[] = $story;
+            $story->setAuthor($this);
+        }
+        
+        return $this;
+    }
+
+    public function removeStory(Story $story): self
+    {
+        if ($this->stories->contains($story)) {
+            $this->stories->removeElement($story);
+            // set the owning side to null (unless already changed)
+            if ($story->getAuthor() === $this) {
+                $story->setAuthor(null);
+            }
+        }
+        
+        return $this;
+    }
+    
+    /**
      * @return Collection|Persona[]
      */
     public function getPersonas(): Collection
@@ -331,7 +368,7 @@ class OnlineUser implements UserInterface
 
         return $this;
     }
-
+    
     public function removePersona(Persona $persona): self
     {
         if ($this->personas->contains($persona)) {
