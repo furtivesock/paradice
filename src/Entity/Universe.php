@@ -70,9 +70,10 @@ class Universe
     private $stories;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="universe", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Type", mappedBy="universe", orphanRemoval=true)
      */
-    private $locations;
+    private $types;
+
 
     public function __construct()
     {
@@ -80,7 +81,7 @@ class Universe
         $this->universeMembers = new ArrayCollection();
         $this->universeApplications = new ArrayCollection();
         $this->stories = new ArrayCollection();
-        $this->locations = new ArrayCollection();
+        $this->types = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,37 +225,6 @@ class Universe
         return $this;
     }
 
-    /**
-     * @return Collection|Story[]
-     */
-    public function getStories(): Collection
-    {
-        return $this->stories;
-    }
-
-    public function addStory(Story $story): self
-    {
-        if (!$this->stories->contains($story)) {
-            $this->stories[] = $story;
-            $story->setUniverse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStory(Story $story): self
-    {
-        if ($this->stories->contains($story)) {
-            $this->stories->removeElement($story);
-            // set the owning side to null (unless already changed)
-            if ($story->getUniverse() === $this) {
-                $story->setUniverse(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getLogoURL(): ?string
     {
         return $this->LogoURL;
@@ -293,10 +263,10 @@ class Universe
             $this->stories[] = $story;
             $story->setUniverse($this);
         }
-        
+
         return $this;
     }
-    
+
     public function removeStory(Story $story): self
     {
         if ($this->stories->contains($story)) {
@@ -306,36 +276,35 @@ class Universe
                 $story->setUniverse(null);
             }
         }
-        
+
         return $this;
     }
-    
+
     /**
-     * @return Collection|Location[]
+     * @return Collection|Type[]
      */
-    public function getLocations(): Collection
+    public function getTypes(): Collection
     {
-        return $this->locations;
+        return $this->types;
     }
 
-    public function addLocation(Location $location): self
+    public function addType(Type $type): self
     {
-        if (!$this->locations->contains($location)) {
-            $this->locations[] = $location;
-            $location->setUniverse($this);
+        if (!$this->types->contains($type)) {
+            $this->types[] = $type;
+            $type->setUniverse($this);
         }
 
         return $this;
     }
 
-    
-    public function removeLocation(Location $location): self
+    public function removeType(Type $type): self
     {
-        if ($this->locations->contains($location)) {
-            $this->locations->removeElement($location);
+        if ($this->types->contains($type)) {
+            $this->types->removeElement($type);
             // set the owning side to null (unless already changed)
-            if ($location->getUniverse() === $this) {
-                $location->setUniverse(null);
+            if ($type->getUniverse() === $this) {
+                $type->setUniverse(null);
             }
         }
 

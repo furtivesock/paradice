@@ -44,7 +44,7 @@ class Story
     private $endRegistrationDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser")
+     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="stories")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $author;
@@ -60,12 +60,6 @@ class Story
      * @ORM\JoinColumn(nullable=false)
      */
     private $status;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="stories")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
-    private $universe;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\StoryPlayer", mappedBy="story", orphanRemoval=true)
@@ -87,12 +81,6 @@ class Story
      * @ORM\JoinColumn(nullable=false)
      */
     private $universe;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="stories")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     */
-    private $author;
     
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Chapter", mappedBy="story", orphanRemoval=true)
