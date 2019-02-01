@@ -20,6 +20,31 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($message);
 
+
+        $message = new Message();
+        $message->setContents('Salam les Kheys');
+        $message->setCreationDate(new \DateTime());;
+        $message->setSender($this->getReference('Xarah'));
+        $message->setChapter($this->getReference('ChapterDeux'));
+
+        $manager->persist($message);
+
+        $message = new Message();
+        $message->setContents('Salam frr');
+        $message->setCreationDate(new \DateTime());;
+        $message->setSender($this->getReference('Akan'));
+        $message->setChapter($this->getReference('ChapterDeux'));
+
+        $manager->persist($message);
+
+        $message = new Message();
+        $message->setContents('Wesh groooo');
+        $message->setCreationDate(new \DateTime());;
+        $message->setSender($this->getReference('Cröw'));
+        $message->setChapter($this->getReference('ChapterDeux'));
+
+        $manager->persist($message);
+
         $manager->flush();
     }
 
