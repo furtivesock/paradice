@@ -227,24 +227,24 @@ class Universe
 
     public function getLogoURL(): ?string
     {
-        return $this->LogoURL;
+        return $this->logoURL;
     }
 
-    public function setLogoURL(?string $LogoURL): self
+    public function setLogoURL(?string $logoURL): self
     {
-        $this->LogoURL = $LogoURL;
+        $this->logoURL = $logoURL;
 
         return $this;
     }
 
     public function getBannerURL(): ?string
     {
-        return $this->BannerURL;
+        return $this->bannerURL;
     }
 
-    public function setBannerURL(?string $BannerURL): self
+    public function setBannerURL(?string $bannerURL): self
     {
-        $this->BannerURL = $BannerURL;
+        $this->bannerURL = $bannerURL;
 
         return $this;
     }
