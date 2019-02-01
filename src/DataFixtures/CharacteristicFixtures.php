@@ -39,6 +39,14 @@ class CharacteristicFixtures extends Fixture implements DependentFixtureInterfac
         
         $manager->persist($characteristic);
 
+        $characteristic = new Characteristic();
+        $characteristic->setName('Magie noire');
+        $characteristic->setDescription('Magie noire, très très noire');
+        $characteristic->setType($this->getReference('Magie'));
+        $characteristic->setImageURL(NULL);
+
+        $manager->persist($characteristic);
+
         $manager->flush();
     }
 
