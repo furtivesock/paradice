@@ -36,6 +36,16 @@ class Type
      */
     private $universe;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Characteristic", mappedBy="type", orphanRemoval=true)
+     */
+    private $characteristics;
+
+    public function __construct()
+    {
+        $this->characteristics = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -74,6 +84,37 @@ class Type
     public function setUniverse(?Universe $universe): self
     {
         $this->universe = $universe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Characteristic[]
+     */
+    public function getCharacteristics(): Collection
+    {
+        return $this->characteristics;
+    }
+
+    public function addCharacteristic(Characteristic $characteristic): self
+    {
+        if (!$this->characteristics->contains($characteristic)) {
+            $this->characteristics[] = $characteristic;
+            $characteristic->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacteristic(Characteristic $characteristic): self
+    {
+        if ($this->characteristics->contains($characteristic)) {
+            $this->characteristics->removeElement($characteristic);
+            // set the owning side to null (unless already changed)
+            if ($characteristic->getType() === $this) {
+                $characteristic->setType(null);
+            }
+        }
 
         return $this;
     }
