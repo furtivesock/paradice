@@ -64,12 +64,24 @@ class Universe
      */
     private $bannerURL;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Story", mappedBy="universe", orphanRemoval=true)
+     */
+    private $stories;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Type", mappedBy="universe", orphanRemoval=true)
+     */
+    private $types;
+
 
     public function __construct()
     {
         $this->moderators = new ArrayCollection();
         $this->universeMembers = new ArrayCollection();
         $this->universeApplications = new ArrayCollection();
+        $this->stories = new ArrayCollection();
+        $this->types = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -233,6 +245,68 @@ class Universe
     public function setBannerURL(?string $BannerURL): self
     {
         $this->BannerURL = $BannerURL;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Story[]
+     */
+    public function getStories(): Collection
+    {
+        return $this->stories;
+    }
+
+    public function addStory(Story $story): self
+    {
+        if (!$this->stories->contains($story)) {
+            $this->stories[] = $story;
+            $story->setUniverse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStory(Story $story): self
+    {
+        if ($this->stories->contains($story)) {
+            $this->stories->removeElement($story);
+            // set the owning side to null (unless already changed)
+            if ($story->getUniverse() === $this) {
+                $story->setUniverse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Type[]
+     */
+    public function getTypes(): Collection
+    {
+        return $this->types;
+    }
+
+    public function addType(Type $type): self
+    {
+        if (!$this->types->contains($type)) {
+            $this->types[] = $type;
+            $type->setUniverse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeType(Type $type): self
+    {
+        if ($this->types->contains($type)) {
+            $this->types->removeElement($type);
+            // set the owning side to null (unless already changed)
+            if ($type->getUniverse() === $this) {
+                $type->setUniverse(null);
+            }
+        }
 
         return $this;
     }

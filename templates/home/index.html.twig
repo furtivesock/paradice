@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello !{% endblock %}
+
+{% block body %}
+<h3>TOP 5 UNIVERS AUJOURD'HUI</h3>
+
+{% for i in 1..5 %}
+  {% if i <= topUniversesDay.count %}
+  <p>{{ i }} - {{ attribute(topUniversesDay, i-1).getName|escape }}</p>
+  {% else %}
+  <p>{{ i }} - ...</p> 
+  {% endif %}
+{% endfor %}
+
+<h3>TOP 5 UNIVERS CETTE SEMAINE </h3>
+
+{% for i in 1..5 %}
+  {% if i <= topUniversesWeek.count %}
+  <p>{{ i }} - {{ attribute(topUniversesWeek, i-1).getName|escape }}</p>
+  {% else %}
+  <p>{{ i }} - ...</p> 
+  {% endif %}
+{% endfor %}
+
+
+<h3>TOP 5 UNIVERS CE MOIS-CI</h3>
+
+{% for i in 1..5 %}
+  {% if i <= topUniversesMonth.count %}
+  <p>{{ i }} - {{ attribute(topUniversesMonth, i-1).getName|escape }}</p>
+  {% else %}
+  <p>{{ i }} - ...</p> 
+  {% endif %}
+{% endfor %}
+
+{% endblock %}

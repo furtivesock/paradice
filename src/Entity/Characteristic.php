@@ -31,12 +31,12 @@ class Characteristic
      */
     private $imageURL;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="characteristics")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $type;
+
 
     public function getId(): ?int
     {

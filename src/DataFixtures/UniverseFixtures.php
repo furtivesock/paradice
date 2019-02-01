@@ -36,9 +36,19 @@ class UniverseFixtures extends Fixture implements DependentFixtureInterface
         $universe->setLogoURL(NULL);
         $universe->setBannerURL(NULL);
         $manager->persist($universe);
-        $this->addReference('Lune-Noire', $universe);
+        
+        $this->addReference('The-Universe', $universe);
 
+        $universe = new Universe();
+        $universe->setName('The-Universe2');
+        $universe->setDescription('Je suis une description qualitative !');
+        $universe->setCreationDate(new \DateTime());
+        $universe->setCreator($this->getReference('Sloky'));
+        $universe->addModerator($this->getReference('Sloky'));
+        $universe->setLogoURL(NULL);
+        $universe->setBannerURL(NULL);
 
+        $manager->persist($universe);
 
 
         $manager->flush();

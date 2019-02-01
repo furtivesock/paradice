@@ -3,9 +3,27 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+            <link rel="stylesheet" type="text/css" href="css/style.css">
+        {% endblock %}
     </head>
     <body>
+        {% block user %}
+
+        {% if user is defined and user is not null %}
+            <p>Bonjour {{ user.getUsername }} !</p>
+            <a href="/user/profile">Mon profil</a>
+            <a href="/logout">Me déconnecter</a>
+
+            {% for universeMember in user.getUniverseMembers %}
+                {% set universe = universeMember.getUniverse %}
+                <a href="/u/{{ universe.getId }}">{{ universe.getName }}</a>
+            {% endfor %}
+        {% endif %}
+
+        {% endblock %}
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

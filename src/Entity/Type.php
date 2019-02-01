@@ -24,17 +24,31 @@ class Type
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="subtypes")
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\OneToMany(targetEntity="App\Entity\Characteristic", mappedBy="type", orphanRemoval=true)
      */
-    private $parentType;
-
+    private $characteristics;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="types")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $universe;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="subTypes")
+     */
+    private $parentType;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Type", mappedBy="parentType")
+     */
+    private $subTypes;
+
+    public function __construct()
+    {
+        $this->characteristics = new ArrayCollection();
+        $this->subTypes = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -54,14 +68,35 @@ class Type
         return $this;
     }
 
-    public function getParentType(): ?self
+    
+
+    /**
+     * @return Collection|Characteristic[]
+     */
+    public function getCharacteristics(): Collection
     {
-        return $this->parentType;
+        return $this->characteristics;
     }
 
-    public function setParentType(?self $parentType): self
+    public function addCharacteristic(Characteristic $characteristic): self
     {
-        $this->parentType = $parentType;
+        if (!$this->characteristics->contains($characteristic)) {
+            $this->characteristics[] = $characteristic;
+            $characteristic->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacteristic(Characteristic $characteristic): self
+    {
+        if ($this->characteristics->contains($characteristic)) {
+            $this->characteristics->removeElement($characteristic);
+            // set the owning side to null (unless already changed)
+            if ($characteristic->getType() === $this) {
+                $characteristic->setType(null);
+            }
+        }
 
         return $this;
     }
@@ -74,6 +109,49 @@ class Type
     public function setUniverse(?Universe $universe): self
     {
         $this->universe = $universe;
+
+        return $this;
+    }
+
+    public function getParentType(): ?self
+    {
+        return $this->parentType;
+    }
+
+    public function setParentType(?self $parentType): self
+    {
+        $this->parentType = $parentType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getSubTypes(): Collection
+    {
+        return $this->subTypes;
+    }
+
+    public function addSubType(self $subType): self
+    {
+        if (!$this->subTypes->contains($subType)) {
+            $this->subTypes[] = $subType;
+            $subType->setParentType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubType(self $subType): self
+    {
+        if ($this->subTypes->contains($subType)) {
+            $this->subTypes->removeElement($subType);
+            // set the owning side to null (unless already changed)
+            if ($subType->getParentType() === $this) {
+                $subType->setParentType(null);
+            }
+        }
 
         return $this;
     }

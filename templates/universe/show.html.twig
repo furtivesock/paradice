@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+<h2>{{ universe.getName }}</h2>
+
+<h4>Le wiki</h4>
+<ul>
+  {% for type in universe.getTypes if type.parentType is null %}
+  <li><a href="/universe/{{ universe.getId }}/type/{{ type.getId }}">{{ type.getName }}</a></li>
+  <ul>
+    {% for subType in type.getSubTypes %}
+      <li><a href="/universe/{{ universe.getId }}/type/{{ subType.getId }}">{{ subType.getName }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</ul>
+<h4>Les Histoires</h4>
+{% for story in universe.getStories %}
+<div style="border: 1px solid black">
+  <a href="/universe/{{ universe.getId }}/story/{{ story.getId }}">{{ story.getName }}</a> par {{ story.getAuthor.getUsername }} ({{ story.getCreationDate|date('d/m/Y') }})
+  <p>{{ story.getDescription }}</p>
+</div>
+{% endfor %}
+{% endblock %}

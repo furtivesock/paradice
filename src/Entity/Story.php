@@ -48,7 +48,7 @@ class Story
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $author;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Visibility")
      * @ORM\JoinColumn(nullable=false)
@@ -60,12 +60,6 @@ class Story
      * @ORM\JoinColumn(nullable=false)
      */
     private $status;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Universe")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
-    private $universe;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\StoryPlayer", mappedBy="story", orphanRemoval=true)
@@ -82,10 +76,22 @@ class Story
      */
     private $summary;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="stories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $universe;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Chapter", mappedBy="story", orphanRemoval=true)
+     */
+    private $chapters;
+    
     public function __construct()
     {
         $this->storyPlayers = new ArrayCollection();
         $this->storyApplications = new ArrayCollection();
+        $this->chapters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,17 +159,6 @@ class Story
         return $this;
     }
 
-    public function getAuthor(): ?OnlineUser
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?OnlineUser $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
 
     public function getVisibility(): ?Visibility
     {
@@ -189,17 +184,6 @@ class Story
         return $this;
     }
 
-    public function getUniverse(): ?Universe
-    {
-        return $this->universe;
-    }
-
-    public function setUniverse(?Universe $universe): self
-    {
-        $this->universe = $universe;
-
-        return $this;
-    }
 
     /**
      * @return Collection|StoryPlayer[]
@@ -263,6 +247,37 @@ class Story
         return $this;
     }
 
+    /**
+     * @return Collection|Chapter[]
+     */
+    public function getChapters(): Collection
+    {
+        return $this->chapters;
+    }
+
+    public function addChapter(Chapter $chapter): self
+    {
+        if (!$this->chapters->contains($chapter)) {
+            $this->chapters[] = $chapter;
+            $chapter->setStory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChapter(Chapter $chapter): self
+    {
+        if ($this->chapters->contains($chapter)) {
+            $this->chapters->removeElement($chapter);
+            // set the owning side to null (unless already changed)
+            if ($chapter->getStory() === $this) {
+                $chapter->setStory(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getSummary(): ?string
     {
         return $this->summary;
@@ -271,6 +286,30 @@ class Story
     public function setSummary(?string $summary): self
     {
         $this->summary = $summary;
+
+        return $this;
+    }
+
+    public function getUniverse(): ?Universe
+    {
+        return $this->universe;
+    }
+
+    public function setUniverse(?Universe $universe): self
+    {
+        $this->universe = $universe;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?OnlineUser
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?OnlineUser $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

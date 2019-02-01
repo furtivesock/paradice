@@ -19,14 +19,14 @@ class MessageRead
     /**
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="messagesRead")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $user;
 
     /**
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="messagesRead")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $message;
 
