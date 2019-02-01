@@ -4,3 +4,9 @@ input{
 #registration-form label{
     display: none;
 }
+#top5now{
+    border: 1px solid black;
+}
+.heading-top{
+    background:#3399ff;
+}

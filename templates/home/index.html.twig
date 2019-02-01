@@ -3,15 +3,35 @@
 {% block title %}Hello !{% endblock %}
 
 {% block body %}
-<h3>TOP 5 UNIVERS AUJOURD'HUI</h3>
-
-{% for i in 1..5 %}
-  {% if i <= topUniversesDay.count %}
-  <p>{{ i }} - {{ attribute(topUniversesDay, i-1).getName|escape }}</p>
-  {% else %}
-  <p>{{ i }} - ...</p> 
-  {% endif %}
-{% endfor %}
+<div class="row">
+  <div class="container">
+    <div id="top5now" class="col-md-6 p-0">
+      <h3 class="text-center heading-top p-1">TOP 5 UNIVERS AUJOURD'HUI</h3>
+      <table style="width: 100%;">
+        <tr>
+          <th class="text-center">Classement</th>
+          <th class="text-center">Univers</th>
+          <th class="text-center">Messages</th>
+        </tr>
+        {% for i in 1..5 %}
+          {% if i <= topUniversesDay.count %}
+          <tr>
+            <td class="text-center">{{ i }}</td>
+            <td class="text-center">{{ attribute(topUniversesDay, i-1).getName|escape }}</td>
+            <td class="text-center">...</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td class="text-center">{{ i }}</td>
+            <td class="text-center">...</td>
+            <td class="text-center">...</td> 
+          </tr>
+          {% endif %}
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
 
 <h3>TOP 5 UNIVERS CETTE SEMAINE </h3>
 
