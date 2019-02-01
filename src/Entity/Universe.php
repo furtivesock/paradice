@@ -64,12 +64,18 @@ class Universe
      */
     private $bannerURL;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Story", mappedBy="universe", orphanRemoval=true)
+     */
+    private $stories;
+
 
     public function __construct()
     {
         $this->moderators = new ArrayCollection();
         $this->universeMembers = new ArrayCollection();
         $this->universeApplications = new ArrayCollection();
+        $this->stories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -233,6 +239,37 @@ class Universe
     public function setBannerURL(?string $BannerURL): self
     {
         $this->BannerURL = $BannerURL;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Story[]
+     */
+    public function getStories(): Collection
+    {
+        return $this->stories;
+    }
+
+    public function addStory(Story $story): self
+    {
+        if (!$this->stories->contains($story)) {
+            $this->stories[] = $story;
+            $story->setUniverse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStory(Story $story): self
+    {
+        if ($this->stories->contains($story)) {
+            $this->stories->removeElement($story);
+            // set the owning side to null (unless already changed)
+            if ($story->getUniverse() === $this) {
+                $story->setUniverse(null);
+            }
+        }
 
         return $this;
     }

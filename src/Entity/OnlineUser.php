@@ -69,12 +69,18 @@ class OnlineUser implements UserInterface
      */
     private $messagesRead;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Story", mappedBy="author")
+     */
+    private $stories;
+
     public function __construct()
     {
         $this->moderatedUniverses = new ArrayCollection();
         $this->universeMembers = new ArrayCollection();
         $this->universeApplications = new ArrayCollection();
         $this->messagesRead = new ArrayCollection();
+        $this->stories = new ArrayCollection();
     }
     
     public function getId(): ?int
@@ -301,6 +307,37 @@ class OnlineUser implements UserInterface
             // set the owning side to null (unless already changed)
             if ($messagesRead->getUser() === $this) {
                 $messagesRead->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Story[]
+     */
+    public function getStories(): Collection
+    {
+        return $this->stories;
+    }
+
+    public function addStory(Story $story): self
+    {
+        if (!$this->stories->contains($story)) {
+            $this->stories[] = $story;
+            $story->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStory(Story $story): self
+    {
+        if ($this->stories->contains($story)) {
+            $this->stories->removeElement($story);
+            // set the owning side to null (unless already changed)
+            if ($story->getAuthor() === $this) {
+                $story->setAuthor(null);
             }
         }
 
