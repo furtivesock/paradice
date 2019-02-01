@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+<h2>{{ universe.getName }}</h2>
+
+<h4>Les Histoires</h4>
+{% for story in universe.getStories %}
+<a href="/universe/{{ universe.getId }}/story/{{ story.getId }}">{{ story.getName }}</a> par {{ story.getAuthor.getUsername }}
+{% endfor %}
+{% endblock %}
