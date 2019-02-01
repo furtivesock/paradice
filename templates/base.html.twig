@@ -6,6 +6,21 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% block user %}
+
+        {% if user is defined and user is not null %}
+            <p>Bonjour {{ user.getUsername }} !</p>
+            <a href="/user/profile">Mon profil</a>
+            <a href="/logout">Me déconnecter</a>
+
+            {% for universeMember in user.getUniverseMembers %}
+                {% set universe = universeMember.getUniverse %}
+                <a href="/u/{{ universe.getId }}">{{ universe.getName }}</a>
+            {% endfor %}
+        {% endif %}
+
+        {% endblock %}
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
