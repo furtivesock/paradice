@@ -227,24 +227,24 @@ class Universe
 
     public function getLogoURL(): ?string
     {
-        return $this->LogoURL;
+        return $this->logoURL;
     }
 
-    public function setLogoURL(?string $LogoURL): self
+    public function setLogoURL(?string $logoURL): self
     {
-        $this->LogoURL = $LogoURL;
+        $this->LogoURL = $logoURL;
 
         return $this;
     }
 
     public function getBannerURL(): ?string
     {
-        return $this->BannerURL;
+        return $this->bannerURL;
     }
 
-    public function setBannerURL(?string $BannerURL): self
+    public function setBannerURL(?string $bannerURL): self
     {
-        $this->BannerURL = $BannerURL;
+        $this->bannerURL = $bannerURL;
 
         return $this;
     }
@@ -311,5 +311,45 @@ class Universe
         return $this;
     }
 
-   
+    public function toJson() : array
+    {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'creationDate' => $this->getCreationDate(),
+            'creator' => $this->getCreator()->getId(),
+            'logoURL' => $this->getLogoURL(),
+            'bannerURL' => $this->getBannerURL(),
+            'moderators' => $this->getModerators()->map(function(OnlineUser $user) {
+                return array(
+                    'id' => $user->getId()
+                );
+            })->toArray(),
+            'members' => $this->getUniverseMembers()->map(function(UniverseMember $uMember) {
+                return array(
+                    'id' => $uMember->getMember()->getId(),
+                    'acceptationDate' => $uMember->getAcceptationDate()
+                );
+            })->toArray(),
+            'applications' => $this->getUniverseApplications()->map(function(UniverseApplication $uApplication) {
+                return array(
+                    'id' => $uApplication->getApplicant()->getId(),
+                    'applicationDate' => $uApplication->getApplicationDate(),
+                    'motivation' => $uApplication->getMotivation(),
+                    'accepted' => $uApplication->getAccepted()
+                );
+            })->toArray(),
+            'stories' => $this->getStories()->map(function(Story $story) {
+                return array(
+                    'id' => $story->getId()
+                );
+            })->toArray(),
+            'types' => $this->getTypes()->map(function(Type $type) {
+                return array(
+                    'id' => $type->getId()
+                );
+            })->toArray(),
+        );
+    }
 }
