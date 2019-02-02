@@ -18,12 +18,26 @@ class ChapterFixtures extends Fixture implements DependentFixtureInterface
         $chapter->setLocation($this->getReference('Fossilis'));
         $chapter->setStory($this->getReference('SuperStory'));
         $chapter->setEnd(false);
-
         $manager->persist($chapter);
+
+        $this->addReference('ChapterOne', $chapter);
+
+
+
+        $chapter = new Chapter();
+        $chapter->setName('Le début de la fin');
+        $chapter->setNumero(1);
+        $chapter->setLocation($this->getReference('Rionto'));
+        $chapter->setStory($this->getReference('Piraterie'));
+        $chapter->setEnd(false);
+        $manager->persist($chapter);
+
+        $this->addReference('ChapterDeux', $chapter);
+
+
 
         $manager->flush();
 
-        $this->addReference('ChapterOne', $chapter);
     }
 
     public function getDependencies()

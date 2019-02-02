@@ -48,9 +48,10 @@ class Location
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="locations")
-     * @ORM\JoinColumn(nullable=false, onDelete="cascade")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $universe;
+
 
     public function __construct()
     {

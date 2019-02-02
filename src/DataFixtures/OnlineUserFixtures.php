@@ -25,9 +25,9 @@ class OnlineUserFixtures extends Fixture
         $onlineUser->setEmail('email@info.fr');
         $onlineUser->setAvatarURL(NULL);
         $manager->persist($onlineUser);
-
         $this->addReference('Sloky', $onlineUser);
-
+        
+        // Cyrela
         $onlineUser = new OnlineUser();
         $onlineUser->setUsername('Cyrela');
         $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'bonjour'));
@@ -36,7 +36,44 @@ class OnlineUserFixtures extends Fixture
         $onlineUser->setAvatarURL(NULL);
         $manager->persist($onlineUser);
 
+        // Eggoer
+        $onlineUser = new OnlineUser();
+        $onlineUser->setUsername('Eggoer');
+        $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'EggoerMdp'));
+        $onlineUser->setCreationDate(new \DateTime());
+        $onlineUser->setEmail('eggoer@info.fr');
+        $onlineUser->setAvatarURL(NULL);
+        $manager->persist($onlineUser);
+
+        $this->addReference('Eggoer', $onlineUser);
+        
+        // Landry
+        $onlineUser = new OnlineUser();
+        $onlineUser->setUsername('Landry');
+        $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'jesuisunmdp'));
+        $onlineUser->setCreationDate(new \DateTime());
+        $onlineUser->setEmail('landry@info.fr');
+        $onlineUser->setAvatarURL(NULL);
+        $manager->persist($onlineUser);
+
+        $this->addReference('Landry', $onlineUser);
+        
+        // Sequentia
+        $onlineUser = new OnlineUser();
+        $onlineUser->setUsername('Sequentia');
+        $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'jesuisunmdp'));
+        $onlineUser->setCreationDate(new \DateTime());
+        $onlineUser->setEmail('sequentia@info.fr');
+        $onlineUser->setAvatarURL(NULL);
+        $manager->persist($onlineUser);
+
+        $this->addReference('Sequentia', $onlineUser);
+        
+
+
         $manager->flush();
 
+
+        
     }
 }

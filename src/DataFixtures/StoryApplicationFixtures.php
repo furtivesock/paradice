@@ -20,6 +20,39 @@ class StoryApplicationFixtures extends Fixture implements DependentFixtureInterf
 
         $manager->persist($storyApplication);
 
+        $storyApplication = new StoryApplication();
+        $storyApplication->setApplicant($this->getReference('Xarah'));
+        $storyApplication->setStory($this->getReference('Solitaire'));
+        $storyApplication->setApplicationDate(new \DateTime());
+        $storyApplication->setMotivation('Je suis motivée de chez mo-ti-vée');
+        $storyApplication->setAccepted(true);
+
+        $manager->persist($storyApplication);
+
+
+        $storyApplication = new StoryApplication();
+        $storyApplication->setApplicant($this->getReference('Cröw'));
+        $storyApplication->setStory($this->getReference('VraimentOuf'));
+        $storyApplication->setApplicationDate(new \DateTime());
+        $storyApplication->setMotivation('SVP J VEUX JOUER');
+        $storyApplication->setAccepted(false);
+
+        $manager->persist($storyApplication);
+
+
+        $storyApplication = new StoryApplication();
+        $storyApplication->setApplicant($this->getReference('Akan'));
+        $storyApplication->setStory($this->getReference('Piraterie'));
+        $storyApplication->setApplicationDate(new \DateTime());
+        $storyApplication->setMotivation('Je suis motivée de chez mo-ti-vée');
+        $storyApplication->setAccepted(true);
+
+        $manager->persist($storyApplication);
+
+
+
+
+
         $manager->flush();
     }
 

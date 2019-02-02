@@ -74,6 +74,11 @@ class Universe
      */
     private $types;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="universe", orphanRemoval=true)
+     */
+    private $locations;
+
 
     public function __construct()
     {
@@ -82,6 +87,7 @@ class Universe
         $this->universeApplications = new ArrayCollection();
         $this->stories = new ArrayCollection();
         $this->types = new ArrayCollection();
+        $this->locations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,8 +238,9 @@ class Universe
 
     public function setLogoURL(?string $logoURL): self
     {
-        $this->LogoURL = $logoURL;
 
+        $this->logoURL = $logoURL;
+        
         return $this;
     }
 
@@ -310,7 +317,38 @@ class Universe
 
         return $this;
     }
+    
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
 
+    public function addLocation(Location $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $location->setUniverse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->locations->contains($location)) {
+            $this->locations->removeElement($location);
+            // set the owning side to null (unless already changed)
+            if ($location->getUniverse() === $this) {
+                $location->setUniverse(null);
+            }
+        }
+
+        return $this;
+    }
+    
     public function toJson() : array
     {
         return array(
@@ -352,4 +390,5 @@ class Universe
             })->toArray(),
         );
     }
+    
 }

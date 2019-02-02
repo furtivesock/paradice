@@ -29,11 +29,35 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $location2->setImageURL(NULL);
         
         $manager->persist($location2);
+        $this->addReference('Fossilis', $location1);
 
+
+        
+        
+        $location1 = new Location();
+        $location1->setName('Rionto');
+        $location1->setDescription('Terres des créatures mi-animales.');
+        $location1->setUniverse($this->getReference('Lune-Noire'));
+        $location1->setParentLocation(NULL);
+        $location1->setImageURL(NULL);
+
+        $manager->persist($location1);
+
+        $location2 = new Location();
+        $location2->setName('Perami');
+        $location2->setDescription('Capitale de Rionto');
+        $location2->setUniverse($this->getReference('Lune-Noire'));
+        $location2->setParentLocation($location1);
+        $location2->setImageURL(NULL);
+        
+        $manager->persist($location2);
+        $this->addReference('Rionto', $location1);
+        
+        
+        
         $manager->flush();
 
 
-        $this->addReference('Fossilis', $location1);
     }
 
     public function getDependencies()
