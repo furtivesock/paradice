@@ -1,37 +1,34 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Hello !{% endblock %}
-
+{% block javascripts %}
+    <script src="/js/filter/top-universe.js"></script>
+{% endblock %}
 {% block body %}
-<h3>TOP 5 UNIVERS AUJOURD'HUI</h3>
-
-{% for i in 1..5 %}
-  {% if i <= topUniversesDay.count %}
-  <p>{{ i }} - {{ attribute(topUniversesDay, i-1).getName|escape }}</p>
-  {% else %}
-  <p>{{ i }} - ...</p> 
-  {% endif %}
-{% endfor %}
-
-<h3>TOP 5 UNIVERS CETTE SEMAINE </h3>
-
-{% for i in 1..5 %}
-  {% if i <= topUniversesWeek.count %}
-  <p>{{ i }} - {{ attribute(topUniversesWeek, i-1).getName|escape }}</p>
-  {% else %}
-  <p>{{ i }} - ...</p> 
-  {% endif %}
-{% endfor %}
-
-
-<h3>TOP 5 UNIVERS CE MOIS-CI</h3>
-
-{% for i in 1..5 %}
-  {% if i <= topUniversesMonth.count %}
-  <p>{{ i }} - {{ attribute(topUniversesMonth, i-1).getName|escape }}</p>
-  {% else %}
-  <p>{{ i }} - ...</p> 
-  {% endif %}
-{% endfor %}
-
+    <div class="row">
+        <div class="container">
+            <div class="col-md-6 p-0" id="top5">
+                <h3 class="text-center heading-top p-1">TOP 5 UNIVERS
+                    <select v-model:value="topUniversesFilter">
+                        <option value="day">AUJOURD'HUI</option>
+                        <option value="week">CETTE SEMAINE</option>
+                        <option value="month">CE MOIS-CI</option>
+                    </select>
+                </h3>
+                <table style="width: 100%;">
+                    <tr>
+                        <th class="text-center">Classement</th>
+                        <th class="text-center">Universe</th>
+                    </tr>
+                    <tr :key="universe.id" @click="goToUniverse(universe.id)" class="top-universe-row" v-for="(universe, index) in topUniverses">
+                        <td class="text-center">
+                            ${ index + 1}
+                        </td>
+                        <td class="text-center">
+                            ${ universe.name }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}

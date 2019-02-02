@@ -238,8 +238,9 @@ class Universe
 
     public function setLogoURL(?string $logoURL): self
     {
-        $this->logoURL = $logoURL;
 
+        $this->logoURL = $logoURL;
+        
         return $this;
     }
 
@@ -316,7 +317,7 @@ class Universe
 
         return $this;
     }
-
+    
     /**
      * @return Collection|Location[]
      */
@@ -347,6 +348,47 @@ class Universe
 
         return $this;
     }
-
+    
+    public function toJson() : array
+    {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'creationDate' => $this->getCreationDate(),
+            'creator' => $this->getCreator()->getId(),
+            'logoURL' => $this->getLogoURL(),
+            'bannerURL' => $this->getBannerURL(),
+            'moderators' => $this->getModerators()->map(function(OnlineUser $user) {
+                return array(
+                    'id' => $user->getId()
+                );
+            })->toArray(),
+            'members' => $this->getUniverseMembers()->map(function(UniverseMember $uMember) {
+                return array(
+                    'id' => $uMember->getMember()->getId(),
+                    'acceptationDate' => $uMember->getAcceptationDate()
+                );
+            })->toArray(),
+            'applications' => $this->getUniverseApplications()->map(function(UniverseApplication $uApplication) {
+                return array(
+                    'id' => $uApplication->getApplicant()->getId(),
+                    'applicationDate' => $uApplication->getApplicationDate(),
+                    'motivation' => $uApplication->getMotivation(),
+                    'accepted' => $uApplication->getAccepted()
+                );
+            })->toArray(),
+            'stories' => $this->getStories()->map(function(Story $story) {
+                return array(
+                    'id' => $story->getId()
+                );
+            })->toArray(),
+            'types' => $this->getTypes()->map(function(Type $type) {
+                return array(
+                    'id' => $type->getId()
+                );
+            })->toArray(),
+        );
+    }
     
 }
