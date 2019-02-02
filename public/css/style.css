@@ -4,9 +4,13 @@ input{
 #registration-form label{
     display: none;
 }
-#top5now{
+#top5{
     border: 1px solid black;
 }
 .heading-top{
     background:#3399ff;
+}
+.top-universe-row:hover {
+    background-color: #00000030;
+    cursor: pointer;
 }
