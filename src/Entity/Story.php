@@ -314,4 +314,39 @@ class Story
         return $this;
     }
 
+    public function toJson() : array
+    {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'creationDate' => $this->getCreationDate(),
+            'startDate' => $this->getStartDate(),
+            'endRegistrationDate' => $this->getEndRegistrationDate(),
+            'summary' => $this->getSummary(),
+            'universe' => $this->getUniverse()->getId(),
+            'author' => $this->getAuthor()->getId(),
+            'visibility' => $this->getVisibility()->getId(),
+            'status' => $this->getStatus()->getId(),
+            'chapters' => $this->getChapters()->map(function(Chapter $chapter) {
+                return array(
+                    'id' => $chapter->getId()
+                );
+            })->toArray(),
+            'players' => $this->getStoryPlayers()->map(function(StoryPlayer $uStory) {
+                return array(
+                    'id' => $uStory->getPlayer()->getId(),
+                    'acceptationDate' => $uStory->getAcceptationDate()
+                );
+            })->toArray(),
+            'applications' => $this->getStoryApplications()->map(function(StoryApplication $sApplication) {
+                return array(
+                    'id' => $sApplication->getApplicant()->getId(),
+                    'applicationDate' => $sApplication->getApplicationDate(),
+                    'motivation' => $sApplication->getMotivation(),
+                    'accepted' => $sApplication->getAccepted()
+                );
+            })->toArray(),
+        );
+    }
 }
