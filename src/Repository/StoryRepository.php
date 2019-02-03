@@ -23,84 +23,55 @@ class StoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Story[] Returns an array of Story objects
+     * @return Universe[]
      */
-    public function findStoriesOrderedByLastUpdate(int $idUniverse) : Collection
+    public function findStoriesAfterDateAndOrdered(int $idUniverse, string $order, ? \DateTime $after)
     {
-        $results = $this->createQueryBuilder('s')
-            ->addSelect('max(m.creationDate)')
-            ->leftJoin('s.chapters', 'c')
-            ->leftJoin('c.messages', 'm')
-            ->andWhere('s.universe = :id_universe')
-            ->addGroupBy('s')
-            ->addOrderBy(new OrderBy('max(m.creationDate)', 'DESC'))
-            ->setParameter('id_universe', $idUniverse)
-            ->getQuery()
-            ->getResult();
 
-        $stories = new ArrayCollection();
-        foreach ($results as $result) {
-            $stories[] = $result[0]; // only get Story Entities (without creationDate)
-        }
-
-        return $stories;
-    }
-
-    /**
-     * @return Story[] Returns an array of Story objects
-     */
-    public function findStoriesOrderedByCreationDate(int $idUniverse) : Collection
-    {
-        $results = $this->createQueryBuilder('s')
-            ->andWhere('s.universe = :id_universe')
-            ->addOrderBy(new OrderBy('s.creationDate', 'DESC'))
-            ->setParameter('id_universe', $idUniverse)
-            ->getQuery()
-            ->getResult();
-
-        return new ArrayCollection($results);
-    }
-
-    /**
-     * @return Story[] Returns an array of Story objects
-     */
-    public function findStoriesOrderedByActivity(int $idUniverse, string $order) : Collection
-    {
 
         switch ($order) {
-            case 'top_day':
-                $date = (new \DateTime())->sub(new \DateInterval('P1D'));
+            case 'update':
+                $results = $this->createQueryBuilder('s')
+                    ->addSelect('max(m.creationDate)')
+                    ->leftJoin('s.chapters', 'c')
+                    ->leftJoin('c.messages', 'm')
+                    ->andWhere('s.universe = :id_universe')
+                    ->addGroupBy('s')
+                    ->addOrderBy(new OrderBy('max(m.creationDate)', 'DESC'))
+                    ->setParameter('id_universe', $idUniverse);
                 break;
-            case 'top_week':
-                $date = (new \DateTime())->sub(new \DateInterval('P1W'));
+            case 'create':
+                $results = $this->createQueryBuilder('s')
+                    ->andWhere('s.universe = :id_universe')
+                    ->addOrderBy(new OrderBy('s.creationDate', 'DESC'))
+                    ->setParameter('id_universe', $idUniverse);
                 break;
-            case 'top_month':
-                $date = (new \DateTime())->sub(new \DateInterval('P1M'));
-                break;
-            case 'top_year':
-                $date = (new \DateTime())->sub(new \DateInterval('P1D'));
+            case 'top':
+                $results = $this->createQueryBuilder('s')
+                    ->addSelect('count(m.id)')
+                    ->leftJoin('s.chapters', 'c')
+                    ->leftJoin('c.messages', 'm')
+                    ->andWhere('s.universe = :id_universe')
+                    ->addGroupBy('s')
+                    ->addOrderBy(new OrderBy('count(m.id)', 'DESC'))
+                    ->setParameter('id_universe', $idUniverse);
                 break;
         }
 
-        $results = $this->createQueryBuilder('s')
-            ->addSelect('count(m.id)')
-            ->leftJoin('s.chapters', 'c')
-            ->leftJoin('c.messages', 'm')
-            ->andWhere('s.universe = :id_universe')
-            ->addGroupBy('s')
-            ->addOrderBy(new OrderBy('count(m.id)', 'DESC'))
-            ->setParameter('id_universe', $idUniverse);
-
-        if ($order !== 'top_all') {
+        if (!is_null($after)) {
             $results = $results
-                ->andWhere('m.creationDate > :date')
-                ->setParameter('date', $date);
+                ->andWhere('s.creationDate > :date')
+                ->setParameter('date', $after);
         }
 
         $results = $results
             ->getQuery()
             ->getResult();
 
+
+        if ($order === 'create') {
+            return new ArrayCollection($results);
+        }
 
         return new ArrayCollection(
             array_map(function ($result) {

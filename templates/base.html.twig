@@ -20,7 +20,7 @@
                 <p>Bonjour
                     {{ user.getUsername }}
                     !</p>
-                <a href="/user/profile">Mon profil</a>
+                <a href="/user/{{ user.getId }}/profile">Mon profil</a>
                 <a href="/logout">Me déconnecter</a>
                 {% for universeMember in user.getUniverseMembers %}
                     {% set universe = universeMember.getUniverse %}

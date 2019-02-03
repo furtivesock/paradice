@@ -4,6 +4,13 @@ var vm = new Vue({
     el: "#top5",
     data: {
         topUniversesFilter: null,
+        topUniversesTypeFilter: [
+            ['day', 'AUJOURD\'HUI'],
+            ['week', 'CETTE SEMAINE'],
+            ['month', 'CE MOIS-CI'],
+            ['year', 'CETTE ANNEE'],
+            ['all', 'DE TOUS LES TEMPS'],
+        ],
         topUniverses: []
     },
     watch: {
@@ -12,9 +19,9 @@ var vm = new Vue({
         }
     },
     methods: {
-        goToUniverse: function(id) {
+        goToUniverse: function (id) {
             if (id >= 0) {
-                document.location = '/universe/'+id;
+                document.location = '/universe/' + id;
             }
         },
         changeFilter: function (newFilter) {
@@ -29,15 +36,23 @@ var vm = new Vue({
                 case 'month':
                     date.setDate(date.getDate() - 30)
                     break
+                case 'year':
+                    date.setDate(date.getDate() - 30)
+                    break
+                case 'all':
+                    date = null;
+                    break
                 default:
-                    return;
+                    return
             }
-            
-            axios.get('/home/top/' + date.toDateString())
+
+            axios.get('/universe/get/top/' + (date === null ? '' : date.toDateString()))
                 .then(function (response) {
-                    vm.topUniverses = response.data.map(function (e) {
-                        return { id: e.id, name: e.name }
-                    })
+                    vm.topUniverses = [];
+                    for (let i = 0; i < response.data.length && i < 5; i++) {
+                        vm.topUniverses.push(response.data[i]);
+                    }
+
                     for (let i = response.data.length; i < 5; i++) {
                         vm.topUniverses.push({ id: -1 * i, name: '...' })
                     }
@@ -46,9 +61,9 @@ var vm = new Vue({
                     alert(error)
                 });
         }
-    }, 
-    created: function() {
-        this.topUniversesFilter = 'day'
+    },
+    created: function () {
+        this.topUniversesFilter = this.topUniversesTypeFilter[0][0]
     },
     delimiters: ['${', '}']
 })

@@ -7,7 +7,7 @@ var vm = new Vue({
         storiesTypeOrder: [
             ['update', 'Dernière date de mise à jour'],
             ['create', 'Date de création'],
-            ['top_day', 'Popularité (jour)'], 
+            ['top_day', 'Popularité (jour)'],
             ['top_week', 'Popularité (semaine)'],
             ['top_month', 'Popularité (mois)'],
             ['top_year', 'Popularité (année)'],
@@ -21,14 +21,36 @@ var vm = new Vue({
         }
     },
     methods: {
-        goToStory: function(idStory) {
+        goToStory: function (idStory) {
             const universe = document.getElementById('stories').getAttribute('universe')
-            document.location = '/universe/'+universe+'/story/'+idStory;
+            document.location = '/universe/' + universe + '/story/' + idStory;
         },
         changeOrder: function (newOrder) {
 
             const universe = document.getElementById('stories').getAttribute('universe')
-            axios.get('/universe/' + universe + '/story/get/' + newOrder)
+            const order = this.storiesOrder.startsWith('top')? 'top' : this.storiesOrder;
+
+            let date = new Date();
+            switch (this.storiesOrder) {
+                case 'top_day':
+                    date.setDate(date.getDate() - 1);
+                    break;
+                case 'top_week':
+                    date.setDate(date.getDate() - 7);
+                    break;
+                case 'top_month':
+                    date.setDate(date.getDate() - 30);
+                    break;
+                case 'top_year':
+                    date.setDate(date.getDate() - 365);
+                    break;
+                default:
+                    date = null;
+                    break;
+            }
+
+            axios.get('/universe/' + universe + '/story/get/'  
+            + order + '/' + (date === null ? '' : date.toDateString()))
                 .then(function (response) {
                     vm.stories = response.data;
                 })
