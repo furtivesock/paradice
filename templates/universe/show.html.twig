@@ -1,26 +1,39 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Hello!{% endblock %}
-
+{% block javascripts %}
+    <script src="/js/order/stories.js"></script>
+{% endblock %}
 {% block body %}
-<h2>{{ universe.getName }}</h2>
-
-<h4>Le wiki</h4>
-<ul>
-  {% for type in universe.getTypes if type.parentType is null %}
-  <li><a href="/universe/{{ universe.getId }}/type/{{ type.getId }}">{{ type.getName }}</a></li>
-  <ul>
-    {% for subType in type.getSubTypes %}
-      <li><a href="/universe/{{ universe.getId }}/type/{{ subType.getId }}">{{ subType.getName }}</a></li>
-    {% endfor %}
-  </ul>
-  {% endfor %}
-</ul>
-<h4>Les Histoires</h4>
-{% for story in universe.getStories %}
-<div style="border: 1px solid black">
-  <a href="/universe/{{ universe.getId }}/story/{{ story.getId }}">{{ story.getName }}</a> par {{ story.getAuthor.getUsername }} ({{ story.getCreationDate|date('d/m/Y') }})
-  <p>{{ story.getDescription }}</p>
-</div>
-{% endfor %}
+    <h2>
+        {{ universe.getName }}</h2>
+    <!-- wiki -->
+    <h4>Le wiki</h4>
+    <ul>
+        {% for type in universe.getTypes if type.parentType is null %}
+            <li>
+                <a href="/universe/{{ universe.getId }}/type/{{ type.getId }}">
+                    {{ type.getName }}</a>
+            </li>
+            <ul>
+                {% for subType in type.getSubTypes %}
+                    <li>
+                        <a href="/universe/{{ universe.getId }}/type/{{ subType.getId }}">
+                            {{ subType.getName }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+    <!-- stories -->
+    <h4>Les Histoires</h4>
+    <div id="stories" universe="{{ universe.getId }}">
+        <select v-model:value="storiesOrder">
+            <option :value="order[0]" v-for="order in storiesTypeOrder">${ order[1] }</option>
+        </select>
+        <div class="story-row" @click="goToStory(story.id)" :key="story.id" v-for="story in stories">
+            <h5>${ story.name }</h5>
+            <p><i><b>${ story.description }</b></i></p>
+            <p><i>${ story.summary }</i><p>
+        </div>
+    </div>
 {% endblock %}
