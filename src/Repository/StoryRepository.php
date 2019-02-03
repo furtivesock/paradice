@@ -80,16 +80,15 @@ class StoryRepository extends ServiceEntityRepository
         );
     }
 
-
-    public function findOneByUniverseAndStoryId(int $idUniverse, int $idStory) : ? Story
+    /*
+    public function findOneBySomeField($value): ?Story
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.universe = :id_universe')
-            ->andWhere('s.id = :id_story')
-            ->setParameter('id_universe', $idUniverse)
-            ->setParameter('id_story', $idStory)
+            ->andWhere('s.exampleField = :val')
+            ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getOneOrNullResult()
+        ;
     }
-
+     */
 }
