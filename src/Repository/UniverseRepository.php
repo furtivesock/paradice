@@ -24,26 +24,53 @@ class UniverseRepository extends ServiceEntityRepository
     /**
      * @return Universe[]
      */
-    public function findTopUniversesAfterDate(\DateTime $after, int $nbMaxResult)
+    public function findUniversesAfterDateAndOrdered(string $order, ?\DateTime $after)
     {
-        $results = $this->createQueryBuilder('u')
-            ->addSelect('count(m.id)')
-            ->leftJoin('u.stories', 's')
-            ->leftJoin('s.chapters', 'c')
-            ->leftJoin('c.messages', 'm')
-            ->andWhere('m.creationDate > :date')
-            ->setParameter('date', $after)
-            ->groupBy('u')
-            ->addOrderBy(new OrderBy('count(m.id)', 'DESC'))
-            ->setMaxResults($nbMaxResult)
+
+        switch ($order) {
+            case 'update':
+                $results = $this->createQueryBuilder('u')
+                    ->addSelect('max(m.creationDate)')
+                    ->leftJoin('u.stories', 's')
+                    ->leftJoin('s.chapters', 'c')
+                    ->leftJoin('c.messages', 'm')
+                    ->addGroupBy('u')
+                    ->addOrderBy(new OrderBy('max(m.creationDate)', 'DESC'));
+                break;
+            case 'create':
+                $results = $this->createQueryBuilder('u')
+                    ->addOrderBy(new OrderBy('u.creationDate', 'DESC'));
+                break;
+            case 'top':
+                $results = $this->createQueryBuilder('u')
+                    ->addSelect('count(m.id)')
+                    ->leftJoin('u.stories', 's')
+                    ->leftJoin('s.chapters', 'c')
+                    ->leftJoin('c.messages', 'm')
+                    ->addGroupBy('u')
+                    ->addOrderBy(new OrderBy('count(m.id)', 'DESC'));
+                break;
+        }
+
+        if (!is_null($after)) {
+            $results = $results  
+                ->andWhere('u.creationDate > :date')
+                ->setParameter('date', $after);
+        }
+
+        $results = $results
             ->getQuery()
             ->getResult();
 
-        $universes = new ArrayCollection();
-        foreach ($results as $result) {
-            $universes[] = $result[0];
-        }   
-        return $universes;
+        if ($order === 'create') {
+            return new ArrayCollection($results);
+        }
+
+        return new ArrayCollection(
+            array_map(function ($result) {
+                return $result[0];
+            }, $results)
+        );
     }
 
     // /**
@@ -61,7 +88,7 @@ class UniverseRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+     */
 
     /*
     public function findOneBySomeField($value): ?Universe
@@ -73,5 +100,5 @@ class UniverseRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+     */
 }
