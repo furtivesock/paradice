@@ -1,5 +1,4 @@
 
-const idUniverse = document.getElementById('stories').getAttribute('universe')
 
 var vm = new Vue({
     el: "#stories",
@@ -23,39 +22,41 @@ var vm = new Vue({
     },
     methods: {
         goToStory: function (idStory) {
-            document.location = '/universe/' + idUniverse + '/story/' + idStory
+            const universe = document.getElementById('stories').getAttribute('universe')
+            document.location = '/universe/' + universe + '/story/' + idStory;
         },
         changeOrder: function (newOrder) {
 
-            const order = this.storiesOrder.startsWith('top') ? 'top' : this.storiesOrder
+            const universe = document.getElementById('stories').getAttribute('universe')
+            const order = this.storiesOrder.startsWith('top')? 'top' : this.storiesOrder;
 
-            let date = new Date()
+            let date = new Date();
             switch (this.storiesOrder) {
                 case 'top_day':
-                    date.setDate(date.getDate() - 1)
-                    break
+                    date.setDate(date.getDate() - 1);
+                    break;
                 case 'top_week':
-                    date.setDate(date.getDate() - 7)
-                    break
+                    date.setDate(date.getDate() - 7);
+                    break;
                 case 'top_month':
-                    date.setDate(date.getDate() - 30)
-                    break
+                    date.setDate(date.getDate() - 30);
+                    break;
                 case 'top_year':
-                    date.setDate(date.getDate() - 365)
-                    break
+                    date.setDate(date.getDate() - 365);
+                    break;
                 default:
-                    date = null
-                    break
+                    date = null;
+                    break;
             }
 
-            axios.get('/universe/' + idUniverse + '/story/get/'
-                + order + '/' + (date === null ? '' : date.toDateString()))
+            axios.get('/universe/' + universe + '/story/get/'  
+            + order + '/' + (date === null ? '' : date.toDateString()))
                 .then(function (response) {
-                    vm.stories = response.data
+                    vm.stories = response.data;
                 })
                 .catch(function (error) {
                     alert(error)
-                })
+                });
         }
     },
     created: function () {
