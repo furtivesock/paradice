@@ -9,6 +9,22 @@ use App\Entity\Story;
 
 class StoryController extends AbstractController
 {
+
+    /**
+     * @Route("universe/{idUniverse}/story/{idStory}", name="story_show")
+     */
+    public function show(int $idUniverse, int $idStory)
+    {
+        $story = $this->getDoctrine()
+            ->getRepository(Story::class)
+            ->findOneByUniverseAndStoryId($idUniverse, $idStory);
+
+        return $this->render('story/show.html.twig', [
+            'story' => $story,
+            'user' => $this->getUser()
+        ]);
+    }
+
     /**
      * @Route("universe/{idUniverse}/story/get/{order}/{afterDate?}", name="story_get")
      */
