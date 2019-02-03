@@ -10,7 +10,7 @@ input{
 .heading-top{
     background:#3399ff;
 }
-.top-universe-row:hover, .story-row:hover {
+.top-universe-row:hover, .story-row:hover, .chapter-row:hover {
     background-color: #00000030;
     cursor: pointer;
 }
