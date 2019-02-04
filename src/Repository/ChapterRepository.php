@@ -36,15 +36,17 @@ class ChapterRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Chapter
+    public function findOneByUniverseAndStoryAndChapterId(int $idUniverse, int $idStory, int $idChapter) : ? Chapter
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin('c.story', 's')
+            ->andWhere('s.universe = :id_universe')
+            ->andWhere('c.story = :id_story')
+            ->andWhere('c.id = :id_chapter')
+            ->setParameter('id_universe', $idUniverse)
+            ->setParameter('id_story', $idStory)
+            ->setParameter('id_chapter', $idChapter)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
 }
