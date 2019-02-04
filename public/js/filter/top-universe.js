@@ -21,7 +21,7 @@ var vm = new Vue({
     methods: {
         goToUniverse: function (id) {
             if (id >= 0) {
-                document.location = '/universe/' + id;
+                document.location = '/universe/' + id
             }
         },
         changeFilter: function (newFilter) {
@@ -40,7 +40,7 @@ var vm = new Vue({
                     date.setDate(date.getDate() - 30)
                     break
                 case 'all':
-                    date = null;
+                    date = null
                     break
                 default:
                     return
@@ -48,9 +48,9 @@ var vm = new Vue({
 
             axios.get('/universe/get/top/' + (date === null ? '' : date.toDateString()))
                 .then(function (response) {
-                    vm.topUniverses = [];
+                    vm.topUniverses = []
                     for (let i = 0; i < response.data.length && i < 5; i++) {
-                        vm.topUniverses.push(response.data[i]);
+                        vm.topUniverses.push(response.data[i])
                     }
 
                     for (let i = response.data.length; i < 5; i++) {
@@ -59,7 +59,7 @@ var vm = new Vue({
                 })
                 .catch(function (error) {
                     alert(error)
-                });
+                })
         }
     },
     created: function () {
