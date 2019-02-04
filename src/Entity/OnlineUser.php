@@ -75,7 +75,7 @@ class OnlineUser implements UserInterface
      */
     private $stories;
     
-    /*
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Persona", mappedBy="user", orphanRemoval=true)
      */
     private $personas;
