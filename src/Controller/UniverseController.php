@@ -18,8 +18,7 @@ class UniverseController extends AbstractController
             ->getRepository(Universe::class)
             ->find($id);
 
-        if (is_null($universe)) 
-        {
+        if (is_null($universe)) {
             throw $this->createNotFoundException('Not Found');
         }
 
@@ -32,14 +31,14 @@ class UniverseController extends AbstractController
     /**
      * @Route("/universe/get/{order}/{afterDate?}", name="universe_get")
      */
-    public function getUniverses(string $order, ?\DateTime $afterDate)
+    public function getUniverses(string $order, ? \DateTime $afterDate)
     {
         $topUniverses = $this->getDoctrine()
             ->getRepository(Universe::class)
             ->findUniversesAfterDateAndOrdered($order, $afterDate);
 
         return new JsonResponse(
-            $topUniverses->map(function(Universe $universe) {
+            $topUniverses->map(function (Universe $universe) {
                 return $universe->toJson();
             })->toArray()
         );

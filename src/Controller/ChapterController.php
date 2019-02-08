@@ -16,8 +16,20 @@ class ChapterController extends AbstractController
         $chapter = $this->getDoctrine()
             ->getRepository(Chapter::class)
             ->findOneByUniverseAndStoryAndChapterId(
-                $idUniverse, $idStory, $idChapter
+                $idUniverse,
+                $idStory,
+                $idChapter
             );
+
+        if (is_null($chapter)) {
+            throw $this->createNotFoundException('Not Found');
+        }
+
+        if (!$chapter->getStory()->isVisibleByUser($this->getUser())) {
+            return $this->render('story/private.html.twig', [
+                'story' => $chapter->getStory()
+            ]);
+        }
 
         return $this->render('chapter/show.html.twig', [
             'chapter' => $chapter,
