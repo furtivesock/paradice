@@ -61,7 +61,7 @@ class StoryFixtures extends Fixture implements DependentFixtureInterface
         $story->setStartDate(new \DateTime());
         $story->setEndRegistrationDate(new \DateTime());
         $story->setAuthor($this->getReference('Landry'));
-        $story->setVisibility($this->getReference('STORY'));
+        $story->setVisibility($this->getReference('UNIVERSE'));
         $story->setStatus($this->getReference('FORSAKEN'));
         $story->setUniverse($this->getReference('Lune-Noire'));
         $story->setSummary('Sommaire');

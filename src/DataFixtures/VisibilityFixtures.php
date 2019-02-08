@@ -14,16 +14,21 @@ class VisibilityFixtures extends Fixture
         $visibility->setName('ALL');
         $manager->persist($visibility);
         
+        $this->addReference('ALL', $visibility);
+
         $visibility = new Visibility();
         $visibility->setName('UNIVERSE');
         $manager->persist($visibility);
         
+        $this->addReference('UNIVERSE', $visibility);
+
         $visibility = new Visibility();
         $visibility->setName('STORY');
         $manager->persist($visibility);
 
+        $this->addReference('STORY', $visibility);
+        
         $manager->flush();
 
-        $this->addReference('STORY', $visibility);
     }
 }
