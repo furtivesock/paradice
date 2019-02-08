@@ -19,6 +19,16 @@ class StoryController extends AbstractController
             ->getRepository(Story::class)
             ->findOneByUniverseAndStoryId($idUniverse, $idStory);
 
+        if (is_null($story)) {
+            throw $this->createNotFoundException('Not Found');
+        }
+
+        if (!$story->isVisibleByUser($this->getUser())) {
+            return $this->render('story/private.html.twig', [
+                'story' => $story
+            ]);
+        }
+
         return $this->render('story/show.html.twig', [
             'story' => $story,
             'user' => $this->getUser()
@@ -28,7 +38,7 @@ class StoryController extends AbstractController
     /**
      * @Route("universe/{idUniverse}/story/get/{order}/{afterDate?}", name="story_get")
      */
-    public function getStories(int $idUniverse, string $order, ?\DateTime $afterDate)
+    public function getStories(int $idUniverse, string $order, ? \DateTime $afterDate)
     {
         $stories = $this->getDoctrine()
             ->getRepository(Story::class)

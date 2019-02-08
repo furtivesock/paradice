@@ -349,6 +349,14 @@ class Universe
         return $this;
     }
     
+    public function isMember(OnlineUser $user) : bool
+    {
+        return $this->universeMembers->exists(function(int $key, UniverseMember $uMember) use($user) {
+            return $uMember->getMember()->getId() === $user->getId();
+        });
+    }
+
+
     public function toJson() : array
     {
         return array(
