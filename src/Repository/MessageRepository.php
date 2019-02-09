@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Message;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Expr\OrderBy;
 
 /**
  * @method Message|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,22 +21,40 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-    // /**
-    //  * @return Message[] Returns an array of Message objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    /**
+     * @return Message[] Returns an array of Message objects
+     */
+    public function findByUniverseStoryChapterIdAfterAndBeforeDate(
+        int $idUniverse,
+        int $idStory,
+        int $idChapter,
+        \DateTime $beforeDate,
+        ? \DateTime $afterDate
+    ) {
+        $results = $this->createQueryBuilder('m')
+            ->leftJoin('m.chapter', 'c')
+            ->leftJoin('c.story', 's')
+            ->andWhere('c.id = :id_chapter')
+            ->andWhere('s.id = :id_story')
+            ->andWhere('s.universe = :id_universe')
+            ->andWhere('m.creationDate <= :before_date')
+            ->addOrderBy(new OrderBy('m.creationDate', 'ASC'))
+            ->setParameter('id_chapter', $idChapter)
+            ->setParameter('id_story', $idStory)
+            ->setParameter('id_universe', $idUniverse)
+            ->setParameter('before_date', $beforeDate);
+
+        if (!is_null($afterDate)) {
+            $results->andWhere('m.creationDate >= :after_date')
+                ->setParameter('after_date', $afterDate);
+        }
+
+        $results = $results->getQuery()
+            ->getResult();
+
+        return new ArrayCollection($results);
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Message
@@ -46,5 +66,5 @@ class MessageRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+     */
 }
