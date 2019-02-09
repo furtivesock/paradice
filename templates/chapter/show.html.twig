@@ -1,18 +1,27 @@
 {% extends 'base.html.twig' %}
 {% block title %}Hello!{% endblock %}
+{% block javascripts %}
+    <script src="/js/chat/messages.js"></script>
+{% endblock %}
 {% block body %}
     <h2>
         {{ chapter.getName }}</h2>
-    <!-- messages -->
-    {% for message in chapter.getMessages|sort_by(=> _.getCreationDate, 'DESC') %}
-        <div>
-            <h5>
-                {{ message.getSender.getFirstName }}
-                {{ message.getSender.getLastName }}</h5>
+    <div id="messages" universe={{ chapter.getStory.getUniverse.getId }} story={{ chapter.getStory.getId }} chapter={{ chapter.getId }}>
+        {% if user is not null and chapter.getStory.isPlayer(user) %}
+            <textarea id="messageToSend" name="messageToSend" placeholder="Votre message"></textarea>
+            <button v-on:click="sendMessage()" name="sendMessageButton" type="button">Envoyer</button>
+        {% else %}
+            <p>:p</p>
+        {% endif %}
+        <!-- messages -->
+        <div :key="message.id" v-for="message in reverseMessages">
+            <h5 :href="'/user/' + message.id + '/profile'">
+                ${ message.sender.firstname }
+                                ${ message.sender.lastname }</h5>
             <p>
-                {{ message.getContents }}</p>
+                ${ message.contents }</p>
             <p>
-                {{ message.getCreationDate|date('Y-m-d H:i:s') }}</p>
+                ${ message.creationDate.date }</p>
         </div>
-    {% endfor %}
+    </div>
 {% endblock %}

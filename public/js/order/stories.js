@@ -49,7 +49,7 @@ var vm = new Vue({
             }
 
             axios.get('/universe/' + idUniverse + '/story/get/'
-                + order + '/' + (date === null ? '' : date.toDateString()))
+                + order + '/' + (date === null ? '' : date.toUTCString()))
                 .then(function (response) {
                     vm.stories = response.data
                 })

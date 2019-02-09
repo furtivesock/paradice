@@ -46,7 +46,7 @@ var vm = new Vue({
                     return
             }
 
-            axios.get('/universe/get/top/' + (date === null ? '' : date.toDateString()))
+            axios.get('/universe/get/top/' + (date === null ? '' : date.toUTCString()))
                 .then(function (response) {
                     vm.topUniverses = []
                     for (let i = 0; i < response.data.length && i < 5; i++) {
