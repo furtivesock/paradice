@@ -9,7 +9,7 @@
             <div class="col-md-6 p-0" id="top5">
                 <h3 class="text-center heading-top p-1">TOP 5 UNIVERS
                     <select v-model:value="topUniversesFilter">
-                        <option v-for="type in topUniversesTypeFilter" :value="type[0]">${ type[1] }</option>
+                        <option :value="type[0]" v-for="type in topUniversesTypeFilter">${ type[1] }</option>
                     </select>
                 </h3>
                 <table style="width: 100%;">

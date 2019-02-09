@@ -10,13 +10,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class UniverseController extends AbstractController
 {
     /**
-     * @Route("/universe/{id}", name="universe")
+     * @Route("/universe/{idUniverse}", name="universe_show")
      */
-    public function show(int $id)
+    public function show(int $idUniverse)
     {
         $universe = $this->getDoctrine()
             ->getRepository(Universe::class)
-            ->find($id);
+            ->find($idUniverse);
 
         if (is_null($universe)) {
             throw $this->createNotFoundException('Not Found');
