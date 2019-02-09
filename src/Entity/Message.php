@@ -134,4 +134,18 @@ class Message
 
         return $this;
     }
+
+    public function toJson() : array
+    {
+        return array(
+            'id' => $this->getId(),
+            'contents' => $this->getContents(),
+            'creationDate' => $this->getCreationDate(),
+            'sender' => array( 
+                'id' => $this->getSender()->getId(),
+                'firstname' => $this->getSender()->getFirstName(),
+                'lastname' => $this->getSender()->getLastName(),
+            ),
+        );
+    }
 }
