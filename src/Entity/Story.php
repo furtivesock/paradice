@@ -314,7 +314,7 @@ class Story
         return $this;
     }
 
-    public function isVisibleByUser(?OnlineUser $user) : bool
+    public function isVisibleByUser(? OnlineUser $user) : bool
     {
         if (is_null($user)) {
             return strcmp($this->visibility->getName(), 'ALL') === 0;
@@ -334,9 +334,24 @@ class Story
 
     public function isPlayer(OnlineUser $user) : bool
     {
-        return $this->storyPlayers->exists(function(int $key, StoryPlayer $sPlayer) use($user) {
+        return $this->storyPlayers->exists(function (int $key, StoryPlayer $sPlayer) use ($user) {
             return $sPlayer->getPlayer()->getUser()->getId() === $user->getId();
         });
+    }
+
+    public function getPersonaByUser(? OnlineUser $user) : ? Persona
+    {
+        if (is_null($user)) {
+            return null;
+        }
+
+        foreach ($this->storyPlayers as $sPlayers) {
+            if ($sPlayers->getPlayer()->getUser()->getId() === $user->getId()) {
+                return $sPlayers->getPlayer();
+            }
+        }
+
+        return null;
     }
 
     public function toJson() : array
