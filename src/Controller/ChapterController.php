@@ -93,22 +93,13 @@ class ChapterController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $chapter = $form->getData();
-
-            $name = trim($chapter->getName());
-            $location = $chapter->getLocation();
-
-            if (is_null($location)) {
-                throw new BadRequestHttpException('Location with id `' . $idLocation . '` doesn\'t exist');
-            }
-
+            
             $entityManager = $this->getDoctrine()->getManager();
 
-            $chapter = new Chapter();
-            $chapter->setName($name);
-            $chapter->setLocation($location);
+            $chapter->setName(trim($chapter->getName()));
             $chapter->setEnd(false);
             $chapter->setStory($story);
-            $chapter->setNumero(is_null($lastChapter) ? 0 : $lastChapter->getNumero() + 1);
+            $chapter->setNumero(is_null($lastChapter) ? 1 : $lastChapter->getNumero() + 1);
 
             $entityManager->persist($chapter);
             $entityManager->flush();
@@ -121,7 +112,7 @@ class ChapterController extends AbstractController
 
         return $this->render('chapter/new.html.twig', [
             'newChapterForm' => $form->createView(),
-            'numero' => is_null($lastChapter) ? 0 : $lastChapter->getNumero() + 1
+            'numero' => is_null($lastChapter) ? 1 : $lastChapter->getNumero() + 1
         ]);
 
 
