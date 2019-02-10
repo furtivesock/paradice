@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StoryRepository")
@@ -20,6 +21,9 @@ class Story
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(
+     *      message="Un nom doit être donné à votre histoire !"
+     * )
      */
     private $name;
 
@@ -35,11 +39,19 @@ class Story
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\GreaterThan(
+     *      propertyPath = "endRegistrationDate",
+     *      message = "Cette date doit être supérieure à la date de fin des inscriptions"
+     * )
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\GreaterThanOrEqual(
+     *      "now",
+     *      message = "Cette date doit être supérieure ou égale à la date d'aujourdhui"
+     * )
      */
     private $endRegistrationDate;
 
@@ -78,7 +90,7 @@ class Story
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="stories")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $universe;
 
