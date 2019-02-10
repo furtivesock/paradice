@@ -74,11 +74,17 @@ class OnlineUser implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Story", mappedBy="author")
      */
     private $stories;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Persona", mappedBy="user", orphanRemoval=true)
      */
     private $personas;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="sender")
+     */
+    private $messages;
 
     public function __construct()
     {
@@ -88,9 +94,10 @@ class OnlineUser implements UserInterface
         $this->messagesRead = new ArrayCollection();
         $this->stories = new ArrayCollection();
         $this->personas = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
-    
-    public function getId(): ?int
+
+    public function getId() : ? int
     {
         return $this->id;
     }
@@ -100,12 +107,12 @@ class OnlineUser implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+    public function getUsername() : string
     {
-        return (string) $this->username;
+        return (string)$this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(string $username) : self
     {
         $this->username = $username;
 
@@ -115,7 +122,7 @@ class OnlineUser implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
+    public function getRoles() : array
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
@@ -124,7 +131,7 @@ class OnlineUser implements UserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(array $roles) : self
     {
         $this->roles = $roles;
 
@@ -134,12 +141,12 @@ class OnlineUser implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword() : string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password) : self
     {
         $this->password = $password;
 
@@ -163,36 +170,36 @@ class OnlineUser implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getCreationDate() : ? \DateTimeInterface
     {
         return $this->creationDate;
     }
 
-    public function setCreationDate(\DateTimeInterface $creationDate): self
+    public function setCreationDate(\DateTimeInterface $creationDate) : self
     {
         $this->creationDate = $creationDate;
 
         return $this;
     }
 
-    public function getAvatarURL(): ?string
+    public function getAvatarURL() : ? string
     {
         return $this->avatarURL;
     }
 
-    public function setAvatarURL(?string $avatarURL): self
+    public function setAvatarURL(? string $avatarURL) : self
     {
         $this->avatarURL = $avatarURL;
 
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail() : ? string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(string $email) : self
     {
         $this->email = $email;
 
@@ -202,12 +209,12 @@ class OnlineUser implements UserInterface
     /**
      * @return Collection|Universe[]
      */
-    public function getModeratedUniverses(): Collection
+    public function getModeratedUniverses() : Collection
     {
         return $this->moderatedUniverses;
     }
 
-    public function addModeratedUniverse(Universe $moderatedUniverse): self
+    public function addModeratedUniverse(Universe $moderatedUniverse) : self
     {
         if (!$this->moderatedUniverses->contains($moderatedUniverse)) {
             $this->moderatedUniverses[] = $moderatedUniverse;
@@ -217,7 +224,7 @@ class OnlineUser implements UserInterface
         return $this;
     }
 
-    public function removeModeratedUniverse(Universe $moderatedUniverse): self
+    public function removeModeratedUniverse(Universe $moderatedUniverse) : self
     {
         if ($this->moderatedUniverses->contains($moderatedUniverse)) {
             $this->moderatedUniverses->removeElement($moderatedUniverse);
@@ -230,12 +237,12 @@ class OnlineUser implements UserInterface
     /**
      * @return Collection|UniverseMember[]
      */
-    public function getUniverseMembers(): Collection
+    public function getUniverseMembers() : Collection
     {
         return $this->universeMembers;
     }
 
-    public function addUniverseMember(UniverseMember $universeMember): self
+    public function addUniverseMember(UniverseMember $universeMember) : self
     {
         if (!$this->universeMembers->contains($universeMember)) {
             $this->universeMembers[] = $universeMember;
@@ -245,7 +252,7 @@ class OnlineUser implements UserInterface
         return $this;
     }
 
-    public function removeUniverseMember(UniverseMember $universeMember): self
+    public function removeUniverseMember(UniverseMember $universeMember) : self
     {
         if ($this->universeMembers->contains($universeMember)) {
             $this->universeMembers->removeElement($universeMember);
@@ -261,12 +268,12 @@ class OnlineUser implements UserInterface
     /**
      * @return Collection|UniverseApplication[]
      */
-    public function getUniverseApplications(): Collection
+    public function getUniverseApplications() : Collection
     {
         return $this->universeApplications;
     }
 
-    public function addUniverseApplication(UniverseApplication $universeApplication): self
+    public function addUniverseApplication(UniverseApplication $universeApplication) : self
     {
         if (!$this->universeApplications->contains($universeApplication)) {
             $this->universeApplications[] = $universeApplication;
@@ -276,7 +283,7 @@ class OnlineUser implements UserInterface
         return $this;
     }
 
-    public function removeUniverseApplication(UniverseApplication $universeApplication): self
+    public function removeUniverseApplication(UniverseApplication $universeApplication) : self
     {
         if ($this->universeApplications->contains($universeApplication)) {
             $this->universeApplications->removeElement($universeApplication);
@@ -292,12 +299,12 @@ class OnlineUser implements UserInterface
     /**
      * @return Collection|MessageRead[]
      */
-    public function getMessagesRead(): Collection
+    public function getMessagesRead() : Collection
     {
         return $this->messagesRead;
     }
 
-    public function addMessagesRead(MessageRead $messagesRead): self
+    public function addMessagesRead(MessageRead $messagesRead) : self
     {
         if (!$this->messagesRead->contains($messagesRead)) {
             $this->messagesRead[] = $messagesRead;
@@ -307,7 +314,7 @@ class OnlineUser implements UserInterface
         return $this;
     }
 
-    public function removeMessagesRead(MessageRead $messagesRead): self
+    public function removeMessagesRead(MessageRead $messagesRead) : self
     {
         if ($this->messagesRead->contains($messagesRead)) {
             $this->messagesRead->removeElement($messagesRead);
@@ -323,22 +330,22 @@ class OnlineUser implements UserInterface
     /**
      * @return Collection|Story[]
      */
-    public function getStories(): Collection
+    public function getStories() : Collection
     {
         return $this->stories;
     }
 
-    public function addStory(Story $story): self
+    public function addStory(Story $story) : self
     {
         if (!$this->stories->contains($story)) {
             $this->stories[] = $story;
             $story->setAuthor($this);
         }
-        
+
         return $this;
     }
 
-    public function removeStory(Story $story): self
+    public function removeStory(Story $story) : self
     {
         if ($this->stories->contains($story)) {
             $this->stories->removeElement($story);
@@ -347,19 +354,19 @@ class OnlineUser implements UserInterface
                 $story->setAuthor(null);
             }
         }
-        
+
         return $this;
     }
-    
+
     /**
      * @return Collection|Persona[]
      */
-    public function getPersonas(): Collection
+    public function getPersonas() : Collection
     {
         return $this->personas;
     }
 
-    public function addPersona(Persona $persona): self
+    public function addPersona(Persona $persona) : self
     {
         if (!$this->personas->contains($persona)) {
             $this->personas[] = $persona;
@@ -368,14 +375,46 @@ class OnlineUser implements UserInterface
 
         return $this;
     }
-    
-    public function removePersona(Persona $persona): self
+
+    public function removePersona(Persona $persona) : self
     {
         if ($this->personas->contains($persona)) {
             $this->personas->removeElement($persona);
             // set the owning side to null (unless already changed)
             if ($persona->getUser() === $this) {
                 $persona->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getSender() === $this) {
+                $message->setSender(null);
             }
         }
 
