@@ -339,12 +339,13 @@ class Story
         });
     }
 
-    public function getPersonaByUser(? OnlineUser $user) : ? Persona
+    public function isAuthor(OnlineUser $user) : bool
     {
-        if (is_null($user)) {
-            return null;
-        }
+        return $this->author->getId() === $user->getId();
+    }
 
+    public function getPersonaByUser(OnlineUser $user) : ? Persona
+    {
         foreach ($this->storyPlayers as $sPlayers) {
             if ($sPlayers->getPlayer()->getUser()->getId() === $user->getId()) {
                 return $sPlayers->getPlayer();

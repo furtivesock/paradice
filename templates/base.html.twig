@@ -27,12 +27,12 @@
                     <a href="{{ path('universe_show', {'idUniverse': universe.getId})}}">
                         {{ universe.getName }}</a>
                 {% endfor %}
+            {% else %}
+                <a href="{{ path('app_login') }}">Me connecter</a>    
+                <a href="{{ path('app_register') }}">Créer un compte</a>               
             {% endif %}
         {% endblock %}
-
         {% block body %}{% endblock %}
-
         {% block javascripts %}{% endblock %}
-
     </body>
 </html>
