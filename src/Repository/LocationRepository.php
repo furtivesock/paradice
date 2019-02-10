@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Location;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @method Location|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,22 +20,20 @@ class LocationRepository extends ServiceEntityRepository
         parent::__construct($registry, Location::class);
     }
 
-    // /**
-    //  * @return Location[] Returns an array of Location objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Location[] Returns an array of Location objects
+     */
+    public function findLocationsByUniverseId(int $idUniverse)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return new ArrayCollection(
+            $this->createQueryBuilder('l')
+                ->andWhere('l.universe = :id_universe')
+                ->setParameter('id_universe', $idUniverse)
+                ->orderBy('l.name', 'ASC')
+                ->getQuery()
+                ->getResult()
+        );
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Location
@@ -46,5 +45,5 @@ class LocationRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+     */
 }
