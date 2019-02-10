@@ -21,7 +21,7 @@ class OnlineUserFixtures extends Fixture
         $onlineUser = new OnlineUser();
         $onlineUser->setUsername('Sloky');
         $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'jesuisunmdp'));
-        $onlineUser->setCreationDate(new \DateTime());
+        $onlineUser->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $onlineUser->setEmail('email@info.fr');
         $onlineUser->setAvatarURL(NULL);
         $manager->persist($onlineUser);
@@ -31,7 +31,7 @@ class OnlineUserFixtures extends Fixture
         $onlineUser = new OnlineUser();
         $onlineUser->setUsername('Cyrela');
         $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'bonjour'));
-        $onlineUser->setCreationDate(new \DateTime());
+        $onlineUser->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $onlineUser->setEmail('cyrela@yahoo.fr');
         $onlineUser->setAvatarURL(NULL);
         $manager->persist($onlineUser);
@@ -40,7 +40,7 @@ class OnlineUserFixtures extends Fixture
         $onlineUser = new OnlineUser();
         $onlineUser->setUsername('Eggoer');
         $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'EggoerMdp'));
-        $onlineUser->setCreationDate(new \DateTime());
+        $onlineUser->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $onlineUser->setEmail('eggoer@info.fr');
         $onlineUser->setAvatarURL(NULL);
         $manager->persist($onlineUser);
@@ -51,7 +51,7 @@ class OnlineUserFixtures extends Fixture
         $onlineUser = new OnlineUser();
         $onlineUser->setUsername('Landry');
         $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'jesuisunmdp'));
-        $onlineUser->setCreationDate(new \DateTime());
+        $onlineUser->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $onlineUser->setEmail('landry@info.fr');
         $onlineUser->setAvatarURL(NULL);
         $manager->persist($onlineUser);
@@ -62,7 +62,7 @@ class OnlineUserFixtures extends Fixture
         $onlineUser = new OnlineUser();
         $onlineUser->setUsername('Sequentia');
         $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'jesuisunmdp'));
-        $onlineUser->setCreationDate(new \DateTime());
+        $onlineUser->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $onlineUser->setEmail('sequentia@info.fr');
         $onlineUser->setAvatarURL(NULL);
         $manager->persist($onlineUser);

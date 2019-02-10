@@ -14,7 +14,7 @@ class StoryApplicationFixtures extends Fixture implements DependentFixtureInterf
         $storyApplication = new StoryApplication();
         $storyApplication->setApplicant($this->getReference('Xeyh'));
         $storyApplication->setStory($this->getReference('SuperStory'));
-        $storyApplication->setApplicationDate(new \DateTime());
+        $storyApplication->setApplicationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $storyApplication->setMotivation('Je suis motivée de chez mo-ti-vée');
         $storyApplication->setAccepted(true);
 
@@ -23,7 +23,7 @@ class StoryApplicationFixtures extends Fixture implements DependentFixtureInterf
         $storyApplication = new StoryApplication();
         $storyApplication->setApplicant($this->getReference('Xarah'));
         $storyApplication->setStory($this->getReference('Solitaire'));
-        $storyApplication->setApplicationDate(new \DateTime());
+        $storyApplication->setApplicationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $storyApplication->setMotivation('Je suis motivée de chez mo-ti-vée');
         $storyApplication->setAccepted(true);
 
@@ -33,7 +33,7 @@ class StoryApplicationFixtures extends Fixture implements DependentFixtureInterf
         $storyApplication = new StoryApplication();
         $storyApplication->setApplicant($this->getReference('Cröw'));
         $storyApplication->setStory($this->getReference('VraimentOuf'));
-        $storyApplication->setApplicationDate(new \DateTime());
+        $storyApplication->setApplicationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $storyApplication->setMotivation('SVP J VEUX JOUER');
         $storyApplication->setAccepted(false);
 
@@ -43,7 +43,7 @@ class StoryApplicationFixtures extends Fixture implements DependentFixtureInterf
         $storyApplication = new StoryApplication();
         $storyApplication->setApplicant($this->getReference('Akan'));
         $storyApplication->setStory($this->getReference('Piraterie'));
-        $storyApplication->setApplicationDate(new \DateTime());
+        $storyApplication->setApplicationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $storyApplication->setMotivation('Je suis motivée de chez mo-ti-vée');
         $storyApplication->setAccepted(true);
 

@@ -14,7 +14,7 @@ class MessageSupportFixtures extends Fixture implements DependentFixtureInterfac
     {
         $messageSupport = new MessageSupport();
         $messageSupport->setContents('Je suis un contenu de message au support, oui. Ouiii, oui.');
-        $messageSupport->setCreationDate(new \DateTime());
+        $messageSupport->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $messageSupport->setUniverse($this->getReference('The-Universe'));
         $messageSupport->setSender($this->getReference('Sloky'));
 

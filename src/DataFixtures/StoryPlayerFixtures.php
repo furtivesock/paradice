@@ -15,7 +15,7 @@ class StoryPlayerFixtures extends Fixture implements DependentFixtureInterface
         $storyPlayer = new StoryPlayer();
         $storyPlayer->setPlayer($this->getReference('Xeyh'));
         $storyPlayer->setStory($this->getReference('SuperStory'));
-        $storyPlayer->setAcceptationDate(new \DateTime());
+        $storyPlayer->setAcceptationDate(new \DateTime('now', new \DateTimeZone('UTC')));
 
         $manager->persist($storyPlayer);
 
@@ -23,7 +23,7 @@ class StoryPlayerFixtures extends Fixture implements DependentFixtureInterface
         $storyPlayer = new StoryPlayer();
         $storyPlayer->setPlayer($this->getReference('Xarah'));
         $storyPlayer->setStory($this->getReference('Solitaire'));
-        $storyPlayer->setAcceptationDate(new \DateTime());
+        $storyPlayer->setAcceptationDate(new \DateTime('now', new \DateTimeZone('UTC')));
 
         $manager->persist($storyPlayer);
 
@@ -31,7 +31,7 @@ class StoryPlayerFixtures extends Fixture implements DependentFixtureInterface
         $storyPlayer = new StoryPlayer();
         $storyPlayer->setPlayer($this->getReference('Cröw'));
         $storyPlayer->setStory($this->getReference('VraimentOuf'));
-        $storyPlayer->setAcceptationDate(new \DateTime());
+        $storyPlayer->setAcceptationDate(new \DateTime('now', new \DateTimeZone('UTC')));
 
         $manager->persist($storyPlayer);
 
@@ -39,7 +39,7 @@ class StoryPlayerFixtures extends Fixture implements DependentFixtureInterface
         $storyPlayer = new StoryPlayer();
         $storyPlayer->setPlayer($this->getReference('Akan'));
         $storyPlayer->setStory($this->getReference('Piraterie'));
-        $storyPlayer->setAcceptationDate(new \DateTime());
+        $storyPlayer->setAcceptationDate(new \DateTime('now', new \DateTimeZone('UTC')));
 
         $manager->persist($storyPlayer);
 
