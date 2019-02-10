@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Chapter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query\Expr\OrderBy;
 
 /**
  * @method Chapter|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +19,24 @@ class ChapterRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Chapter::class);
     }
+
+    /**
+     * @return Chapter
+     */
+    public function findLastChapterOfStory(int $idUniverse, int $idStory) : ?Chapter
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.story', 's')
+            ->andWhere('s.id = :id_story')
+            ->andWhere('s.universe = :id_universe')
+            ->addOrderBy(new OrderBy('c.numero', 'DESC'))
+            ->setMaxResults(1)
+            ->setParameter('id_story', $idStory)
+            ->setParameter('id_universe', $idUniverse)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
     // /**
     //  * @return Chapter[] Returns an array of Chapter objects
