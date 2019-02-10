@@ -42,13 +42,13 @@ class Location
     private $parentLocation;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="parentLocation")
+     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="parentLocation", orphanRemoval=true)
      */
     private $subLocations;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="locations")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $universe;
 

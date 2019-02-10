@@ -17,7 +17,7 @@ class UniverseFixtures extends Fixture implements DependentFixtureInterface
         $universe = new Universe();
         $universe->setName('The-Universe');
         $universe->setDescription('Je suis une description qualitative !');
-        $universe->setCreationDate(new \DateTime());
+        $universe->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $universe->setCreator($this->getReference('Sloky'));
         $universe->addModerator($this->getReference('Sloky'));
         $universe->setLogoURL(NULL);
@@ -30,7 +30,7 @@ class UniverseFixtures extends Fixture implements DependentFixtureInterface
         $universe = new Universe();
         $universe->setName('Lune-Noire');
         $universe->setDescription('Univers de qualité et bien décrit, oui oui oui !');
-        $universe->setCreationDate(new \DateTime());
+        $universe->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $universe->setCreator($this->getReference('Landry'));
         $universe->addModerator($this->getReference('Eggoer'));
         $universe->setLogoURL(NULL);
@@ -42,7 +42,7 @@ class UniverseFixtures extends Fixture implements DependentFixtureInterface
         $universe = new Universe();
         $universe->setName('The-Universe2');
         $universe->setDescription('Je suis une description qualitative !');
-        $universe->setCreationDate(new \DateTime());
+        $universe->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $universe->setCreator($this->getReference('Sloky'));
         $universe->addModerator($this->getReference('Sloky'));
         $universe->setLogoURL(NULL);

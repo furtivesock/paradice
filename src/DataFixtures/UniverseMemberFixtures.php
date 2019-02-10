@@ -15,7 +15,7 @@ class UniverseMemberFixtures extends Fixture implements DependentFixtureInterfac
         $universeMember = new UniverseMember();
         $universeMember->setMember($this->getReference('Sloky'));
         $universeMember->setUniverse($this->getReference('The-Universe'));
-        $universeMember->setAcceptationDate(new \DateTime());
+        $universeMember->setAcceptationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         
         $manager->persist($universeMember);
 
@@ -23,21 +23,21 @@ class UniverseMemberFixtures extends Fixture implements DependentFixtureInterfac
         $universeMember = new UniverseMember();
         $universeMember->setMember($this->getReference('Landry'));
         $universeMember->setUniverse($this->getReference('Lune-Noire'));
-        $universeMember->setAcceptationDate(new \DateTime());
+        $universeMember->setAcceptationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         
         $manager->persist($universeMember);
 
         $universeMember = new UniverseMember();
         $universeMember->setMember($this->getReference('Eggoer'));
         $universeMember->setUniverse($this->getReference('Lune-Noire'));
-        $universeMember->setAcceptationDate(new \DateTime());
+        $universeMember->setAcceptationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         
         $manager->persist($universeMember);
 
         $universeMember = new UniverseMember();
         $universeMember->setMember($this->getReference('Sequentia'));
         $universeMember->setUniverse($this->getReference('Lune-Noire'));
-        $universeMember->setAcceptationDate(new \DateTime());
+        $universeMember->setAcceptationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         
         $manager->persist($universeMember);
 

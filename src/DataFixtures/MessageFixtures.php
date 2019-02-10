@@ -14,8 +14,8 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
     {
         $message = new Message();
         $message->setContents('Coucou les copinous');
-        $message->setCreationDate(new \DateTime());;
-        $message->setSender($this->getReference('Xeyh'));
+        $message->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));;
+        $message->setSender($this->getReference('Sloky'));
         $message->setChapter($this->getReference('ChapterOne'));
 
         $manager->persist($message);
@@ -23,24 +23,24 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
 
         $message = new Message();
         $message->setContents('Salam les Kheys');
-        $message->setCreationDate(new \DateTime());;
-        $message->setSender($this->getReference('Xarah'));
+        $message->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
+        $message->setSender($this->getReference('Eggoer'));
         $message->setChapter($this->getReference('ChapterDeux'));
 
         $manager->persist($message);
 
         $message = new Message();
         $message->setContents('Salam frr');
-        $message->setCreationDate(new \DateTime());;
-        $message->setSender($this->getReference('Akan'));
+        $message->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
+        $message->setSender($this->getReference('Sequentia'));
         $message->setChapter($this->getReference('ChapterDeux'));
 
         $manager->persist($message);
 
         $message = new Message();
         $message->setContents('Wesh groooo');
-        $message->setCreationDate(new \DateTime());;
-        $message->setSender($this->getReference('Cröw'));
+        $message->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
+        $message->setSender($this->getReference('Eggoer'));
         $message->setChapter($this->getReference('ChapterDeux'));
 
         $manager->persist($message);

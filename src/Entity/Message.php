@@ -41,7 +41,7 @@ class Message
     private $chapter;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Persona", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="messages")
      */
     private $sender;
 
@@ -50,29 +50,29 @@ class Message
         $this->messagesRead = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId() : ? int
     {
         return $this->id;
     }
 
-    public function getContents(): ?string
+    public function getContents() : ? string
     {
         return $this->contents;
     }
 
-    public function setContents(string $contents): self
+    public function setContents(string $contents) : self
     {
         $this->contents = $contents;
 
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getCreationDate() : ? \DateTimeInterface
     {
         return $this->creationDate;
     }
 
-    public function setCreationDate(\DateTimeInterface $creationDate): self
+    public function setCreationDate(\DateTimeInterface $creationDate) : self
     {
         $this->creationDate = $creationDate;
 
@@ -83,12 +83,12 @@ class Message
     /**
      * @return Collection|MessageRead[]
      */
-    public function getMessagesRead(): Collection
+    public function getMessagesRead() : Collection
     {
         return $this->messagesRead;
     }
 
-    public function addMessagesRead(MessageRead $messagesRead): self
+    public function addMessagesRead(MessageRead $messagesRead) : self
     {
         if (!$this->messagesRead->contains($messagesRead)) {
             $this->messagesRead[] = $messagesRead;
@@ -98,7 +98,7 @@ class Message
         return $this;
     }
 
-    public function removeMessagesRead(MessageRead $messagesRead): self
+    public function removeMessagesRead(MessageRead $messagesRead) : self
     {
         if ($this->messagesRead->contains($messagesRead)) {
             $this->messagesRead->removeElement($messagesRead);
@@ -111,24 +111,24 @@ class Message
         return $this;
     }
 
-    public function getChapter(): ?Chapter
+    public function getChapter() : ? Chapter
     {
         return $this->chapter;
     }
 
-    public function setChapter(?Chapter $chapter): self
+    public function setChapter(? Chapter $chapter) : self
     {
         $this->chapter = $chapter;
 
         return $this;
     }
 
-    public function getSender(): ?Persona
+    public function getSender() : ? OnlineUser
     {
         return $this->sender;
     }
 
-    public function setSender(?Persona $sender): self
+    public function setSender(? OnlineUser $sender) : self
     {
         $this->sender = $sender;
 
@@ -137,15 +137,28 @@ class Message
 
     public function toJson() : array
     {
-        return array(
+        $story = $this->getChapter()->getStory();
+
+        $message = array(
             'id' => $this->getId(),
             'contents' => $this->getContents(),
-            'creationDate' => $this->getCreationDate(),
-            'sender' => array( 
-                'id' => $this->getSender()->getId(),
-                'firstname' => $this->getSender()->getFirstName(),
-                'lastname' => $this->getSender()->getLastName(),
-            ),
+            'creationDate' => $this->getCreationDate()
         );
+
+        if ($story->isAuthor($this->getSender())) {
+            $message['sender'] = array(
+                'is_author' => true,
+                'name' => $this->getSender()->getUsername()
+            );
+        } else {
+            $persona = $story->getPersonaByUser($this->getSender());
+            $message['sender'] = array(
+                'is_author' => false,
+                'firstname' => $persona->getFirstName(), 
+                'lastname' => $persona->getLastName(),
+            );
+        }
+
+        return $message;
     }
 }

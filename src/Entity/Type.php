@@ -30,17 +30,18 @@ class Type
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="types")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $universe;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="subTypes")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $parentType;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Type", mappedBy="parentType")
+     * @ORM\OneToMany(targetEntity="App\Entity\Type", mappedBy="parentType", orphanRemoval=true)
      */
     private $subTypes;
 
