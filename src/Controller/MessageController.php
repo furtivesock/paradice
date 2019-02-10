@@ -66,7 +66,7 @@ class MessageController extends AbstractController
 
         $persona = $chapter->getStory()->getPersonaByUser($this->getUser());
 
-        if (is_null($persona)) {
+        if (is_null($persona) && !$chapter->getStory()->isAuthor($this->getUser())) {
             return $this->createAccessDeniedException('Unable to write a message in this story');
         }
 
@@ -85,7 +85,7 @@ class MessageController extends AbstractController
         $message->setChapter($chapter);
         $message->setContents($contents);
         $message->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
-        $message->setSender($persona);
+        $message->setSender($this->getUser());
 
         $entityManager->persist($message);
         $entityManager->flush();

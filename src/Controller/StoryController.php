@@ -6,6 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Story;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use App\Entity\Visibility;
+use App\Entity\Status;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Universe;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class StoryController extends AbstractController
 {
@@ -33,6 +41,84 @@ class StoryController extends AbstractController
             'story' => $story,
             'user' => $this->getUser()
         ]);
+    }
+
+    /**
+     * @Route("universe/{idUniverse<\d+>}/story/new", methods={"GET","POST"}, name="story_new")
+     */
+    public function createStory(
+        int $idUniverse,
+        Request $request
+    ) {
+
+        $universe = $this->getDoctrine()
+            ->getRepository(Universe::class)
+            ->find($idUniverse);
+
+        if (is_null($universe)) {
+            throw $this->createNotFoundException('Not Found');
+        }
+
+        if (is_null($this->getUser())) {
+            return $this->createAccessDeniedException('Unable to create a story in this universe');
+        }
+
+        if (!$universe->isMember($this->getUser())) {
+            return $this->createAccessDeniedException('Unable to create a story in this universe');
+        }
+
+        $story = new Story();
+
+        $form = $this->createFormBuilder($story)
+            ->add('name', TextType::class)
+            ->add('description', TextareaType::class)
+            ->add('startDate', DateType::class)
+            ->add('endRegistrationDate', DateType::class)
+            ->add('visibility', ChoiceType::class, [
+                'choices' => $this->getDoctrine()
+                    ->getRepository(Visibility::class)
+                    ->findAll(),
+                'choice_label' => function (Visibility $visibility, $key, $value) {
+                    switch ($visibility->getName()) {
+                        case 'ALL':
+                            return 'Par tout le monde';
+                        case 'UNIVERSE':
+                            return 'Par les membres de cet universe';
+                        case 'STORY':
+                            return 'Par les joueurs de cette histoire';
+                    }
+                },
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $story = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $story->setName(trim($story->getName()));
+            $story->setDescription(trim($story->getDescription()));
+            $story->setAuthor($this->getUser());
+            $story->setUniverse($universe);
+            $story->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
+            $story->setStatus($this->getDoctrine()
+                ->getRepository(Status::class)
+                ->findOneBy(['name' => 'INSCRIPTION']));
+
+            $entityManager->persist($story);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('universe_show', [
+                'idUniverse' => $story->getUniverse()->getId()
+            ]);
+        }
+
+        return $this->render('story/new.html.twig', [
+            'newStoryForm' => $form->createView()
+        ]);
+
     }
 
     /**
