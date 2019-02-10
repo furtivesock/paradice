@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class UniverseController extends AbstractController
 {
     /**
-     * @Route("/universe/{idUniverse}", name="universe_show")
+     * @Route("/universe/{idUniverse<\d+>}", name="universe_show")
      */
     public function show(int $idUniverse)
     {

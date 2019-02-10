@@ -13,7 +13,7 @@ use App\Entity\Chapter;
 class MessageController extends AbstractController
 {
     /**
-     * @Route("/universe/{idUniverse}/story/{idStory}/chapter/{idChapter}/message/get/{beforeDate}/{afterDate?}", name="message_get")
+     * @Route("/universe/{idUniverse<\d+>}/story/{idStory<\d+>}/chapter/{idChapter<\d+>}/message/get/{beforeDate}/{afterDate?}", name="message_get")
      */
     public function getMessages(
         int $idUniverse,
@@ -40,7 +40,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/universe/{idUniverse}/story/{idStory}/chapter/{idChapter}/message/post", name="message_post", methods={"POST"})
+     * @Route("/universe/{idUniverse<\d+>}/story/{idStory<\d+>}/chapter/{idChapter<\d+>}/message/post", name="message_post", methods={"POST"})
      */
     public function postMessages(
         int $idUniverse,
@@ -60,20 +60,24 @@ class MessageController extends AbstractController
             throw $this->createNotFoundException('Not Found');
         }
 
+        if (is_null($this->getUser())) {
+            return $this->createAccessDeniedException('Unable to write a message in this story');
+        }
+
         $persona = $chapter->getStory()->getPersonaByUser($this->getUser());
 
         if (is_null($persona)) {
             return $this->createAccessDeniedException('Unable to write a message in this story');
         }
 
-        $json = json_decode($request->getContent(), true);
+        $post_data = json_decode($request->getContent(), true);
 
 
-        if (!array_key_exists('message', $json) || trim($json['message']) === '') {
+        if (!array_key_exists('message', $post_data) || strcmp(trim($post_data['message']), '') === 0) {
             throw new BadRequestHttpException('Bad Request');
         }
 
-        $contents = trim($json['message']);
+        $contents = trim($post_data['message']);
 
         $entityManager = $this->getDoctrine()->getManager();
 

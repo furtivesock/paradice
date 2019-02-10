@@ -11,7 +11,7 @@ class StoryController extends AbstractController
 {
 
     /**
-     * @Route("universe/{idUniverse}/story/{idStory}", name="story_show")
+     * @Route("universe/{idUniverse<\d+>}/story/{idStory<\d+>}", name="story_show")
      */
     public function show(int $idUniverse, int $idStory)
     {
