@@ -26,6 +26,13 @@
     </ul>
     <!-- stories -->
     <h4>Les Histoires</h4>
+    {% if user is defined and user is not null and universe.isMember(user) %}
+        <div>
+            <a href="{{ path('story_new', {idUniverse: universe.getId})}}" >
+                Créer une nouvelle histoire
+            </a>
+        </div>
+    {% endif %}
     <div id="stories" universe="{{ universe.getId }}">
         <select v-model:value="storiesOrder">
             <option :value="order[0]" v-for="order in storiesTypeOrder">${ order[1] }</option>
