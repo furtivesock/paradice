@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
@@ -18,7 +19,12 @@ class RegistrationFormType extends AbstractType
             ->add('username', TextType::class)
             ->add('email', EmailType::class)
             ->add('plainPassword', PasswordType::class, [
-                'mapped' => false
+                'mapped' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Le mot de passe est obligatoire',
+                    ]),
+                ],
             ]);
     }
 
