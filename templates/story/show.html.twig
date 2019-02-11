@@ -8,10 +8,13 @@
     </script>
 {% endblock %}
 {% block body %}
-    <h2>
-        {{ story.getName }}</h2>
-    <!-- stories -->
+    <h2>{{ story.getName }}</h2>
+
+    
     <h4>Les Chapitres</h4>
+
+    {# If the user is the author of this story, we propose to him to 
+    start a new chapter if he wants #}
     {% if user is defined and user is not null and story.isAuthor(user) %}
         <div>
             <a href="{{ path('chapter_new', {idUniverse: story.getUniverse.getId, idStory: story.getId })}}" >
@@ -19,6 +22,9 @@
             </a>
         </div>
     {% endif %}
+
+    {# Show all chapters from this story #}
+    {# The chapter at the top is the most recent one #}
     {% for chapter in story.getChapters|sort_by(=> _.getNumero, 'DESC') %}
         <div class="chapter-row" onclick="goToChapter({{ story.getUniverse.getId }}, {{ story.getId }}, {{ chapter.getId }})">
             <h5>
