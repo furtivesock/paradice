@@ -10,6 +10,7 @@
     - [Front-end](#front-end)
 - [Mock-up](#mock-up)
 - [Database](#database)
+
 ## Requirements
 
 - PHP 7.2+
@@ -247,3 +248,4 @@ Design and ideas were mostly imagine by @furtivesock
 
 You can check our current [Merise diagram](https://gitlab.com/alerycserrania/pweb/uploads/12f08a089b516a099c3e760aee259bb0/mcd_v4.Jpg) for the application (changes can happened at any time if needed)
 
+![diag](https://gitlab.com/alerycserrania/pweb/uploads/12f08a089b516a099c3e760aee259bb0/mcd_v4.Jpg)
