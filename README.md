@@ -5,6 +5,7 @@
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [File tree](#file-tree)
+- [Features](#features)
 
 ## Requirements
 
@@ -93,7 +94,7 @@ paradice
 │   └───index.php # main point of the app used to redirect to the correct controller
 ├──src # Contains the majority of the php code
 │   ├───Controller
-│   ├───DataFixtures # Collection of classes to create a set of data
+│   ├───DataFixtures # Collection of classes to create and insert a set of data in the database
 │   ├───Entity # Models used for the database
 │   ├───Form # Collection of classes to build form
 │   ├───Migrations # All migrations made for the database
@@ -103,9 +104,125 @@ paradice
 │   ├───chapter
 │   ├───home
 │   ├───registration
-│   ├───security # login form
+│   ├───security # Login form
 │   ├───story
 │   ├───universe
 │   └───base.html.twig # base view for all views in this directory
 └───.env # contains environment variables
 ```
+
+## Features
+
+Here are the current available feature in our app
+
+### Back-end
+
+- User
+  - Show all
+  - Show one Profile
+  - Modification of profile
+  - Creation
+  - Login
+- Home
+  - Show top universes
+- Universe
+  - Show all
+  - Show one
+  - Creation
+  - Show support forum
+  - Accept or reject application
+  - Apply to a universe
+- Story
+  - Show all from a Universe
+  - Show one
+  - Creation
+  - Change status
+  - Close inscription
+  - Add players
+  - Accept or reject application
+  - Apply to a story
+- Chapter
+  - Show all from a Story
+  - Show one
+  - Creation
+  - End a chapter
+- Message
+  - Send a message in a chapter
+- Persona
+  - Creation
+  - Show all from a user
+  - Show one
+  - Add modification to your persona
+- Type
+  - Add type or subtype
+  - Remove type or subtype
+  - Modification of type or subtype
+- Location
+  - Add location or sublocation
+  - Remove location or sublocation
+- Characteristic
+  - Add a characteristic
+  - Remove a characteristic
+  - Modification of a characteristic
+- Support forum
+  - Send a message
+
+### Front-end
+
+- All layout
+  - User's universes
+  - Profile link
+  - Logout link
+  - Create an account link
+  - Log in link
+- Integration of Vue.js (for top universes, stories and messages)
+- Integration of Axios (to make asynchronous request)
+- User
+  - Show all
+  - Show one Profile
+  - Modification of profile
+  - Creation
+  - Login
+- Home
+  - Show top universes
+- Universe
+  - Show all
+  - Show one
+  - Creation
+  - Show support forum
+  - Accept or reject application
+  - Apply to a universe
+- Story
+  - Show all from a Universe
+  - Show one
+  - Creation
+  - Change status
+  - Close inscription
+  - Add players
+  - Accept or reject application
+  - Apply to a story
+- Chapter
+  - Show all from a Story
+  - Show one
+  - Creation
+  - End a chapter
+- Message
+  - Send a message in a chapter
+- Persona
+  - Creation
+  - Show all from a user
+  - Show one
+  - Add modification to your persona
+- Type
+  - Add type or subtype
+  - Remove type or subtype
+  - Modification of type or subtype
+- Location
+  - Add location or sublocation
+  - Remove location or sublocation
+- Characteristic
+  - Add a characteristic
+  - Remove a characteristic
+  - Modification of a characteristic
+- Support forum
+  - Send a message
