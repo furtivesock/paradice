@@ -44,7 +44,7 @@ class UniverseController extends AbstractController
      * @param string $order The type of order. It can be :
      *      - "update" : sort by last update 
      *      - "create" : sort by creation date 
-     *      - "top" : sort by activity (number of message in this story)
+     *      - "top" : sort by activity (number of message in this universe)
      * @param \DateTime $after (optional) Start date limit (inclusive)
      */
     public function getUniverses(string $order, ? \DateTime $afterDate)
