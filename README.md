@@ -1,5 +1,9 @@
 # Paradice
 
+What the hell is Paradice ? Well, it's not really a French cabaret. It's basically as if Discord and written Role play made a baby together... If you are not familiar with Role Play, DO. NOT. EVER. LEAVE. because Paradice is an amazing world that centralizes simplified RP forums. 
+Each one matches with an universe that one member made with his imagination, preferably. People can join them and contribute to stories organized by a GM (Game Master) or not. Unlike normal forums, Paradice offers a panel of features dedicated to RP and universe development, for example dices or wiki-like articles.
+The only rule is to use your imagination the best as you can!
+
 ## Table of contents
 
 - [Requirements](#requirements)
@@ -241,10 +245,10 @@ Here are the current available feature in our app
 ## Mock-up
 
 [This doc](https://docs.google.com/document/d/1ujAzk27OrEfw6X94VvQVaKHv9srDw7gYD_tYzYvZbYY/edit?usp=sharing)
- sum up all our ideas of design and functionality for paradice. Please have a look on it if you want to see what could become our website :D
+ sum up all our ideas of design and features for paradice. Please have a look on it if you want to see what could become our website :D
 
 
-Design and ideas were mostly imagine by @furtivesock
+Design and ideas were mostly imagined by @furtivesock
 
 ## Database
 
