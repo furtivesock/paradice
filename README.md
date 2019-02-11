@@ -127,6 +127,7 @@ Here are the current available feature in our app
   - [ ] Modification of profile
   - [x] Creation
   - [x] Login
+  - [ ] Notification of new message
 - [x] Home
   - [x] Show top universes
 - [ ] Universe
@@ -180,6 +181,7 @@ Here are the current available feature in our app
   - [x] Create an account link
   - [x] Create a universe link
   - [x] Log in link
+  - [ ] Notification of new message
   - [ ] Design of base layout
 - [x] Integration of Vue.js (for top universes, stories and messages)
 - [x] Integration of Axios (to make asynchronous request)
