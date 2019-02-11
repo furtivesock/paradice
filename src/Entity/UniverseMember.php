@@ -11,6 +11,8 @@ class UniverseMember
 {
 
     /**
+     * @var int
+     * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="universeMembers")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -18,6 +20,8 @@ class UniverseMember
     private $member;
 
     /**
+     * @var int 
+     * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="universeMembers")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -25,6 +29,8 @@ class UniverseMember
     private $universe;
 
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime")
      */
     private $acceptationDate;

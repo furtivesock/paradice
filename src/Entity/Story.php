@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Story
 {
     /**
+     * @var int
+     * 
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -20,6 +22,8 @@ class Story
     private $id;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(
      *      message="Un nom doit être donné à votre histoire !"
@@ -28,16 +32,22 @@ class Story
     private $name;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime")
      */
     private $creationDate;
 
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime", nullable=true)
      * @Assert\GreaterThan(
      *      propertyPath = "endRegistrationDate",
@@ -47,6 +57,8 @@ class Story
     private $startDate;
 
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime", nullable=true)
      * @Assert\GreaterThanOrEqual(
      *      "now",
@@ -56,45 +68,61 @@ class Story
     private $endRegistrationDate;
 
     /**
+     * @var OnlineUser
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="stories")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $author;
 
     /**
+     * @var Visibility
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Visibility")
      * @ORM\JoinColumn(nullable=false)
      */
     private $visibility;
 
     /**
+     * @var Status
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Status")
      * @ORM\JoinColumn(nullable=false)
      */
     private $status;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\StoryPlayer", mappedBy="story", orphanRemoval=true)
      */
     private $storyPlayers;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\StoryApplication", mappedBy="story", orphanRemoval=true)
      */
     private $storyApplications;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
     private $summary;
 
     /**
+     * @var Universe
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="stories")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $universe;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\Chapter", mappedBy="story", orphanRemoval=true)
      */
     private $chapters;
@@ -326,10 +354,21 @@ class Story
         return $this;
     }
 
+    /**
+     * Check if a given user has the permission to see
+     * this story
+     * 
+     * @param OnlineUser $user (optional) The user
+     * @return bool True if the user can see this story, else false
+     */
     public function isVisibleByUser(? OnlineUser $user) : bool
     {
         if (is_null($user)) {
             return strcmp($this->visibility->getName(), 'ALL') === 0;
+        }
+
+        if ($this->isAuthor($user)) {
+            return true;
         }
 
         switch ($this->visibility->getName()) {
@@ -344,6 +383,12 @@ class Story
         }
     }
 
+    /**
+     * Check if a given user is a player of this story
+     * 
+     * @param OnlineUser $user The user
+     * @return bool True if the user is a player, else false
+     */
     public function isPlayer(OnlineUser $user) : bool
     {
         return $this->storyPlayers->exists(function (int $key, StoryPlayer $sPlayer) use ($user) {
@@ -351,11 +396,21 @@ class Story
         });
     }
 
+    /**
+     * Check if a given user is the author of this story
+     * 
+     * @param OnlineUser $user (optional) The user
+     * @return bool True if the user is the author, else false
+     */
     public function isAuthor(OnlineUser $user) : bool
     {
         return $this->author->getId() === $user->getId();
     }
 
+    /**
+     * @param OnlineUser $user (optional) The user
+     * @return Persona|null The user's persona in this story
+     */
     public function getPersonaByUser(OnlineUser $user) : ? Persona
     {
         foreach ($this->storyPlayers as $sPlayers) {
@@ -365,8 +420,11 @@ class Story
         }
 
         return null;
-    }
-
+    }   
+    
+    /**
+     * @return array This story formatted as a json array
+     */
     public function toJson() : array
     {
         return array(

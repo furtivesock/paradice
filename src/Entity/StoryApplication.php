@@ -12,6 +12,8 @@ class StoryApplication
 
 
     /**
+     * @var Story
+     * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Story", inversedBy="storyApplications")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -19,6 +21,8 @@ class StoryApplication
     private $story;
 
     /**
+     * @var Persona
+     * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Persona", inversedBy="storyApplications")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -26,16 +30,22 @@ class StoryApplication
     private $applicant;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="text")
      */
     private $motivation;
 
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime")
      */
     private $applicationDate;
 
     /**
+     * @var bool
+     * 
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $accepted;

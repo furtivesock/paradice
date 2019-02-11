@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Location
 {
     /**
+     * @var int
+     * 
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,38 +21,48 @@ class Location
     private $id;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageURL;
 
-
-
     /**
+     * @var Location
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="subLocations")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $parentLocation;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="parentLocation", orphanRemoval=true)
-     */
-    private $subLocations;
-
-    /**
+     * @var Universe
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="locations")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $universe;
+
+    /**
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="parentLocation", orphanRemoval=true)
+     */
+    private $subLocations;
 
 
     public function __construct()

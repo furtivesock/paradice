@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Visibility
 {
     /**
+     * @var int 
+     * 
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -17,6 +19,8 @@ class Visibility
     private $id;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $name;

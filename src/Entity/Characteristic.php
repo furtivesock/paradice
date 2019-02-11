@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Characteristic
 {
     /**
+     * @var int
+     * 
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -17,21 +19,29 @@ class Characteristic
     private $id;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @var string 
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageURL;
 
     /**
+     * @var Type
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="characteristics")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */

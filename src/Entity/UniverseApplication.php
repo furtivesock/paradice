@@ -10,8 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 class UniverseApplication
 {
 
-
     /**
+     * @var int 
+     * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="universeApplications")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -19,6 +20,8 @@ class UniverseApplication
     private $universe;
 
     /**
+     * @var int 
+     * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="universeApplications")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -26,16 +29,22 @@ class UniverseApplication
     private $applicant;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="text")
      */
     private $motivation;
 
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime")
      */
     private $applicationDate;
 
     /**
+     * @var bool
+     * 
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $accepted;
