@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\Story;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Response;
 
 class ChapterController extends AbstractController
 {
@@ -72,7 +73,7 @@ class ChapterController extends AbstractController
         int $idUniverse,
         int $idStory,
         Request $request
-    ) : JsonResponse {
+    ) : Response {
 
         // Get the story from the database
         $story = $this->getDoctrine()

@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Universe;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class StoryController extends AbstractController
 {
@@ -65,7 +65,7 @@ class StoryController extends AbstractController
     public function createStory(
         int $idUniverse,
         Request $request
-    ) : JsonResponse {
+    ) : Response {
 
         // Get the universe from the database
         $universe = $this->getDoctrine()
