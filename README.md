@@ -250,8 +250,38 @@ Here are the current available feature in our app
 
 Design and ideas were mostly imagined by @furtivesock
 
+Some examples :
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/7cd903384cd4b6f106b41b349ae3d1ca/dice-feature.png)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/f866747659eeeafb161616fdc278f051/ongoing-story-user.png)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/392fac8b3585b88d57dc69436c44cffd/home.png)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/e4be1b8c2f786385606dad7c00737cb3/story-creation.jpg)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/2bc27e77b736915178130b775887b773/story-registration-narrator.jpg)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/1cb526e0b67e910ad1dc574e1c0408f0/story-registration-process-user.png)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/c3eb1b5ad20fe88a0055cb0493a09524/story-reply-box.png)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/f31906a6a35ac7ff20911c32e3bbd74d/story-reply-example.png)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/3e9f84e08a3811acb4ece443440c59b4/story-status-icons.png)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/58b21455dc35e2eaeaf20b94cc9a5c82/universe-creation.jpg)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/893d489d5fe29589bc0f4ac4eb732e4c/universe-dashboard-home.jpg)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/d1275f4bb35fc241273675086b34888b/universe-homepage.png)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/8903841666bcfe194748a7336760ae77/universe-story-example.png)
+
+![](https://gitlab.com/alerycserrania/paradice/uploads/fb1c29ef8cc18e8103e1f5342f2ed55e/vertical-menu.png)
+
 ## Database
 
-You can check our current [Merise diagram](https://gitlab.com/alerycserrania/pweb/uploads/11a67e327753ea291ea8ec1ce8dbfa80/mcd.Jpg) for the application (changes can happened at any time if needed)
+You can check our current [Merise diagram](https://gitlab.com/alerycserrania/paradice/uploads/11a67e327753ea291ea8ec1ce8dbfa80/mcd.Jpg) for the application (changes can happened at any time if needed)
 
-![diag](https://gitlab.com/alerycserrania/pweb/uploads/11a67e327753ea291ea8ec1ce8dbfa80/mcd.Jpg)
+![diag](https://gitlab.com/alerycserrania/paradice/uploads/11a67e327753ea291ea8ec1ce8dbfa80/mcd.Jpg)
