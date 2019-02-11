@@ -4,6 +4,7 @@
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [File tree](#file-tree)
 
 ## Requirements
 
@@ -77,16 +78,34 @@ php bin/console server:run
 
 Open your browser and go to `localhost:8000` to start your wonderful journey :)
 
-## Tree file
+## File tree
+
+Here is the main file tree of the application. Some branches are not included in this trere because there weren't made by us and aren't that interesting.
 
 ```sh
 paradice
-└──src
-    ├───Controller # All controllers
-    ├───DataFixtures # Collection of classes to create a set of data
-    ├───Entity # Models used for the database
-    ├───Form # Collection of classes for building form
-    ├───Migrations # All migrations make for the database
-    ├───Repository
-    └───Security
-  ```
+├──config # contains configuration for security, routing, validation, services ...
+│   └───packages
+│        └───security.yaml # configurations for encoding algorithms
+├──public # resources used in the views
+│   ├───css
+│   ├───js
+│   └───index.php # main point of the app used to redirect to the correct controller
+├──src # Contains the majority of the php code
+│   ├───Controller
+│   ├───DataFixtures # Collection of classes to create a set of data
+│   ├───Entity # Models used for the database
+│   ├───Form # Collection of classes to build form
+│   ├───Migrations # All migrations made for the database
+│   ├───Repository # Classes used to make query and transform sql result into entities from src/Entity
+│   └───Security # Include the Login Authenticator
+├──templates # HTML views
+│   ├───chapter
+│   ├───home
+│   ├───registration
+│   ├───security # login form
+│   ├───story
+│   ├───universe
+│   └───base.html.twig # base view for all views in this directory
+└───.env # contains environment variables
+```
