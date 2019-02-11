@@ -12,13 +12,13 @@ class HomeController extends AbstractController
     private const NB_TOP = 5;
 
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
+     *
      */
-    public function index()
+    public function index() : Response
     {
         return $this->render('home/index.html.twig', [
             'user' => $this->getUser(),
         ]);
     }
-
 }

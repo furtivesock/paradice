@@ -15,10 +15,21 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class ChapterController extends AbstractController
 {
     /**
-     * @Route("universe/{idUniverse<\d+>}/story/{idStory<\d+>}/chapter/{idChapter<\d+>}", name="chapter_show")
+     * @Route("/universe/{idUniverse<\d+>}/story/{idStory<\d+>}/chapter/{idChapter<\d+>}", name="chapter_show")
+     * 
+     * Show a chapter identified by its id
+     * 
+     * @param int $idUniverse Id of the chapter's universe
+     * @param int $idStory Id of the chapter's story
+     * @param int $idChapter Id of the chapter
      */
-    public function show(int $idUniverse, int $idStory, int $idChapter)
-    {
+    public function show(
+        int $idUniverse,
+        int $idStory,
+        int $idChapter
+    ) : Response {
+
+        // Get the chapter from the database
         $chapter = $this->getDoctrine()
             ->getRepository(Chapter::class)
             ->findOneByUniverseAndStoryAndChapterId(
@@ -26,11 +37,14 @@ class ChapterController extends AbstractController
                 $idStory,
                 $idChapter
             );
-
+        
+        // If chapter is null then it doesn't exist
         if (is_null($chapter)) {
             throw $this->createNotFoundException('Not Found');
         }
 
+        // If the current user doesn't have the permission to see 
+        // this chapter, we don't show him
         if (!$chapter->getStory()->isVisibleByUser($this->getUser())) {
             return $this->render('story/private.html.twig', [
                 'story' => $chapter->getStory()
@@ -44,14 +58,23 @@ class ChapterController extends AbstractController
     }
 
     /**
-     * @Route("universe/{idUniverse<\d+>}/story/{idStory<\d+>}/chapter/new", methods={"GET","POST"}, name="chapter_new")
+     * @Route("/universe/{idUniverse<\d+>}/story/{idStory<\d+>}/chapter/new", methods={"GET","POST"}, name="chapter_new")
+     * 
+     * POST : Insert the new chapter in the database
+     * GET : Show a form to create a new chapter
+     * Show a chapter identified by its id
+     * 
+     * @param int $idUniverse Id of the chapter's universe
+     * @param int $idStory Id of the chapter's story
+     * @param Request $request Request object to collect and use POST data
      */
     public function createChapter(
         int $idUniverse,
         int $idStory,
         Request $request
-    ) {
+    ) : JsonResponse {
 
+        // Get the story from the database
         $story = $this->getDoctrine()
             ->getRepository(Story::class)
             ->findOneByUniverseAndStoryId(
@@ -59,24 +82,25 @@ class ChapterController extends AbstractController
                 $idStory
             );
 
+        // If story is null then it doesn't exist
         if (is_null($story)) {
             throw $this->createNotFoundException('Not Found');
         }
 
-        if (is_null($this->getUser())) {
+        // If the user is not the story's author then he can't create
+        // a new chapter
+        if (is_null($this->getUser()) || !$story->isAuthor($this->getUser())) {
             return $this->createAccessDeniedException('Unable to create a chapter in this story');
         }
 
-        if (!$story->isAuthor($this->getUser())) {
-            return $this->createAccessDeniedException('Unable to create a chapter in this story');
-        }
-
+        // Get the last chapter in order to get the numero for the new one
         $lastChapter = $this->getDoctrine()
             ->getRepository(Chapter::class)
             ->findLastChapterOfStory($story->getUniverse()->getId(), $story->getId());
 
         $chapter = new Chapter();
 
+        // Build the form 
         $form = $this->createFormBuilder($chapter)
             ->add('name', TextType::class, ['label' => 'Nom du chapitre'])
             ->add('location', ChoiceType::class, [
@@ -92,16 +116,18 @@ class ChapterController extends AbstractController
 
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $chapter = $form->getData();
-            
+
             $entityManager = $this->getDoctrine()->getManager();
 
             $chapter->setName(trim($chapter->getName()));
-            $chapter->setEnd(false);
+            $chapter->setEnd(false); // A new chapter is by default not finished
             $chapter->setStory($story);
             $chapter->setNumero(is_null($lastChapter) ? 1 : $lastChapter->getNumero() + 1);
 
+            // Insert the new chapter in the database
             $entityManager->persist($chapter);
             $entityManager->flush();
 
