@@ -76,3 +76,17 @@ php bin/console server:run
 ```
 
 Open your browser and go to `localhost:8000` to start your wonderful journey :)
+
+## Tree file
+
+```sh
+paradice
+└──src
+    ├───Controller # All controllers
+    ├───DataFixtures # Collection of classes to create a set of data
+    ├───Entity # Models used for the database
+    ├───Form # Collection of classes for building form
+    ├───Migrations # All migrations make for the database
+    ├───Repository
+    └───Security
+  ```
