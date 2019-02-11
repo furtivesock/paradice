@@ -78,7 +78,7 @@ class ChapterController extends AbstractController
         $chapter = new Chapter();
 
         $form = $this->createFormBuilder($chapter)
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, ['label' => 'Nom du chapitre'])
             ->add('location', ChoiceType::class, [
                 'choices' => $this->getDoctrine()
                     ->getRepository(Location::class)
@@ -86,6 +86,7 @@ class ChapterController extends AbstractController
                 'choice_label' => function (Location $location, $key, $value) {
                     return $location->getName();
                 },
+                'label' => 'Lieu'
             ])
             ->getForm();
 

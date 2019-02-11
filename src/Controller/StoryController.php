@@ -7,13 +7,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Story;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\Visibility;
 use App\Entity\Status;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Universe;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class StoryController extends AbstractController
 {
@@ -70,10 +70,10 @@ class StoryController extends AbstractController
         $story = new Story();
 
         $form = $this->createFormBuilder($story)
-            ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('startDate', DateType::class)
-            ->add('endRegistrationDate', DateType::class)
+            ->add('name', TextType::class, ['label' => 'Nom de l\'histoire'])
+            ->add('description', TextareaType::class, ['label' => 'Description'])
+            ->add('startDate', DateTimeType::class, ['label' => 'Date de lancement'])
+            ->add('endRegistrationDate', DateTimeType::class, ['label' => 'Date de fin des inscriptions'])
             ->add('visibility', ChoiceType::class, [
                 'choices' => $this->getDoctrine()
                     ->getRepository(Visibility::class)
@@ -88,6 +88,7 @@ class StoryController extends AbstractController
                             return 'Par les joueurs de cette histoire';
                     }
                 },
+                'label' => 'Visibilité'
             ])
             ->getForm();
 
