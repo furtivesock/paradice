@@ -6,7 +6,10 @@
 - [Installation](#installation)
 - [File tree](#file-tree)
 - [Features](#features)
-
+    - [Back-end](#back-end)
+    - [Front-end](#front-end)
+- [Mock-up](#mock-up)
+- [Database](#database)
 ## Requirements
 
 - PHP 7.2+
@@ -183,14 +186,14 @@ Here are the current available feature in our app
   - [ ] Show all
   - [ ] Show one Profile
   - [ ] Modification of profile
-  - [ ] Creation
+  - [ ] Create
   - [ ] Login
 - [ ] Home
   - [ ] Show top universes
 - [ ] Universe
   - [ ] Show all
   - [ ] Show one
-  - [ ] Creation
+  - [ ] Create
   - [ ] Show support forum
   - [ ] Accept or reject application
   - [ ] Apply to a universe
@@ -198,7 +201,7 @@ Here are the current available feature in our app
 - [ ] Story
   - [ ] Show all from a Universe
   - [ ] Show one
-  - [ ] Creation
+  - [ ] Create
   - [ ] Change status
   - [ ] Close inscription
   - [ ] Add players
@@ -208,12 +211,12 @@ Here are the current available feature in our app
 - [ ] Chapter
   - [ ] Show all from a Story
   - [ ] Show one
-  - [ ] Creation
+  - [ ] Create
   - [ ] End a chapter
 - [ ] Message
   - [ ] Send a message in a chapter
 - [ ] Persona
-  - [ ] Creation
+  - [ ] Create
   - [ ] Show all from a user
   - [ ] Show one
   - [ ] Add modification to your persona
@@ -231,3 +234,16 @@ Here are the current available feature in our app
   - [ ] Modification of a characteristic
 - [ ] Support forum
   - [ ] Send a message
+
+## Mock-up
+
+[This doc](https://docs.google.com/document/d/1ujAzk27OrEfw6X94VvQVaKHv9srDw7gYD_tYzYvZbYY/edit?usp=sharing)
+ sum up all our ideas of design and functionality for paradice. Please have a look on it if you want to see what could become our website :D
+
+
+Design and ideas were mostly imagine by @furtivesock
+
+## Database
+
+You can check our current [Merise diagram](https://gitlab.com/alerycserrania/pweb/uploads/12f08a089b516a099c3e760aee259bb0/mcd_v4.Jpg) for the application (changes can happened at any time if needed)
+
