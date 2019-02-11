@@ -6,7 +6,7 @@
             <div class="offset-md-3 offset-lg-3 col-xs-12 col-sm-12 col-md-6 col-lg-6 align-middle">
                 <h1 class="mt-5 h3 mb-4 font-weight-normal text-center">Chapitre n°{{ numero }}</h1>
                 {{ form_start(newChapterForm, {attr: {id: 'new-chapter-form'} }) }}
-                {{ form_row(newChapterForm.name , {attr: {class: 'form-control mb-3', placeholder: 'Nom du chapitre'} }) }}
+                {{ form_row(newChapterForm.name , {attr: {class: 'form-control mb-3'} }) }}
                 {{ form_row(newChapterForm.location , {attr: {class: 'form-control mb-3'} }) }}
                 <button class="btn btn-lg btn-primary" style="width: 100%;">Créer</button>
                 {{ form_end(newChapterForm) }}
