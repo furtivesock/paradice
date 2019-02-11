@@ -6,19 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Universe;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends AbstractController
 {
     private const NB_TOP = 5;
 
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
+     *
      */
-    public function index()
+    public function index() : Response
     {
         return $this->render('home/index.html.twig', [
             'user' => $this->getUser(),
         ]);
     }
-
 }

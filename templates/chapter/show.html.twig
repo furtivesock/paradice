@@ -4,9 +4,12 @@
     <script src="/js/chat/messages.js"></script>
 {% endblock %}
 {% block body %}
-    <h2>
-        {{ chapter.getName }}</h2>
+
+    <h2>{{ chapter.getName }}</h2>
+
     <div id="messages" universe={{ chapter.getStory.getUniverse.getId }} story={{ chapter.getStory.getId }} chapter={{ chapter.getId }}>
+        
+        {# Show the area for sending a message if the user is a player #}
         {% if user is defined and user is not null %} 
             {% if chapter.getStory.isPlayer(user) or chapter.getStory.isAuthor(user) %}
                 <textarea id="messageToSend" name="messageToSend" placeholder="Votre message"></textarea>
@@ -17,16 +20,16 @@
         {% else %}
             <p><i>Connectez-vous pour envoyer un message</i></p>
         {% endif %}
-        <!-- messages -->
+
+
+        {# Show the messages #}
         <div :key="message.id" v-for="message in reverseMessages">
             <h5 :href="'/user/' + message.id + '/profile'">
                 <span v-if="message.sender.is_author">${ message.sender.name } (MJ)</span>
                 <span v-else>${ message.sender.firstname } ${ message.sender.lastname }</span>
             </h5>
-            <p>
-                ${ message.contents }</p>
-            <p>
-                ${ message.creationDate.date }</p>
+            <p>${ message.contents }</p>
+            <p>${ message.creationDate.date }</p>
         </div>
     </div>
 {% endblock %}

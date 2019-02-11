@@ -7,17 +7,21 @@
     <div class="row">
         <div class="container">
             <div class="col-md-6 p-0" id="top5">
+                {# Select field for the filter of the top 5 universes  #}
                 <h3 class="text-center heading-top p-1">TOP 5 UNIVERS
                     <select v-model:value="topUniversesFilter">
                         <option :value="type[0]" v-for="type in topUniversesTypeFilter">${ type[1] }</option>
                     </select>
                 </h3>
+
+                {# Show the top 5 universes #}
                 <table style="width: 100%;">
                     <tr>
                         <th class="text-center">Classement</th>
                         <th class="text-center">Universe</th>
                     </tr>
-                    <tr :key="universe.id" @click="goToUniverse(universe.id)" class="top-universe-row" v-for="(universe, index) in topUniverses">
+                    <tr :key="universe.id" @click="goToUniverse(universe.id)" class="top-universe-row" 
+                    v-for="(universe, index) in topUniverses">
                         <td class="text-center">
                             ${ index + 1}
                         </td>

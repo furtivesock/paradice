@@ -1,9 +1,17 @@
-<h2>Oh la la</h2>
-{% if story.getVisibility.getName == 'STORY' %}
-    <p>{{ story.getName }} n'est visible que pour les joueurs de cette histoire</p>
-{% elseif story.getVisibility.getName == 'UNIVERSE' %} {# if visibility = 'UNIVERSE' #}
-    <p>{{ story.getName }} n'est visible que pour les joueurs membre de l'univers {{ story.getUniverse.getName }}</p>
-{% else %}
-    <p>{{ story.getName }} n'est pas visible</p>
-{% endif %}
+{# This page is shown when a user doesn't have the permission to see
+the story (and tobviously the chapters and message
+associated to this one)  #}
+
+{% extends 'base.html.twig' %}
+{% block title %}Oh la la{% endblock %}
+{% block body %}
+    <h2>Oh la la :(</h2>
+    {% if story.getVisibility.getName == 'STORY' %}
+        <p>{{ story.getName }} n'est visible que pour les joueurs de cette histoire</p>
+    {% elseif story.getVisibility.getName == 'UNIVERSE' %} 
+        <p>{{ story.getName }} n'est visible que pour les joueurs membre de l'univers {{ story.getUniverse.getName }}</p>
+    {% else %}
+        <p>{{ story.getName }} n'est pas visible</p>
+    {% endif %}
+{% endblock %}
 

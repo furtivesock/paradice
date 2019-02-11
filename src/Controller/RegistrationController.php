@@ -16,21 +16,36 @@ class RegistrationController extends AbstractController
 {
     /**
      * @Route("/register", name="app_register")
+     * 
+     * Register a new user 
+     * 
+     * @param Request $request Request object to collect and use POST data
+     * @param UserPasswordEncoderInterface $passwordEncoder Interface to get the encoding algorithm
+     * @param GuardAuthenticatorHandler $guardHandler Interface to check authentication
+     * @param LoginAuthenticator $authenticator Interface to get the login authenticator
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginAuthenticator $authenticator): Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        GuardAuthenticatorHandler $guardHandler,
+        LoginAuthenticator $authenticator
+    ) : Response {
+        
         $user = new OnlineUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+
+            // Encode the plain password (see config/packages/security.yaml 
+            // for the encoding algorithm)
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
+
             $user->setUsername($form->get('username')->getData());
             $user->setEmail($form->get('email')->getData());
             $user->setCreationDate(new \DateTime());
@@ -38,7 +53,6 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,

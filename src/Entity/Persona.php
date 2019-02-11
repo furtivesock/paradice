@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Persona
 {
     /**
+     * @var int
+     * 
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,63 +21,87 @@ class Persona
     private $id;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $firstName;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
     private $physicalDescription;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
     private $personality;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
     private $background;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatarURL;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastName;
 
     /**
+     * @var int
+     * 
      * @ORM\Column(type="integer", nullable=true)
      */
     private $age;
 
     /**
+     * @var Universe
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $universe;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\ManyToMany(targetEntity="App\Entity\Characteristic")
      */
     private $characteristics;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\StoryPlayer", mappedBy="player", orphanRemoval=true)
      */
     private $storyPlayers;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\StoryApplication", mappedBy="applicant", orphanRemoval=true)
      */
     private $storyApplications;
 
 
     /**
+     * @var OnlineUser
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="personas")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */

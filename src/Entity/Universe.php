@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Universe
 {
     /**
+     * @var int
+     * 
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,62 +21,86 @@ class Universe
     private $id;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime")
      */
     private $creationDate;
 
     /**
+     * @var OnlineUser
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $creator;
 
     /**
+     * @var OnlineUser
+     * 
      * @ORM\ManyToMany(targetEntity="App\Entity\OnlineUser", inversedBy="moderatedUniverses")
      */
     private $moderators;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\UniverseMember", mappedBy="universe", orphanRemoval=true)
      */
     private $universeMembers;
 
-    /**
+    /**     
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\UniverseApplication", mappedBy="universe", orphanRemoval=true)
      */
     private $universeApplications;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $logoURL;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $bannerURL;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\Story", mappedBy="universe", orphanRemoval=true)
      */
     private $stories;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\Type", mappedBy="universe", orphanRemoval=true)
      */
     private $types;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="universe", orphanRemoval=true)
      */
     private $locations;
@@ -349,6 +375,12 @@ class Universe
         return $this;
     }
     
+    /**
+     * Check if a given user is a member of this story
+     * 
+     * @param OnlineUser $user (optional) The user
+     * @return bool True if the user is a member, else false
+     */
     public function isMember(OnlineUser $user) : bool
     {
         return $this->universeMembers->exists(function(int $key, UniverseMember $uMember) use($user) {
@@ -356,7 +388,9 @@ class Universe
         });
     }
 
-
+    /**
+     * @return array This universe formatted as a json array
+     */
     public function toJson() : array
     {
         return array(

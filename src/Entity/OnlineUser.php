@@ -7,12 +7,18 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OnlineUserRepository")
+ * @UniqueEntity("email", message="Cet email existe déjà")
+ * @UniqueEntity("username", message="Ce nom d'utilisateur existe déjà")
  */
 class OnlineUser implements UserInterface
 {
     /**
+     * @var int 
+     * 
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -20,68 +26,95 @@ class OnlineUser implements UserInterface
     private $id;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="Le nom d'utilisateur est obligatoire")
      */
     private $username;
 
     /**
+     * @var string[]
+     * 
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
+     * 
      * @ORM\Column(type="string")
      */
     private $password;
 
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime")
      */
     private $creationDate;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatarURL;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="L'email est obligatoire")
+     * @Assert\Email(message="L'email donné n'est pas valide")
      */
     private $email;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\ManyToMany(targetEntity="App\Entity\Universe", mappedBy="moderators")
      */
     private $moderatedUniverses;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\UniverseMember", mappedBy="member", orphanRemoval=true)
      */
     private $universeMembers;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\UniverseApplication", mappedBy="applicant", orphanRemoval=true)
      */
     private $universeApplications;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\MessageRead", mappedBy="user", orphanRemoval=true)
      */
     private $messagesRead;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\Story", mappedBy="author")
      */
     private $stories;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\Persona", mappedBy="user", orphanRemoval=true)
      */
     private $personas;
 
-
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="sender")
      */
     private $messages;
@@ -125,8 +158,6 @@ class OnlineUser implements UserInterface
     public function getRoles() : array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -158,7 +189,7 @@ class OnlineUser implements UserInterface
      */
     public function getSalt()
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        // not needed when using the "bcrypt" or "argon2i" algorithm in security.yaml
     }
 
     /**

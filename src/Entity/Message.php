@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Message
 {
     /**
+     * @var int
+     * 
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,28 +21,38 @@ class Message
     private $id;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="text")
      */
     private $contents;
 
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime")
      */
     private $creationDate;
 
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity="App\Entity\MessageRead", mappedBy="message", orphanRemoval=true)
      */
     private $messagesRead;
 
     /**
+     * @var Chapter
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Chapter", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $chapter;
 
     /**
+     * @var OnlineUser
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="messages")
      */
     private $sender;
@@ -135,6 +147,9 @@ class Message
         return $this;
     }
 
+    /**
+     * @return array This message formatted as a json array
+     */
     public function toJson() : array
     {
         $story = $this->getChapter()->getStory();

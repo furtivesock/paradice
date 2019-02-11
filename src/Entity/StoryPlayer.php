@@ -12,6 +12,8 @@ class StoryPlayer
 
 
     /**
+     * @var Story
+     * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Story", inversedBy="storyPlayers")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -19,6 +21,8 @@ class StoryPlayer
     private $story;
 
     /**
+     * @var Persona
+     * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Persona", inversedBy="storyPlayers")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -26,6 +30,8 @@ class StoryPlayer
     private $player;
 
     /**
+     * @var \DateTime
+     * 
      * @ORM\Column(type="datetime")
      */
     private $acceptationDate;

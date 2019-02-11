@@ -6,9 +6,15 @@
             <div class="offset-md-3 offset-lg-3 col-xs-12 col-sm-12 col-md-6 col-lg-6 align-middle">
                 <h1 class="mt-5 h3 mb-4 font-weight-normal text-center">Inscription</h1>
                 {{ form_start(registrationForm, {attr: {id: 'registration-form'} }) }}
-                {{ form_row(registrationForm.username , {attr: {class: 'form-control mb-3', placeholder: 'Nom d\'utilisateur'} }) }}
-                {{ form_row(registrationForm.email , {attr: {class: 'form-control mb-3', placeholder: 'Adresse e-mail'} }) }}
-                {{ form_row(registrationForm.plainPassword , {attr: {class: 'form-control mb-3', placeholder: 'Mot de passe'} }) }}
+
+                    {# User's username #}
+                    {{ form_row(registrationForm.username , {attr: {class: 'form-control mb-3', placeholder: 'Nom d\'utilisateur'} }) }}
+                
+                    {#  User's email #}
+                    {{ form_row(registrationForm.email , {attr: {class: 'form-control mb-3', placeholder: 'Adresse e-mail'} }) }}
+                    
+                    {# User's password #}
+                    {{ form_row(registrationForm.plainPassword , {attr: {class: 'form-control mb-3', placeholder: 'Mot de passe'} }) }}
 
                     <button class="btn btn-lg btn-primary" style="width: 100%;">Register</button>
                 {{ form_end(registrationForm) }}

@@ -10,13 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 class MessageRead
 {
 
-
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $seen;
-
-    /**
+     * @var int 
+     * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="messagesRead")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -24,12 +20,20 @@ class MessageRead
     private $user;
 
     /**
+     * @var int 
+     * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="messagesRead")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $message;
 
+    /**
+     * @var bool
+     * 
+     * @ORM\Column(type="boolean")
+     */
+    private $seen;
 
     public function getSeen(): ?bool
     {

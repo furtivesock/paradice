@@ -1,3 +1,11 @@
+{# Base view for all views in these directory 
+
+If the user is connected, this view provide user's information 
+such as universes in which he participates, a way to see his profile 
+and a way to disconnect.
+Else, it shows a way to log into its account or to create an new one.
+#}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,34 +13,43 @@
         <title>
             {% block title %}Welcome!{% endblock %}
         </title>
+
+        {# This stylesheets will be used in every view #}
         {% block stylesheets %}
             <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" rel="stylesheet"/>
             <link href="/css/style.css" rel="stylesheet" type="text/css"/>
         {% endblock %}
+
+        {# Thanks to the cache, Vue.js and axios will only be loaded once 
+        so that's why it is loaded for all the views #}
         {% block vue %}
             <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         {% endblock %}
     </head>
     <body>
+        {# Show user related information if he is connected #}
         {% block user %}
             {% if user is defined and user is not null %}
-                <p>Bonjour
-                    {{ user.getUsername }}
-                    !</p>
+                <p>Bonjour {{ user.getUsername }}!</p>
                 <a href="/user/{{ user.getId }}/profile">Mon profil</a>
                 <a href="{{ path('app_logout') }}">Me déconnecter</a>
                 {% for universeMember in user.getUniverseMembers %}
                     {% set universe = universeMember.getUniverse %}
                     <a href="{{ path('universe_show', {'idUniverse': universe.getId})}}">
-                        {{ universe.getName }}</a>
+                        {{ universe.getName }}
+                    </a>
                 {% endfor %}
             {% else %}
                 <a href="{{ path('app_login') }}">Me connecter</a>    
                 <a href="{{ path('app_register') }}">Créer un compte</a>               
             {% endif %}
         {% endblock %}
+
+        {# Content from the view will be loaded here #}
         {% block body %}{% endblock %}
+
+        {# Javascript related code will be loaded here #}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
