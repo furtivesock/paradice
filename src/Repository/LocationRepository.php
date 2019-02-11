@@ -21,7 +21,11 @@ class LocationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Location[] Returns an array of Location objects
+     * Return all locations from a universe
+     * 
+     * @param int $idUniverse Id of the universe
+     * 
+     * @return ArrayCollection Returns an array of Location objects
      */
     public function findLocationsByUniverseId(int $idUniverse)
     {

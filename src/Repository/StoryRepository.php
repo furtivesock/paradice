@@ -22,8 +22,17 @@ class StoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Story::class);
     }
 
-    /**
-     * @return Universe[]
+    /** 
+     * Returns list of all stories from a universe 
+     * after a given date and with a specific order
+     * 
+     * @param int $idUniverse Id of the story's universe
+     * @param string $order The type of order. It can be :
+     *      - "update" : sort by last update 
+     *      - "create" : sort by creation date 
+     *      - "top" : sort by activity (number of message in this story)
+     * @param \DateTime $after (optional) Start date limit (inclusive)
+     * @return ArrayCollection
      */
     public function findStoriesAfterDateAndOrdered(int $idUniverse, string $order, ? \DateTime $after)
     {
@@ -60,7 +69,7 @@ class StoryRepository extends ServiceEntityRepository
 
         if (!is_null($after)) {
             $results = $results
-                ->andWhere('s.creationDate > :date')
+                ->andWhere('s.creationDate >= :date')
                 ->setParameter('date', $after);
         }
 
@@ -80,7 +89,13 @@ class StoryRepository extends ServiceEntityRepository
         );
     }
 
-
+    /**
+     * Returns a story with its id
+     * 
+     * @param int $idUniverse Id of the story's universe
+     * @param int $idStory Id of the story
+     * @return Story|null 
+     */
     public function findOneByUniverseAndStoryId(int $idUniverse, int $idStory) : ? Story
     {
         return $this->createQueryBuilder('s')

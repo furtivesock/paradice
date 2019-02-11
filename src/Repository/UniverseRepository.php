@@ -22,7 +22,15 @@ class UniverseRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Universe[]
+     * Returns list of all universes after a given date and 
+     * with a specific order
+     * 
+     * @param string $order The type of order. It can be :
+     *      - "update" : sort by last update 
+     *      - "create" : sort by creation date 
+     *      - "top" : sort by activity (number of message in this universe)
+     * @param \DateTime $after (optional) Start date limit (inclusive)
+     * @return ArrayCollection
      */
     public function findUniversesAfterDateAndOrdered(string $order, ?\DateTime $after)
     {

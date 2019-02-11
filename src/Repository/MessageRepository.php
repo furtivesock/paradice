@@ -22,7 +22,18 @@ class MessageRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Message[] Returns an array of Message objects
+     * Return a list of messages from a chapter within a certain range of date
+     * 
+     * If afterDate is omitted, it will give all stories from the
+     * creation of the chapter
+     * 
+     * @param int $idUniverse Id of the chapter's universe
+     * @param int $idStory Id of the chapter's story
+     * @param int $idChapter Id of the chapter for the message
+     * @param \DateTime $beforeDate inclusive end date 
+     * @param \DateTime $afterDate inclusive start date, if omitted get all date 
+
+     * @return ArrayCollection Returns an array of Message objects
      */
     public function findByUniverseStoryChapterIdAfterAndBeforeDate(
         int $idUniverse,
