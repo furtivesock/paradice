@@ -23,6 +23,7 @@ class CreateChapterFormType extends AbstractType
                     return $er->findLocationsByUniverseId($options['id']);
                 },
                 'choice_label' => 'name',
+                'label' => 'Lieu'
             ])
         ;
     }
