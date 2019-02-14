@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\Story;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
+use App\Form\CreateChapterFormType;
 
 class ChapterController extends AbstractController
 {
@@ -102,18 +103,11 @@ class ChapterController extends AbstractController
         $chapter = new Chapter();
 
         // Build the form 
-        $form = $this->createFormBuilder($chapter)
-            ->add('name', TextType::class, ['label' => 'Nom du chapitre'])
-            ->add('location', ChoiceType::class, [
-                'choices' => $this->getDoctrine()
-                    ->getRepository(Location::class)
-                    ->findLocationsByUniverseId($idUniverse),
-                'choice_label' => function (Location $location, $key, $value) {
-                    return $location->getName();
-                },
-                'label' => 'Lieu'
-            ])
-            ->getForm();
+        $form = $this->createForm(
+            CreateChapterFormType::class, 
+            $chapter, 
+            array('id' => $story->getUniverse()->getId())
+        );
 
         $form->handleRequest($request);
 
