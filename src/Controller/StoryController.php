@@ -15,6 +15,7 @@ use App\Entity\Universe;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\HttpFoundation\Response;
+use App\Form\CreateStoryFormType;
 
 class StoryController extends AbstractController
 {
@@ -85,28 +86,7 @@ class StoryController extends AbstractController
         $story = new Story();
 
         // Build the form
-        $form = $this->createFormBuilder($story)
-            ->add('name', TextType::class, ['label' => 'Nom de l\'histoire'])
-            ->add('description', TextareaType::class, ['label' => 'Description'])
-            ->add('startDate', DateTimeType::class, ['label' => 'Date de lancement'])
-            ->add('endRegistrationDate', DateTimeType::class, ['label' => 'Date de fin des inscriptions'])
-            ->add('visibility', ChoiceType::class, [
-                'choices' => $this->getDoctrine()
-                    ->getRepository(Visibility::class)
-                    ->findAll(),
-                'choice_label' => function (Visibility $visibility, $key, $value) {
-                    switch ($visibility->getName()) {
-                        case 'ALL':
-                            return 'Par tout le monde';
-                        case 'UNIVERSE':
-                            return 'Par les membres de cet universe';
-                        case 'STORY':
-                            return 'Par les joueurs de cette histoire';
-                    }
-                },
-                'label' => 'Visibilité'
-            ])
-            ->getForm();
+        $form = $this->createForm(CreateStoryFormType::class, $story);
 
         $form->handleRequest($request);
 
