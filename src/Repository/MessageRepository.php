@@ -35,7 +35,7 @@ class MessageRepository extends ServiceEntityRepository
 
      * @return ArrayCollection Returns an array of Message objects
      */
-    public function findByUniverseStoryChapterIdAfterAndBeforeDate(
+    public function findAfterAndBeforeDate(
         int $idUniverse,
         int $idStory,
         int $idChapter,

@@ -60,7 +60,7 @@ class ChapterRepository extends ServiceEntityRepository
     }
     */
 
-    public function findOneByUniverseAndStoryAndChapterId(int $idUniverse, int $idStory, int $idChapter) : ? Chapter
+    public function findOneByIds(int $idUniverse, int $idStory, int $idChapter) : ? Chapter
     {
         return $this->createQueryBuilder('c')
             ->leftJoin('c.story', 's')
