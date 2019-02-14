@@ -36,7 +36,7 @@ class MessageController extends AbstractController
         // Get messages from the database
         $messages = $this->getDoctrine()
             ->getRepository(Message::class)
-            ->findByUniverseStoryChapterIdAfterAndBeforeDate(
+            ->findAfterAndBeforeDate(
                 $idUniverse,
                 $idStory,
                 $idChapter,
@@ -71,7 +71,7 @@ class MessageController extends AbstractController
         // Get the chapter
         $chapter = $this->getDoctrine()
             ->getRepository(Chapter::class)
-            ->findOneByUniverseAndStoryAndChapterId(
+            ->findOneByIds(
                 $idUniverse,
                 $idStory,
                 $idChapter

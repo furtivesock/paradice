@@ -52,7 +52,7 @@ class UniverseController extends AbstractController
         // Get the top universes from the database 
         $topUniverses = $this->getDoctrine()
             ->getRepository(Universe::class)
-            ->findUniversesAfterDateAndOrdered($order, $afterDate);
+            ->findAfterWithOrder($order, $afterDate);
 
         return new JsonResponse(
             $topUniverses->map(function (Universe $universe) {

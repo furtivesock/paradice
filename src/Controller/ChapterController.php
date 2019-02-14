@@ -33,7 +33,7 @@ class ChapterController extends AbstractController
         // Get the chapter from the database
         $chapter = $this->getDoctrine()
             ->getRepository(Chapter::class)
-            ->findOneByUniverseAndStoryAndChapterId(
+            ->findOneByIds(
                 $idUniverse,
                 $idStory,
                 $idChapter

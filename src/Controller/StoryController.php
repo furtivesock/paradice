@@ -162,7 +162,7 @@ class StoryController extends AbstractController
         // Get stories from the database
         $stories = $this->getDoctrine()
             ->getRepository(Story::class)
-            ->findStoriesAfterDateAndOrdered($idUniverse, $order, $afterDate);
+            ->findAfterWithOrder($idUniverse, $order, $afterDate);
 
         return new JsonResponse(
             $stories->map(function (Story $story) {

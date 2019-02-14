@@ -32,7 +32,7 @@ class UniverseRepository extends ServiceEntityRepository
      * @param \DateTime $after (optional) Start date limit (inclusive)
      * @return ArrayCollection
      */
-    public function findUniversesAfterDateAndOrdered(string $order, ?\DateTime $after)
+    public function findAfterWithOrder(string $order, ?\DateTime $after)
     {
 
         switch ($order) {
