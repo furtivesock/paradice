@@ -16,6 +16,10 @@ Else, it shows a way to log into its account or to create an new one.
 
         {# This stylesheets will be used in every view #}
         {% block stylesheets %}
+            {# 'app' must match the first argument to addEntry() in webpack.config.js #}
+            {{ encore_entry_link_tags('app') }}
+            <!-- Renders a link tag (if your module requires any CSS)
+            <link rel="stylesheet" href="/build/app.css"> -->
             <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" rel="stylesheet"/>
             <link href="/css/style.css" rel="stylesheet" type="text/css"/>
         {% endblock %}
@@ -50,6 +54,12 @@ Else, it shows a way to log into its account or to create an new one.
         {% block body %}{% endblock %}
 
         {# Javascript related code will be loaded here #}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+
+            <!-- Renders app.js & a webpack runtime.js file
+            <script src="/build/runtime.js"></script>
+            <script src="/build/app.js"></script> -->
+        {% endblock %}
     </body>
 </html>

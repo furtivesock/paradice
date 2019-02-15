@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block title %}Hello!{% endblock %}
 {% block javascripts %}
-    <script src="/js/chat/messages.js"></script>
+    {{ parent() }}
+    {{ encore_entry_script_tags('chat/messages') }}
 {% endblock %}
 {% block body %}
 

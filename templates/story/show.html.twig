@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Hello!{% endblock %}
 {% block javascripts %}
+    {{ parent() }}
     <script>
         function goToChapter(idUniverse, idStory, idChapter) {
             document.location = '/universe/' + idUniverse + '/story/' + idStory + '/chapter/' + idChapter
