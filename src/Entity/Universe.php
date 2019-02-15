@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UniverseRepository")
@@ -24,6 +25,9 @@ class Universe
      * @var string
      * 
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(
+     *      message="Un nom doit être donné à votre univers !"
+     * )
      */
     private $name;
 
@@ -386,6 +390,22 @@ class Universe
         return $this->universeMembers->exists(function(int $key, UniverseMember $uMember) use($user) {
             return $uMember->getMember()->getId() === $user->getId();
         });
+    }
+
+    /**
+     * Check if a given user is the story's creator
+     * 
+     * @param OnlineUser $user (optional) The user
+     * @return bool True if the user is the creator, else false
+     */
+    public function isCreator(OnlineUser $user) : bool
+    {
+        return $this->getCreator()->getId() === $user->getId();
+    }
+
+    public function canCreateStory(OnlineUser $user) : bool
+    {
+        return $this->isMember($user) || $this->isCreator($user);
     }
 
     /**

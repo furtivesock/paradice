@@ -137,7 +137,7 @@ Here are the current available feature in our app
 - [ ] Universe
   - [ ] Show all
   - [x] Show one
-  - [ ] Creation
+  - [x] Creation
   - [ ] Show support forum
   - [ ] Accept or reject application
   - [ ] Apply to a universe

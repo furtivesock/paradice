@@ -34,6 +34,7 @@ Else, it shows a way to log into its account or to create an new one.
                 <p>Bonjour {{ user.getUsername }}!</p>
                 <a href="/user/{{ user.getId }}/profile">Mon profil</a>
                 <a href="{{ path('app_logout') }}">Me déconnecter</a>
+                <a href="{{ path('universe_new') }}">Créer mon univers</a>
                 {% for universeMember in user.getUniverseMembers %}
                     {% set universe = universeMember.getUniverse %}
                     <a href="{{ path('universe_show', {'idUniverse': universe.getId})}}">

@@ -79,8 +79,8 @@ class StoryController extends AbstractController
         }
 
         // Check if the user is a member of this universe
-        if (is_null($this->getUser()) || !$universe->isMember($this->getUser())) {
-            return $this->createAccessDeniedException('Unable to create a story in this universe');
+        if (is_null($this->getUser()) || !$universe->canCreateStory($this->getUser())) {
+            throw $this->createAccessDeniedException('Unable to create a story in this universe');
         }
 
         $story = new Story();
