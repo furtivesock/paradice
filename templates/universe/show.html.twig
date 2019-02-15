@@ -26,7 +26,7 @@
     </ul>
     <!-- stories -->
     <h4>Les Histoires</h4>
-    {% if user is defined and user is not null and universe.isMember(user) %}
+    {% if user is defined and user is not null and universe.canCreateStory(user) %}
         <div>
             <a href="{{ path('story_new', {idUniverse: universe.getId})}}" >
                 Créer une nouvelle histoire
