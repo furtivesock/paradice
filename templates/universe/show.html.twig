@@ -14,16 +14,16 @@
     <!-- wiki -->
     <h4>Le wiki</h4>
     <ul>
-        {% for type in universe.getTypes if type.parentType is null %}
+        {% for type in universe.types if type.parentType is null %}
             <li>
-                <a href="/universe/{{ universe.getId }}/type/{{ type.getId }}">
-                    {{ type.getName }}</a>
+                <a href="/universe/{{ universe.id }}/type/{{ type.id }}">
+                    {{ type.name }}</a>
             </li>
             <ul>
-                {% for subType in type.getSubTypes %}
+                {% for subType in type.subTypes %}
                     <li>
-                        <a href="/universe/{{ universe.getId }}/type/{{ subType.getId }}">
-                            {{ subType.getName }}</a>
+                        <a href="/universe/{{ universe.id }}/type/{{ subType.id }}">
+                            {{ subType.name }}</a>
                     </li>
                 {% endfor %}
             </ul>
