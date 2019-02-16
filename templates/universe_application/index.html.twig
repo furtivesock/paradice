@@ -1,42 +1,32 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Hello !{% endblock %}
-
-{% block body %}
-    <h4>En attente de confirmation</h4>
-    {% for application in applications|filter(=> _.accepted is null) %}
-        <div>
-            <a href="/user/{{ application.applicant.id }}/profile">{{ application.applicant.username }}</a>
-            <p>{{ application.motivation }}</p>
-        </div>
-    {% else %}
-        <div>
-            <p>Aucun</p>
-        </div>
-    {% endfor %}
-
-    
-    <h4>Acceptés</h4>
-    {% for application in applications|filter(=> _.accepted is same as(true)) %}
-        <div>
-            <a href="/user/{{ application.applicant.id }}/profile">{{ application.applicant.username }}</a>
-        </div>
-    {% else %}
-        <div>
-            <p> Aucun</p>
-        </div>
-    {% endfor %}
-
-    
-    <h4>Refusés</h4>
-    {% for application in applications|filter(=> _.accepted is same as(false)) %}
-        <div>
-            <a href="/user/{{ application.applicant.id }}/profile">{{ application.applicant.username }}</a>
-        </div>
-    {% else %}
-        <div>
-            <p> Aucun</p>
-        </div>
-    {% endfor %}
+{% block javascripts %}
+    <script src="/js/accept/application.js"></script>
 {% endblock %}
-
+{% block body %}
+    <div id="applications" universe="{{ universe.id }}">
+        <h4>En attente de confirmation</h4>
+        <div v-for="application in waitedApplication">
+            <h5>
+                <a :href="'/user/' + application.applicant.id + '/profile'">${ application.applicant.username }</a>
+            </h5>
+            <p>${ application.motivation } | ${ application.application_date.date }</p>
+            <button @click="accept(application.applicant.id, true)">Accepter</button>
+            <button @click="accept(application.applicant.id, false)">Refuser</button>
+        </div>
+        <h4>Acceptés</h4>
+        <div v-for="application in acceptedApplication">
+            <h5>
+                <a :href="'/user/' + application.applicant.id + '/profile'">${ application.applicant.username }</a>
+            </h5>
+            <p>${ application.motivation } | ${ application.application_date.date }</p>
+        </div>
+        <h4>Refusés</h4>
+        <div v-for="application in refusedApplication">
+            <h5>
+                <a :href="'/user/' + application.applicant.id + '/profile'">${ application.applicant.username }</a>
+            </h5>
+            <p>${ application.motivation } | ${ application.application_date.date }</p>
+        </div>
+    </div>
+{% endblock %}

@@ -392,6 +392,12 @@ class Universe
         });
     }
 
+    /**
+     * Check if a given user is a moderator of this story
+     * 
+     * @param OnlineUser $user (optional) The user
+     * @return bool True if the user is a moderator, else false
+     */
     public function isModerator(OnlineUser $user) : bool
     {
         return $this->moderators->exists(function (int $key, OnlineUser $moderator) use ($user) {
@@ -410,10 +416,26 @@ class Universe
         return $this->getCreator()->getId() === $user->getId();
     }
 
+    /**
+     * Check if a given user can create a story in this universe
+     * 
+     * @param OnlineUser $user (optional) The user
+     * @return bool True if the user can create a story, else false
+     */
     public function canCreateStory(OnlineUser $user) : bool
     {
         return $this->isMember($user) || $this->isCreator($user);
     }
+
+    public function isApplicant(OnlineUser $user) : bool
+    {
+        return $this->getUniverseApplications()->exists(
+            function (int $key, UniverseApplication $uApplication) use ($user) {
+                return $uApplication->getApplicant()->getId() === $user->getId();
+            }
+        );
+    }
+
 
     /**
      * @return array This universe formatted as a json array
