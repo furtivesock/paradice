@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello !{% endblock %}
+
+{% block body %}
+    <h4>En attente de confirmation</h4>
+    {% for application in applications|filter(=> _.accepted is null) %}
+        <div>
+            <a href="/user/{{ application.applicant.id }}/profile">{{ application.applicant.username }}</a>
+            <p>{{ application.motivation }}</p>
+        </div>
+    {% else %}
+        <div>
+            <p>Aucun</p>
+        </div>
+    {% endfor %}
+
+    
+    <h4>Acceptés</h4>
+    {% for application in applications|filter(=> _.accepted is same as(true)) %}
+        <div>
+            <a href="/user/{{ application.applicant.id }}/profile">{{ application.applicant.username }}</a>
+        </div>
+    {% else %}
+        <div>
+            <p> Aucun</p>
+        </div>
+    {% endfor %}
+
+    
+    <h4>Refusés</h4>
+    {% for application in applications|filter(=> _.accepted is same as(false)) %}
+        <div>
+            <a href="/user/{{ application.applicant.id }}/profile">{{ application.applicant.username }}</a>
+        </div>
+    {% else %}
+        <div>
+            <p> Aucun</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+

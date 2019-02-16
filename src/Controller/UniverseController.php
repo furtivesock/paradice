@@ -71,7 +71,7 @@ class UniverseController extends AbstractController
      * 
      * @param Request $request Request object to collect and use POST data
      */
-    public function createUniverse(Request $request) : Response
+    public function create(Request $request) : Response
     {
 
         // Check if the user is a member of this universe
@@ -102,12 +102,14 @@ class UniverseController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('universe_show', [
-                'idUniverse' => $universe->getId()
+                'idUniverse' => $universe->getId(),
+                'user' => $this->getUser()
             ]);
         }
 
         return $this->render('universe/new.html.twig', [
-            'newUniverseForm' => $form->createView()
+            'newUniverseForm' => $form->createView(),
+            'user' => $this->getUser()
         ]);
     }
 }
