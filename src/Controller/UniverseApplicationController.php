@@ -32,7 +32,7 @@ class UniverseApplicationController extends AbstractController
             throw $this->createAccessDeniedException('Access Denied.');
         }
 
-        if (!$universe->isCreator($this->getUser()) || !$universe->isModerator($this->getUser())) {
+        if (!$universe->isCreator($this->getUser()) && !$universe->isModerator($this->getUser())) {
             throw $this->createAccessDeniedException('Access Denied.');
         }
 
@@ -59,7 +59,7 @@ class UniverseApplicationController extends AbstractController
             throw $this->createAccessDeniedException('Access Denied.');
         }
 
-        if (!$universe->isCreator($this->getUser()) || !$universe->isModerator($this->getUser())) {
+        if (!$universe->isCreator($this->getUser()) && !$universe->isModerator($this->getUser())) {
             throw $this->createAccessDeniedException('Access Denied.');
         }
 
@@ -68,9 +68,9 @@ class UniverseApplicationController extends AbstractController
             ->findAll(array(
                 'universe' => $idUniverse
             ));
-        
+
         return new JsonResponse(
-            array_map(function(UniverseApplication $uApplication) {
+            array_map(function (UniverseApplication $uApplication) {
                 return $uApplication->toJson();
             }, $applications)
         );
@@ -93,10 +93,6 @@ class UniverseApplicationController extends AbstractController
             throw $this->createAccessDeniedException('Access Denied.');
         }
 
-        if (!$universe->isCreator($this->getUser()) || !$universe->isModerator($this->getUser())) {
-            throw $this->createAccessDeniedException('Access Denied.');
-        }
-
         if ($universe->isApplicant($this->getUser())) {
             $this->addFlash('ERROR', 'Vous ne pouvez pas vous inscrire 2 fois pour le même univers !');
 
@@ -106,7 +102,9 @@ class UniverseApplicationController extends AbstractController
             ]);
         }
 
-        if ($universe->isMember($this->getUser())) {
+        if ($universe->isMember($this->getUser()) ||
+            $universe->isCreator($this->getUser()) ||
+            $universe->isModerator($this->getUser())) {
             $this->addFlash('ERROR', 'Vous êtes déjà member de cet univers !');
 
             return $this->redirectToRoute('universe_show', [
@@ -186,23 +184,25 @@ class UniverseApplicationController extends AbstractController
             throw $this->createAccessDeniedException('Access Denied.');
         }
 
-        if (!$universe->isCreator($this->getUser()) || !$universe->isModerator($this->getUser())) {
+        if (!$universe->isCreator($this->getUser()) && !$universe->isModerator($this->getUser())) {
             throw $this->createAccessDeniedException('Access Denied.');
         }
 
-        if ($universe->isMember($application->getApplicant())) {
+        if ($universe->isMember($application->getApplicant()) ||
+            $universe->isCreator($application->getApplicant()) ||
+            $universe->isModerator($application->getApplicant())) {
             throw new BadRequestHttpException('Applicant is already a member');
         }
 
         // Get post data
-        $post_data = json_decode($request->getContent(), true);
+        $post_data = json_decode ($request->getContent (), true);
 
         if (!array_key_exists('accept', $post_data) || !is_bool($post_data['accept'])) {
             throw new BadRequestHttpException('Bad Request');
         }
 
         $entityManager = $this->getDoctrine()->getManager();
-        
+
         if ($post_data['accept']) {
             $application->setAccepted(true);
 

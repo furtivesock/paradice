@@ -6,6 +6,11 @@
 {% block body %}
     <h2>
         {{ universe.getName }}</h2>
+    {% if user is defined and user is not null %}
+        {% if not (universe.isMember(user) or universe.isCreator(user) or universe.isModerator(user) or universe.isApplicant(user)) %}
+            <p><a href="/universe/{{ universe.id }}/application/new">Joindre {{ universe.name }}</a></p>
+        {% endif %}
+    {% endif %}
     <!-- wiki -->
     <h4>Le wiki</h4>
     <ul>
