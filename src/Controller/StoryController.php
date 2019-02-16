@@ -33,7 +33,7 @@ class StoryController extends AbstractController
         // Get the story from the database
         $story = $this->getDoctrine()
             ->getRepository(Story::class)
-            ->findBy(array(
+            ->findOneBy(array(
                 'id' => $idStory,
                 'universe' => $idUniverse
             ));
