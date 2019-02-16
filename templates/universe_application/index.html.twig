@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello !{% endblock %}
+{% block javascripts %}
+    <script src="/js/accept/application.js"></script>
+{% endblock %}
+{% block body %}
+    <div id="applications" universe="{{ universe.id }}">
+        <h4>En attente de confirmation</h4>
+        <div v-for="application in waitedApplication">
+            <h5>
+                <a :href="'/user/' + application.applicant.id + '/profile'">${ application.applicant.username }</a>
+            </h5>
+            <p>${ application.motivation } | ${ application.application_date.date }</p>
+            <button @click="accept(application.applicant.id, true)">Accepter</button>
+            <button @click="accept(application.applicant.id, false)">Refuser</button>
+        </div>
+        <h4>Acceptés</h4>
+        <div v-for="application in acceptedApplication">
+            <h5>
+                <a :href="'/user/' + application.applicant.id + '/profile'">${ application.applicant.username }</a>
+            </h5>
+            <p>${ application.motivation } | ${ application.application_date.date }</p>
+        </div>
+        <h4>Refusés</h4>
+        <div v-for="application in refusedApplication">
+            <h5>
+                <a :href="'/user/' + application.applicant.id + '/profile'">${ application.applicant.username }</a>
+            </h5>
+            <p>${ application.motivation } | ${ application.application_date.date }</p>
+        </div>
+    </div>
+{% endblock %}

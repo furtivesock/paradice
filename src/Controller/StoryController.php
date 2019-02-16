@@ -33,7 +33,10 @@ class StoryController extends AbstractController
         // Get the story from the database
         $story = $this->getDoctrine()
             ->getRepository(Story::class)
-            ->findOneByUniverseAndStoryId($idUniverse, $idStory);
+            ->findOneBy(array(
+                'id' => $idStory,
+                'universe' => $idUniverse
+            ));
 
             
         // If story is null then it doesn't exist
@@ -63,7 +66,7 @@ class StoryController extends AbstractController
      * @param int $idUniverse Id of the new story's universe
      * @param Request $request Request object to collect and use POST data
      */
-    public function createStory(
+    public function create_function(
         int $idUniverse,
         Request $request
     ) : Response {
@@ -110,12 +113,14 @@ class StoryController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('universe_show', [
-                'idUniverse' => $story->getUniverse()->getId()
+                'idUniverse' => $story->getUniverse()->getId(),
+                'user' => $this->getUser()
             ]);
         }
 
         return $this->render('story/new.html.twig', [
-            'newStoryForm' => $form->createView()
+            'newStoryForm' => $form->createView(),
+            'user' => $this->getUser()
         ]);
 
     }

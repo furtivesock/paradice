@@ -120,53 +120,53 @@ class Universe
         $this->locations = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId() : ? int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName() : ? string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name) : self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription() : ? string
     {
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(? string $description) : self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getCreationDate() : ? \DateTimeInterface
     {
         return $this->creationDate;
     }
 
-    public function setCreationDate(\DateTimeInterface $creationDate): self
+    public function setCreationDate(\DateTimeInterface $creationDate) : self
     {
         $this->creationDate = $creationDate;
 
         return $this;
     }
 
-    public function getCreator(): ?OnlineUser
+    public function getCreator() : ? OnlineUser
     {
         return $this->creator;
     }
 
-    public function setCreator(?OnlineUser $creator): self
+    public function setCreator(? OnlineUser $creator) : self
     {
         $this->creator = $creator;
 
@@ -176,12 +176,12 @@ class Universe
     /**
      * @return Collection|OnlineUser[]
      */
-    public function getModerators(): Collection
+    public function getModerators() : Collection
     {
         return $this->moderators;
     }
 
-    public function addModerator(OnlineUser $moderator): self
+    public function addModerator(OnlineUser $moderator) : self
     {
         if (!$this->moderators->contains($moderator)) {
             $this->moderators[] = $moderator;
@@ -190,7 +190,7 @@ class Universe
         return $this;
     }
 
-    public function removeModerator(OnlineUser $moderator): self
+    public function removeModerator(OnlineUser $moderator) : self
     {
         if ($this->moderators->contains($moderator)) {
             $this->moderators->removeElement($moderator);
@@ -202,12 +202,12 @@ class Universe
     /**
      * @return Collection|UniverseMember[]
      */
-    public function getUniverseMembers(): Collection
+    public function getUniverseMembers() : Collection
     {
         return $this->universeMembers;
     }
 
-    public function addUniverseMember(UniverseMember $universeMember): self
+    public function addUniverseMember(UniverseMember $universeMember) : self
     {
         if (!$this->universeMembers->contains($universeMember)) {
             $this->universeMembers[] = $universeMember;
@@ -217,7 +217,7 @@ class Universe
         return $this;
     }
 
-    public function removeUniverseMember(UniverseMember $universeMember): self
+    public function removeUniverseMember(UniverseMember $universeMember) : self
     {
         if ($this->universeMembers->contains($universeMember)) {
             $this->universeMembers->removeElement($universeMember);
@@ -233,12 +233,12 @@ class Universe
     /**
      * @return Collection|UniverseApplication[]
      */
-    public function getUniverseApplications(): Collection
+    public function getUniverseApplications() : Collection
     {
         return $this->universeApplications;
     }
 
-    public function addUniverseApplication(UniverseApplication $universeApplication): self
+    public function addUniverseApplication(UniverseApplication $universeApplication) : self
     {
         if (!$this->universeApplications->contains($universeApplication)) {
             $this->universeApplications[] = $universeApplication;
@@ -248,7 +248,7 @@ class Universe
         return $this;
     }
 
-    public function removeUniverseApplication(UniverseApplication $universeApplication): self
+    public function removeUniverseApplication(UniverseApplication $universeApplication) : self
     {
         if ($this->universeApplications->contains($universeApplication)) {
             $this->universeApplications->removeElement($universeApplication);
@@ -261,25 +261,25 @@ class Universe
         return $this;
     }
 
-    public function getLogoURL(): ?string
+    public function getLogoURL() : ? string
     {
         return $this->logoURL;
     }
 
-    public function setLogoURL(?string $logoURL): self
+    public function setLogoURL(? string $logoURL) : self
     {
 
         $this->logoURL = $logoURL;
-        
+
         return $this;
     }
 
-    public function getBannerURL(): ?string
+    public function getBannerURL() : ? string
     {
         return $this->bannerURL;
     }
 
-    public function setBannerURL(?string $bannerURL): self
+    public function setBannerURL(? string $bannerURL) : self
     {
         $this->bannerURL = $bannerURL;
 
@@ -289,12 +289,12 @@ class Universe
     /**
      * @return Collection|Story[]
      */
-    public function getStories(): Collection
+    public function getStories() : Collection
     {
         return $this->stories;
     }
 
-    public function addStory(Story $story): self
+    public function addStory(Story $story) : self
     {
         if (!$this->stories->contains($story)) {
             $this->stories[] = $story;
@@ -304,7 +304,7 @@ class Universe
         return $this;
     }
 
-    public function removeStory(Story $story): self
+    public function removeStory(Story $story) : self
     {
         if ($this->stories->contains($story)) {
             $this->stories->removeElement($story);
@@ -320,12 +320,12 @@ class Universe
     /**
      * @return Collection|Type[]
      */
-    public function getTypes(): Collection
+    public function getTypes() : Collection
     {
         return $this->types;
     }
 
-    public function addType(Type $type): self
+    public function addType(Type $type) : self
     {
         if (!$this->types->contains($type)) {
             $this->types[] = $type;
@@ -335,7 +335,7 @@ class Universe
         return $this;
     }
 
-    public function removeType(Type $type): self
+    public function removeType(Type $type) : self
     {
         if ($this->types->contains($type)) {
             $this->types->removeElement($type);
@@ -347,16 +347,16 @@ class Universe
 
         return $this;
     }
-    
+
     /**
      * @return Collection|Location[]
      */
-    public function getLocations(): Collection
+    public function getLocations() : Collection
     {
         return $this->locations;
     }
 
-    public function addLocation(Location $location): self
+    public function addLocation(Location $location) : self
     {
         if (!$this->locations->contains($location)) {
             $this->locations[] = $location;
@@ -366,7 +366,7 @@ class Universe
         return $this;
     }
 
-    public function removeLocation(Location $location): self
+    public function removeLocation(Location $location) : self
     {
         if ($this->locations->contains($location)) {
             $this->locations->removeElement($location);
@@ -378,7 +378,7 @@ class Universe
 
         return $this;
     }
-    
+
     /**
      * Check if a given user is a member of this story
      * 
@@ -387,8 +387,21 @@ class Universe
      */
     public function isMember(OnlineUser $user) : bool
     {
-        return $this->universeMembers->exists(function(int $key, UniverseMember $uMember) use($user) {
+        return $this->universeMembers->exists(function (int $key, UniverseMember $uMember) use ($user) {
             return $uMember->getMember()->getId() === $user->getId();
+        });
+    }
+
+    /**
+     * Check if a given user is a moderator of this story
+     * 
+     * @param OnlineUser $user (optional) The user
+     * @return bool True if the user is a moderator, else false
+     */
+    public function isModerator(OnlineUser $user) : bool
+    {
+        return $this->moderators->exists(function (int $key, OnlineUser $moderator) use ($user) {
+            return $user->getId() === $moderator->getId();
         });
     }
 
@@ -403,10 +416,26 @@ class Universe
         return $this->getCreator()->getId() === $user->getId();
     }
 
+    /**
+     * Check if a given user can create a story in this universe
+     * 
+     * @param OnlineUser $user (optional) The user
+     * @return bool True if the user can create a story, else false
+     */
     public function canCreateStory(OnlineUser $user) : bool
     {
         return $this->isMember($user) || $this->isCreator($user);
     }
+
+    public function isApplicant(OnlineUser $user) : bool
+    {
+        return $this->getUniverseApplications()->exists(
+            function (int $key, UniverseApplication $uApplication) use ($user) {
+                return $uApplication->getApplicant()->getId() === $user->getId();
+            }
+        );
+    }
+
 
     /**
      * @return array This universe formatted as a json array
@@ -421,18 +450,18 @@ class Universe
             'creator' => $this->getCreator()->getId(),
             'logoURL' => $this->getLogoURL(),
             'bannerURL' => $this->getBannerURL(),
-            'moderators' => $this->getModerators()->map(function(OnlineUser $user) {
+            'moderators' => $this->getModerators()->map(function (OnlineUser $user) {
                 return array(
                     'id' => $user->getId()
                 );
             })->toArray(),
-            'members' => $this->getUniverseMembers()->map(function(UniverseMember $uMember) {
+            'members' => $this->getUniverseMembers()->map(function (UniverseMember $uMember) {
                 return array(
                     'id' => $uMember->getMember()->getId(),
                     'acceptationDate' => $uMember->getAcceptationDate()
                 );
             })->toArray(),
-            'applications' => $this->getUniverseApplications()->map(function(UniverseApplication $uApplication) {
+            'applications' => $this->getUniverseApplications()->map(function (UniverseApplication $uApplication) {
                 return array(
                     'id' => $uApplication->getApplicant()->getId(),
                     'applicationDate' => $uApplication->getApplicationDate(),
@@ -440,17 +469,17 @@ class Universe
                     'accepted' => $uApplication->getAccepted()
                 );
             })->toArray(),
-            'stories' => $this->getStories()->map(function(Story $story) {
+            'stories' => $this->getStories()->map(function (Story $story) {
                 return array(
                     'id' => $story->getId()
                 );
             })->toArray(),
-            'types' => $this->getTypes()->map(function(Type $type) {
+            'types' => $this->getTypes()->map(function (Type $type) {
                 return array(
                     'id' => $type->getId()
                 );
             })->toArray(),
         );
     }
-    
+
 }

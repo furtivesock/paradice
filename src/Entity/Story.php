@@ -367,7 +367,7 @@ class Story
             return strcmp($this->visibility->getName(), 'ALL') === 0;
         }
 
-        if ($this->isAuthor($user)) {
+        if ($this->isAuthor($user) || $this->universe->isModerator($user) || $this->universe->isCreator($user)) {
             return true;
         }
 

@@ -139,8 +139,8 @@ Here are the current available feature in our app
   - [x] Show one
   - [x] Creation
   - [ ] Show support forum
-  - [ ] Accept or reject application
-  - [ ] Apply to a universe
+  - [x] Accept or reject application
+  - [x] Apply to a universe
 - [ ] Story
   - [x] Show all from a universe
   - [x] Show one
