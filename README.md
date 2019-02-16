@@ -145,7 +145,7 @@ Here are the current available feature in our app
   - [x] Show all from a universe
   - [x] Show one
   - [x] Creation
-  - [ ] Change status
+  - [x] Change status
   - [ ] Close inscription
   - [ ] Add players
   - [ ] Accept or reject application
