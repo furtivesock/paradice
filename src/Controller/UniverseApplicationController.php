@@ -77,7 +77,7 @@ class UniverseApplicationController extends AbstractController
     }
 
     /**
-     * @Route("/universe/{idUniverse<\d+>}/application/new", name="universe_application_new")
+     * @Route("/universe/{idUniverse<\d+>}/application/new", methods={"GET", "POST"}, name="universe_application_new")
      */
     public function create(int $idUniverse, Request $request) : Response
     {
@@ -153,7 +153,7 @@ class UniverseApplicationController extends AbstractController
     }
 
     /**
-     * @Route("/universe/{idUniverse<\d+>}/application/{idApplicant<\d+>}/accept", name="universe_application_accept")
+     * @Route("/universe/{idUniverse<\d+>}/application/{idApplicant<\d+>}/accept", methods={"POST"}, name="universe_application_accept")
      */
     public function accept(
         int $idUniverse,

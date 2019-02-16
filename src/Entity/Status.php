@@ -41,4 +41,12 @@ class Status
 
         return $this;
     }
+
+    public function toJson() : array 
+    {
+        return array(
+            'id' => $this->id,
+            'name' => $this->name
+        );
+    }
 }

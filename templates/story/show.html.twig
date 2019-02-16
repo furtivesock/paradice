@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Hello!{% endblock %}
 {% block javascripts %}
+    <script src="/js/status/story.js"></script>
     <script>
         function goToChapter(idUniverse, idStory, idChapter) {
             document.location = '/universe/' + idUniverse + '/story/' + idStory + '/chapter/' + idChapter
@@ -9,7 +10,19 @@
 {% endblock %}
 {% block body %}
     <h2>{{ story.getName }}</h2>
-
+    {% if user is defined and user is not null %}
+        {% set universe = story.universe %}
+        {% if not (universe.isMember(user) or universe.isCreator(user) or universe.isModerator(user) or universe.isApplicant(user)) %}
+            <p><a href="/universe/{{ universe.id }}/application/new">Joindre {{ universe.name }}</a></p>
+        {% endif %}
+        {% if story.isAuthor(user) %}
+            <div id="status" universe="{{ universe.id }}" story="{{ story.id }}">
+                <select v-model:value="curStatus">
+                    <option :value="status.id" v-for="status in allStatus">${ status.name }</option>
+                </select>
+            </div>
+        {% endif %}
+    {% endif %}
     
     <h4>Les Chapitres</h4>
 
@@ -26,7 +39,7 @@
     {# Show all chapters from this story #}
     {# The chapter at the top is the most recent one #}
     {% for chapter in story.getChapters|sort_by(=> _.getNumero, 'DESC') %}
-        <div class="chapter-row" onclick="goToChapter({{ story.getUniverse.getId }}, {{ story.getId }}, {{ chapter.getId }})">
+        <div class="chapter-row" onclick="goToChapter({{ story.universe.id }}, {{ story.id }}, {{ chapter.getId }})">
             <h5>
                 Chapitre
                 {{ chapter.getNumero }}

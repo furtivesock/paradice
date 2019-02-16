@@ -1,7 +1,4 @@
-
-const idUniverse = document.getElementById('applications').getAttribute('universe')
-
-var vm = new Vue({
+var vmApplications = new Vue({
     el: "#applications",
     data: {
         applications: []
@@ -25,17 +22,17 @@ var vm = new Vue({
     },
     methods: {
         loadApplications: function () {
-            const path = '/universe/' + idUniverse + '/application/get';
+            const path = '/universe/' + this.idUniverse + '/application/get';
             axios.get(path)
                 .then(function (response) {
-                    vm.applications = response.data
+                    vmApplications.applications = response.data
                 })
                 .catch(function (error) {
                     alert(error)
                 })
         },
         accept: function (idApplicant, accept) {
-            const path = '/universe/' + idUniverse +
+            const path = '/universe/' + this.idUniverse +
                 '/application/' + idApplicant + '/accept'
 
             let application = this.applications.find(function (el) {
@@ -62,6 +59,7 @@ var vm = new Vue({
         }
     },
     created: function () {
+        this.idUniverse = document.getElementById('applications').getAttribute('universe')
         this.loadApplications()
     },
     delimiters: ['${', '}']

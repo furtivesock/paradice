@@ -1,6 +1,4 @@
 
-const idUniverse = document.getElementById('stories').getAttribute('universe')
-
 var vm = new Vue({
     el: "#stories",
     data: {
@@ -14,7 +12,8 @@ var vm = new Vue({
             ['top_year', 'Popularité (année)'],
             ['top_all', 'Popularité (de tous les temps)'],
         ],
-        stories: []
+        stories: [],
+        idUniverse: null,
     },
     watch: {
         /* Update the list of stories when the order changes */
@@ -25,7 +24,7 @@ var vm = new Vue({
     methods: {
         /* Redirect to a story when an user clicks on it */
         goToStory: function (idStory) {
-            document.location = '/universe/' + idUniverse + '/story/' + idStory
+            document.location = '/universe/' + this.idUniverse + '/story/' + idStory
         },
         /* Change the list of stories by requesting the server
         the new list according to the new order
@@ -54,7 +53,7 @@ var vm = new Vue({
             }
 
             // Get the new list
-            axios.get('/universe/' + idUniverse + '/story/get/'
+            axios.get('/universe/' + this.idUniverse + '/story/get/'
                 + order + '/' + (date === null ? '' : date.toUTCString()))
                 .then(function (response) {
                     vm.stories = response.data
@@ -66,6 +65,7 @@ var vm = new Vue({
     },
     created: function () {
         // default order is the first one in storiesTypeOrder
+        this.idUniverse = document.getElementById('stories').getAttribute('universe')
         this.storiesOrder = this.storiesTypeOrder[0][0]
     },
     delimiters: ['${', '}']
