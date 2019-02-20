@@ -57,14 +57,14 @@ class OnlineUser implements UserInterface
     /**
      * @var string
      * 
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=180, nullable=true)
      */
     private $avatarURL;
 
     /**
      * @var string
      * 
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="L'email est obligatoire")
      * @Assert\Email(message="L'email donné n'est pas valide")
      */
