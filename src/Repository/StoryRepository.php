@@ -34,7 +34,7 @@ class StoryRepository extends ServiceEntityRepository
      * @param \DateTime $after (optional) Start date limit (inclusive)
      * @return ArrayCollection
      */
-    public function findStoriesAfterDateAndOrdered(int $idUniverse, string $order, ? \DateTime $after)
+    public function findAfterWithOrder(int $idUniverse, string $order, ? \DateTime $after)
     {
 
 

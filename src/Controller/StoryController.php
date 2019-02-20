@@ -15,6 +15,7 @@ use App\Entity\Universe;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\HttpFoundation\Response;
+use App\Form\CreateStoryFormType;
 
 class StoryController extends AbstractController
 {
@@ -32,7 +33,10 @@ class StoryController extends AbstractController
         // Get the story from the database
         $story = $this->getDoctrine()
             ->getRepository(Story::class)
-            ->findOneByUniverseAndStoryId($idUniverse, $idStory);
+            ->findOneBy(array(
+                'id' => $idStory,
+                'universe' => $idUniverse
+            ));
 
             
         // If story is null then it doesn't exist
@@ -62,7 +66,7 @@ class StoryController extends AbstractController
      * @param int $idUniverse Id of the new story's universe
      * @param Request $request Request object to collect and use POST data
      */
-    public function createStory(
+    public function create(
         int $idUniverse,
         Request $request
     ) : Response {
@@ -78,35 +82,14 @@ class StoryController extends AbstractController
         }
 
         // Check if the user is a member of this universe
-        if (is_null($this->getUser()) || !$universe->isMember($this->getUser())) {
-            return $this->createAccessDeniedException('Unable to create a story in this universe');
+        if (is_null($this->getUser()) || !$universe->canCreateStory($this->getUser())) {
+            throw $this->createAccessDeniedException('Unable to create a story in this universe');
         }
 
         $story = new Story();
 
         // Build the form
-        $form = $this->createFormBuilder($story)
-            ->add('name', TextType::class, ['label' => 'Nom de l\'histoire'])
-            ->add('description', TextareaType::class, ['label' => 'Description'])
-            ->add('startDate', DateTimeType::class, ['label' => 'Date de lancement'])
-            ->add('endRegistrationDate', DateTimeType::class, ['label' => 'Date de fin des inscriptions'])
-            ->add('visibility', ChoiceType::class, [
-                'choices' => $this->getDoctrine()
-                    ->getRepository(Visibility::class)
-                    ->findAll(),
-                'choice_label' => function (Visibility $visibility, $key, $value) {
-                    switch ($visibility->getName()) {
-                        case 'ALL':
-                            return 'Par tout le monde';
-                        case 'UNIVERSE':
-                            return 'Par les membres de cet universe';
-                        case 'STORY':
-                            return 'Par les joueurs de cette histoire';
-                    }
-                },
-                'label' => 'Visibilité'
-            ])
-            ->getForm();
+        $form = $this->createForm(CreateStoryFormType::class, $story);
 
         $form->handleRequest($request);
 
@@ -130,18 +113,72 @@ class StoryController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('universe_show', [
-                'idUniverse' => $story->getUniverse()->getId()
+                'idUniverse' => $story->getUniverse()->getId(),
+                'user' => $this->getUser()
             ]);
         }
 
         return $this->render('story/new.html.twig', [
-            'newStoryForm' => $form->createView()
+            'newStoryForm' => $form->createView(),
+            'user' => $this->getUser()
         ]);
 
     }
 
     /**
-     * @Route("/universe/{idUniverse}/story/get/{order}/{afterDate?}", name="story_get")
+     * @Route("/universe/{idUniverse<\d+>}/story/{idStory<\d+>}/status", methods={"POST"}, name="story_status")
+     */
+    public function changeStatus(
+        int $idUniverse,
+        int $idStory,
+        Request $request
+    ) : JsonResponse {
+        $story = $this->getDoctrine()
+            ->getRepository(Story::class)
+            ->findOneBy(array(
+                'id' => $idStory,
+                'universe' => $idUniverse
+            ));
+        
+        // If story is null then it doesn't exist
+        if (is_null($story)) {
+            throw $this->createNotFoundException('Not Found');
+        }
+
+        // Check if the user is the story's author
+        if (is_null($this->getUser()) || !$story->isAuthor($this->getUser())) {
+            throw $this->createAccessDeniedException('Unable to change the status of this story.');
+        }
+
+        $post_data = json_decode($request->getContent(), true);
+
+            // Check if message field is not empty
+        if (!array_key_exists('status', $post_data)) {
+            throw new BadRequestHttpException('Bad Request');
+        }
+
+        $status = $this->getDoctrine()
+            ->getRepository(Status::class)
+            ->findOneBy(array(
+                'id' => $post_data['status']
+            ));
+
+        if (is_null($status)) {
+            throw new BadRequestHttpException('Bad Request');
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $story->setStatus($status);
+
+        $entityManager->persist($story);
+        $entityManager->flush();
+
+        return new JsonResponse();
+    }
+
+    /**
+     * @Route("/universe/{idUniverse<\d+>}/story/get/{order}/{afterDate?}", name="story_get")
      * 
      * Returns a json formated string that contains all stories 
      * from a universe after a given date and with a specific order
@@ -153,7 +190,7 @@ class StoryController extends AbstractController
      *      - "top" : sort by activity (number of message in this story)
      * @param \DateTime $after (optional) Start date limit (inclusive)
      */
-    public function getStories(
+    public function getAll(
         int $idUniverse,
         string $order,
         ? \DateTime $afterDate
@@ -162,12 +199,38 @@ class StoryController extends AbstractController
         // Get stories from the database
         $stories = $this->getDoctrine()
             ->getRepository(Story::class)
-            ->findStoriesAfterDateAndOrdered($idUniverse, $order, $afterDate);
+            ->findAfterWithOrder($idUniverse, $order, $afterDate);
 
         return new JsonResponse(
             $stories->map(function (Story $story) {
                 return $story->toJson();
             })->toArray()
+        );
+    }
+
+    /**
+     * @Route("/universe/{idUniverse<\d+>}/story/{idStory<\d+>}/get", name="story_get_one")
+     */
+    public function getOne(
+        int $idUniverse,
+        int $idStory
+    ) : JsonResponse {
+
+        // Get stories from the database
+        $story = $this->getDoctrine()
+            ->getRepository(Story::class)
+            ->findOneBy(array(
+                'id' => $idStory,
+                'universe' => $idUniverse
+            ));
+
+        // If story is null then it doesn't exist
+        if (is_null($story)) {
+            throw $this->createNotFoundException('Not Found');
+        }
+
+        return new JsonResponse(
+            $story->toJson()
         );
     }
 }

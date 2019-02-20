@@ -36,7 +36,7 @@ class MessageController extends AbstractController
         // Get messages from the database
         $messages = $this->getDoctrine()
             ->getRepository(Message::class)
-            ->findByUniverseStoryChapterIdAfterAndBeforeDate(
+            ->findAfterAndBeforeDate(
                 $idUniverse,
                 $idStory,
                 $idChapter,
@@ -61,7 +61,7 @@ class MessageController extends AbstractController
      * @param int $idChapter Id of the chapter for the message 
      * @param Request $request Request object to collect and use POST data
      */
-    public function postMessages(
+    public function create(
         int $idUniverse,
         int $idStory,
         int $idChapter,
@@ -71,7 +71,7 @@ class MessageController extends AbstractController
         // Get the chapter
         $chapter = $this->getDoctrine()
             ->getRepository(Chapter::class)
-            ->findOneByUniverseAndStoryAndChapterId(
+            ->findOneByIds(
                 $idUniverse,
                 $idStory,
                 $idChapter

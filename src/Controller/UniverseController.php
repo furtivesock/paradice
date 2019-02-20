@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Universe;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\CreateUniverseFormType;
 
 class UniverseController extends AbstractController
 {
@@ -52,12 +54,62 @@ class UniverseController extends AbstractController
         // Get the top universes from the database 
         $topUniverses = $this->getDoctrine()
             ->getRepository(Universe::class)
-            ->findUniversesAfterDateAndOrdered($order, $afterDate);
+            ->findAfterWithOrder($order, $afterDate);
 
         return new JsonResponse(
             $topUniverses->map(function (Universe $universe) {
                 return $universe->toJson();
             })->toArray()
         );
+    }
+
+    /**
+     * @Route("/universe/new", name="universe_new", methods={"GET","POST"})
+     * 
+     * POST : Insert the new unviverse in the database
+     * GET : Show a form to create a new universe
+     * 
+     * @param Request $request Request object to collect and use POST data
+     */
+    public function create(Request $request) : Response
+    {
+
+        // Check if the user is a member of this universe
+        if (is_null($this->getUser())) {
+            return $this->createAccessDeniedException('You lust bo logged in to create universe.');
+        }
+
+        $universe = new Universe();
+
+        // Build the form
+        $form = $this->createForm(CreateUniverseFormType::class, $universe);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $universe = $form->getData();
+
+            // Insert the new story in the database 
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $universe->setName(trim($universe->getName()));
+            $universe->setDescription(trim($universe->getDescription()));
+            $universe->setCreator($this->getUser());
+            $universe->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
+
+            $entityManager->persist($universe);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('universe_show', [
+                'idUniverse' => $universe->getId(),
+                'user' => $this->getUser()
+            ]);
+        }
+
+        return $this->render('universe/new.html.twig', [
+            'newUniverseForm' => $form->createView(),
+            'user' => $this->getUser()
+        ]);
     }
 }

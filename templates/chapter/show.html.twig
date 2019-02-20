@@ -1,17 +1,33 @@
 {% extends 'base.html.twig' %}
 {% block title %}Hello!{% endblock %}
 {% block javascripts %}
+    <script src="/js/status/story.js"></script>
     <script src="/js/chat/messages.js"></script>
 {% endblock %}
 {% block body %}
 
     <h2>{{ chapter.getName }}</h2>
+    {% if user is defined and user is not null %}
+        {% set universe = chapter.story.universe %}
+        {% if not (universe.isMember(user) or universe.isCreator(user) or universe.isModerator(user) or universe.isApplicant(user)) %}
+            <p><a href="/universe/{{ universe.id }}/application/new">Joindre {{ universe.name }}</a></p>
+        {% endif %}
 
-    <div id="messages" universe={{ chapter.getStory.getUniverse.getId }} story={{ chapter.getStory.getId }} chapter={{ chapter.getId }}>
+        {% if chapter.story.isAuthor(user) %}
+            <div id="status" universe="{{ chapter.story.universe.id }}" story="{{ chapter.story.id }}">
+                <select v-model:value="curStatus">
+                    <option :value="status.id" v-for="status in allStatus">${ status.name }</option>
+                </select>
+            </div>
+        {% endif %}
+        
+    {% endif %}
+
+    <div id="messages" universe={{ chapter.story.universe.id }} story={{ chapter.story.id }} chapter={{ chapter.id }}>
         
         {# Show the area for sending a message if the user is a player #}
         {% if user is defined and user is not null %} 
-            {% if chapter.getStory.isPlayer(user) or chapter.getStory.isAuthor(user) %}
+            {% if chapter.story.isPlayer(user) or chapter.story.isAuthor(user) %}
                 <textarea id="messageToSend" name="messageToSend" placeholder="Votre message"></textarea>
                 <button name="sendMessageButton" type="button" v-on:click="sendMessage()">Envoyer</button>
             {% else %}

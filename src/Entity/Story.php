@@ -367,7 +367,7 @@ class Story
             return strcmp($this->visibility->getName(), 'ALL') === 0;
         }
 
-        if ($this->isAuthor($user)) {
+        if ($this->isAuthor($user) || $this->universe->isModerator($user) || $this->universe->isCreator($user)) {
             return true;
         }
 
@@ -435,29 +435,10 @@ class Story
             'startDate' => $this->getStartDate(),
             'endRegistrationDate' => $this->getEndRegistrationDate(),
             'summary' => $this->getSummary(),
-            'universe' => $this->getUniverse()->getId(),
-            'author' => $this->getAuthor()->getId(),
-            'visibility' => $this->getVisibility()->getId(),
-            'status' => $this->getStatus()->getId(),
-            'chapters' => $this->getChapters()->map(function (Chapter $chapter) {
-                return array(
-                    'id' => $chapter->getId()
-                );
-            })->toArray(),
-            'players' => $this->getStoryPlayers()->map(function (StoryPlayer $uStory) {
-                return array(
-                    'id' => $uStory->getPlayer()->getId(),
-                    'acceptationDate' => $uStory->getAcceptationDate()
-                );
-            })->toArray(),
-            'applications' => $this->getStoryApplications()->map(function (StoryApplication $sApplication) {
-                return array(
-                    'id' => $sApplication->getApplicant()->getId(),
-                    'applicationDate' => $sApplication->getApplicationDate(),
-                    'motivation' => $sApplication->getMotivation(),
-                    'accepted' => $sApplication->getAccepted()
-                );
-            })->toArray(),
+            'status' => array(
+                'id' => $this->getStatus()->getId(),
+                'name' => $this->getStatus()->getName()
+            )
         );
     }
 }

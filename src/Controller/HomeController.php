@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends AbstractController
 {
-    private const NB_TOP = 5;
 
     /**
      * @Route("/", name="home")

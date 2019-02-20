@@ -29,14 +29,10 @@ class LocationRepository extends ServiceEntityRepository
      */
     public function findLocationsByUniverseId(int $idUniverse)
     {
-        return new ArrayCollection(
-            $this->createQueryBuilder('l')
+        return $this->createQueryBuilder('l')
                 ->andWhere('l.universe = :id_universe')
                 ->setParameter('id_universe', $idUniverse)
-                ->orderBy('l.name', 'ASC')
-                ->getQuery()
-                ->getResult()
-        );
+                ->orderBy('l.name', 'ASC');
     }
 
     /*
