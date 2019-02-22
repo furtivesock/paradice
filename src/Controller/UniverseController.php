@@ -64,16 +64,14 @@ class UniverseController extends AbstractController
     }
 
     /**
-     * @Route("/universe/new", name="universe_new", methods={"GET","POST"})
+     * @Route("/universe/create", name="universe_create", methods={"POST"})
      * 
      * POST : Insert the new unviverse in the database
-     * GET : Show a form to create a new universe
      * 
      * @param Request $request Request object to collect and use POST data
      */
     public function create(Request $request) : Response
-    {
-
+    {    
         // Check if the user is a member of this universe
         if (is_null($this->getUser())) {
             return $this->createAccessDeniedException('You lust bo logged in to create universe.');
@@ -82,7 +80,9 @@ class UniverseController extends AbstractController
         $universe = new Universe();
 
         // Build the form
-        $form = $this->createForm(CreateUniverseFormType::class, $universe);
+        $form = $this->createForm(CreateUniverseFormType::class, $universe, array(
+            'action' => $this->generateUrl('universe_create')
+        ));
 
         $form->handleRequest($request);
 
@@ -106,6 +106,32 @@ class UniverseController extends AbstractController
                 'user' => $this->getUser()
             ]);
         }
+
+        return $this->render('universe/new.html.twig', [
+            'newUniverseForm' => $form->createView(),
+            'user' => $this->getUser()
+        ]);
+    }
+
+    /**
+     * @Route("/universe/new", name="universe_new", methods={"GET"})
+     * 
+     * GET : Show a form to create a new universe
+     */
+    public function new()
+    {
+        // Check if the user is a member of this universe
+        if (is_null($this->getUser())) {
+            return $this->createAccessDeniedException('You lust bo logged in to create universe.');
+        }
+
+        $universe = new Universe();
+
+        // Build the form
+        $form = $this->createForm(CreateUniverseFormType::class, $universe, array(
+            'action' => $this->generateUrl('universe_create')
+        ));
+
 
         return $this->render('universe/new.html.twig', [
             'newUniverseForm' => $form->createView(),

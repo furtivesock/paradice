@@ -18,7 +18,7 @@ class UniverseApplicationController extends AbstractController
     /**
      * @Route("/universe/{idUniverse<\d+>}/application", name="universe_application")
      */
-    public function index(int $idUniverse) : Response
+    public function index(int $idUniverse): Response
     {
         $universe = $this->getDoctrine()
             ->getRepository(Universe::class)
@@ -45,7 +45,7 @@ class UniverseApplicationController extends AbstractController
     /**
      * @Route("/universe/{idUniverse<\d+>}/application/get", name="universe_application_get")
      */
-    public function getAll(int $idUniverse) : JsonResponse
+    public function getAll(int $idUniverse): JsonResponse
     {
         $universe = $this->getDoctrine()
             ->getRepository(Universe::class)
@@ -65,7 +65,7 @@ class UniverseApplicationController extends AbstractController
 
         $applications = $this->getDoctrine()
             ->getRepository(UniverseApplication::class)
-            ->findAll(array(
+            ->findBy(array(
                 'universe' => $idUniverse
             ));
 
@@ -77,9 +77,9 @@ class UniverseApplicationController extends AbstractController
     }
 
     /**
-     * @Route("/universe/{idUniverse<\d+>}/application/new", methods={"GET", "POST"}, name="universe_application_new")
+     * @Route("/universe/{idUniverse<\d+>}/application/create", methods={"POST"}, name="universe_application_create")
      */
-    public function create(int $idUniverse, Request $request) : Response
+    public function create(int $idUniverse, Request $request): Response
     {
         $universe = $this->getDoctrine()
             ->getRepository(Universe::class)
@@ -102,9 +102,11 @@ class UniverseApplicationController extends AbstractController
             ]);
         }
 
-        if ($universe->isMember($this->getUser()) ||
+        if (
+            $universe->isMember($this->getUser()) ||
             $universe->isCreator($this->getUser()) ||
-            $universe->isModerator($this->getUser())) {
+            $universe->isModerator($this->getUser())
+        ) {
             $this->addFlash('ERROR', 'Vous êtes déjà member de cet univers !');
 
             return $this->redirectToRoute('universe_show', [
@@ -118,7 +120,10 @@ class UniverseApplicationController extends AbstractController
         // Build the form 
         $form = $this->createForm(
             UniverseApplicationFormType::class,
-            $application
+            $application,
+            array(
+                'action' => $this->generateUrl('universe_application_create', ['idUniverse' => $idUniverse])
+            )
         );
 
         $form->handleRequest($request);
@@ -153,13 +158,71 @@ class UniverseApplicationController extends AbstractController
     }
 
     /**
+     * @Route("/universe/{idUniverse<\d+>}/application/new", methods={"GET"}, name="universe_application_new")
+     */
+    public function new(
+        int $idUniverse
+    ): Response {
+        $universe = $this->getDoctrine()
+            ->getRepository(Universe::class)
+            ->find($idUniverse);
+
+        if (is_null($universe)) {
+            throw $this->createNotFoundException('Not Found');
+        }
+
+        if (is_null($this->getUser())) {
+            throw $this->createAccessDeniedException('Access Denied.');
+        }
+
+        if ($universe->isApplicant($this->getUser())) {
+            $this->addFlash('ERROR', 'Vous ne pouvez pas vous inscrire 2 fois pour le même univers !');
+
+            return $this->redirectToRoute('universe_show', [
+                'idUniverse' => $universe->getId(),
+                'user' => $this->getUser()
+            ]);
+        }
+
+        if (
+            $universe->isMember($this->getUser()) ||
+            $universe->isCreator($this->getUser()) ||
+            $universe->isModerator($this->getUser())
+        ) {
+            $this->addFlash('ERROR', 'Vous êtes déjà member de cet univers !');
+
+            return $this->redirectToRoute('universe_show', [
+                'idUniverse' => $universe->getId(),
+                'user' => $this->getUser()
+            ]);
+        }
+
+        $application = new UniverseApplication();
+
+        // Build the form 
+        $form = $this->createForm(
+            UniverseApplicationFormType::class,
+            $application,
+            array(
+                'action' => $this->generateUrl('universe_application_create', ['idUniverse' => $idUniverse])
+            )
+        );
+
+        return $this->render('universe_application/new.html.twig', [
+            'newApplicationForm' => $form->createView(),
+            'universe' => $universe,
+            'user' => $this->getUser()
+        ]);
+    }
+
+    /**
      * @Route("/universe/{idUniverse<\d+>}/application/{idApplicant<\d+>}/accept", methods={"POST"}, name="universe_application_accept")
      */
     public function accept(
         int $idUniverse,
         int $idApplicant,
         Request $request
-    ) : JsonResponse {
+    ): JsonResponse {
 
         $universe = $this->getDoctrine()
             ->getRepository(Universe::class)
@@ -175,6 +238,7 @@ class UniverseApplicationController extends AbstractController
                 'universe' => $idUniverse,
                 'applicant' => $idApplicant
             ));
+        var_dump($idUniverse . '  ' . $idApplicant . '  ' . $application);
 
         if (is_null($application)) {
             throw $this->createNotFoundException('Application Not Found');
@@ -188,14 +252,16 @@ class UniverseApplicationController extends AbstractController
             throw $this->createAccessDeniedException('Access Denied.');
         }
 
-        if ($universe->isMember($application->getApplicant()) ||
+        if (
+            $universe->isMember($application->getApplicant()) ||
             $universe->isCreator($application->getApplicant()) ||
-            $universe->isModerator($application->getApplicant())) {
+            $universe->isModerator($application->getApplicant())
+        ) {
             throw new BadRequestHttpException('Applicant is already a member');
         }
 
         // Get post data
-        $post_data = json_decode ($request->getContent (), true);
+        $post_data = json_decode($request->getContent(), true);
 
         if (!array_key_exists('accept', $post_data) || !is_bool($post_data['accept'])) {
             throw new BadRequestHttpException('Bad Request');
@@ -213,7 +279,6 @@ class UniverseApplicationController extends AbstractController
             $uMember->setAcceptationDate(new \DateTime('now', new \DateTimeZone('UTC')));
 
             $entityManager->persist($uMember);
-
         } else {
             $application->setAccepted(false);
         }
