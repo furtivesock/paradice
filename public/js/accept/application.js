@@ -1,7 +1,8 @@
 var vmApplications = new Vue({
     el: "#applications",
     data: {
-        applications: []
+        applications: [],
+        idUniverse: null
     },
     computed: {
         waitedApplication: function () {

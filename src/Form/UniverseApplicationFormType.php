@@ -13,10 +13,10 @@ class UniverseApplicationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setAction($options['action'])
             ->add('motivation', TextareaType::class, [
                 'label' => 'Votre lettre de motivation'
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

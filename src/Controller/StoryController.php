@@ -28,7 +28,7 @@ class StoryController extends AbstractController
      * @param int $idUniverse Id of the story's universe
      * @param int $idStory Id of the chapter
      */
-    public function show(int $idUniverse, int $idStory) : Response
+    public function show(int $idUniverse, int $idStory): Response
     {
         // Get the story from the database
         $story = $this->getDoctrine()
@@ -38,7 +38,7 @@ class StoryController extends AbstractController
                 'universe' => $idUniverse
             ));
 
-            
+
         // If story is null then it doesn't exist
         if (is_null($story)) {
             throw $this->createNotFoundException('Not Found');
@@ -58,10 +58,9 @@ class StoryController extends AbstractController
     }
 
     /**
-     * @Route("/universe/{idUniverse<\d+>}/story/new", methods={"GET","POST"}, name="story_new")
+     * @Route("/universe/{idUniverse<\d+>}/story/create", methods={"POST"}, name="story_create")
      * 
      * POST : Insert the new story in the database
-     * GET : Show a form to create a new story
      * 
      * @param int $idUniverse Id of the new story's universe
      * @param Request $request Request object to collect and use POST data
@@ -69,7 +68,7 @@ class StoryController extends AbstractController
     public function create(
         int $idUniverse,
         Request $request
-    ) : Response {
+    ): Response {
 
         // Get the universe from the database
         $universe = $this->getDoctrine()
@@ -89,7 +88,9 @@ class StoryController extends AbstractController
         $story = new Story();
 
         // Build the form
-        $form = $this->createForm(CreateStoryFormType::class, $story);
+        $form = $this->createForm(CreateStoryFormType::class, $story, array(
+            'action' => $this->generateUrl('story_create', ['idUniverse' => $idUniverse])
+        ));
 
         $form->handleRequest($request);
 
@@ -122,7 +123,43 @@ class StoryController extends AbstractController
             'newStoryForm' => $form->createView(),
             'user' => $this->getUser()
         ]);
+    }
 
+    /**
+     * @Route("/universe/{idUniverse<\d+>}/story/new", name="story_new", methods={"GET"})
+     * 
+     * GET : Show a form to create a new universe
+     */
+    public function new(
+        int $idUniverse
+    ): Response {
+
+        // Get the universe from the database
+        $universe = $this->getDoctrine()
+            ->getRepository(Universe::class)
+            ->find($idUniverse);
+
+        // If universe is null then it doesn't exist
+        if (is_null($universe)) {
+            throw $this->createNotFoundException('Not Found');
+        }
+
+        // Check if the user is a member of this universe
+        if (is_null($this->getUser()) || !$universe->canCreateStory($this->getUser())) {
+            throw $this->createAccessDeniedException('Unable to create a story in this universe');
+        }
+
+        $story = new Story();
+
+        // Build the form
+        $form = $this->createForm(CreateStoryFormType::class, $story, array(
+            'action' => $this->generateUrl('story_create', ['idUniverse' => $idUniverse])
+        ));
+
+        return $this->render('story/new.html.twig', [
+            'newStoryForm' => $form->createView(),
+            'user' => $this->getUser()
+        ]);
     }
 
     /**
@@ -132,14 +169,14 @@ class StoryController extends AbstractController
         int $idUniverse,
         int $idStory,
         Request $request
-    ) : JsonResponse {
+    ): JsonResponse {
         $story = $this->getDoctrine()
             ->getRepository(Story::class)
             ->findOneBy(array(
                 'id' => $idStory,
                 'universe' => $idUniverse
             ));
-        
+
         // If story is null then it doesn't exist
         if (is_null($story)) {
             throw $this->createNotFoundException('Not Found');
@@ -152,7 +189,7 @@ class StoryController extends AbstractController
 
         $post_data = json_decode($request->getContent(), true);
 
-            // Check if message field is not empty
+        // Check if message field is not empty
         if (!array_key_exists('status', $post_data)) {
             throw new BadRequestHttpException('Bad Request');
         }
@@ -194,7 +231,7 @@ class StoryController extends AbstractController
         int $idUniverse,
         string $order,
         ? \DateTime $afterDate
-    ) : JsonResponse {
+    ): JsonResponse {
 
         // Get stories from the database
         $stories = $this->getDoctrine()
@@ -214,7 +251,7 @@ class StoryController extends AbstractController
     public function getOne(
         int $idUniverse,
         int $idStory
-    ) : JsonResponse {
+    ): JsonResponse {
 
         // Get stories from the database
         $story = $this->getDoctrine()
