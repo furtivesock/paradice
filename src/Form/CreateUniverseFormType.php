@@ -14,6 +14,7 @@ class CreateUniverseFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setAction($options['action'])
             ->add('name', TextType::class, ['label' => 'Nom de l\'univers'])
             ->add('description', TextareaType::class, ['label' => 'Description'])
             ->add('logoURL', TextType::class, ['label' => 'Logo'])
@@ -26,5 +27,6 @@ class CreateUniverseFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Universe::class,
         ]);
+        
     }
 }
