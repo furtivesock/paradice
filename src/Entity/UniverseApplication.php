@@ -12,7 +12,7 @@ class UniverseApplication
 {
 
     /**
-     * @var int 
+     * @var Universe 
      * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="universeApplications")
@@ -21,7 +21,7 @@ class UniverseApplication
     private $universe;
 
     /**
-     * @var int 
+     * @var OnlineUser 
      * 
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="universeApplications")
