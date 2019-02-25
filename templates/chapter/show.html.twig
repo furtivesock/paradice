@@ -12,14 +12,6 @@
         {% if not (universe.isMember(user) or universe.isCreator(user) or universe.isModerator(user) or universe.isApplicant(user)) %}
             <p><a href="/universe/{{ universe.id }}/application/new">Joindre {{ universe.name }}</a></p>
         {% endif %}
-
-        {% if chapter.story.isAuthor(user) %}
-            <div id="status" universe="{{ chapter.story.universe.id }}" story="{{ chapter.story.id }}">
-                <select v-model:value="curStatus">
-                    <option :value="status.id" v-for="status in allStatus">${ status.name }</option>
-                </select>
-            </div>
-        {% endif %}
         
     {% endif %}
 

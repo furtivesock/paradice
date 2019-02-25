@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block title %}Inscription à l'univers {{ universe.name }} {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
 {% block body %}
     <div class="row mt-5">
         <div class="container mt-5">

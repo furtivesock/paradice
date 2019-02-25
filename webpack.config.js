@@ -21,6 +21,8 @@ Encore
     .addEntry('order/stories', './assets/js/order/stories.js')
     .addEntry('filter/top-universe', './assets/js/filter/top-universe.js')
     .addEntry('chat/messages', './assets/js/chat/messages.js')
+    .addEntry('accept/application', './assets/js/accept/application.js')
+    .addEntry('status/story', './assets/js/status/story.js')
     //.addEntry('folder/filename_without_extension', './assets/css_or_js/folder/file')
 
     // will require an extra script tag for runtime.js

@@ -238,7 +238,6 @@ class UniverseApplicationController extends AbstractController
                 'universe' => $idUniverse,
                 'applicant' => $idApplicant
             ));
-        var_dump($idUniverse . '  ' . $idApplicant . '  ' . $application);
 
         if (is_null($application)) {
             throw $this->createNotFoundException('Application Not Found');

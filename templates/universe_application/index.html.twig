@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Hello !{% endblock %}
-{% block javascripts %}
-    <script src="/js/accept/application.js"></script>
+{% block javascripts %}    
+    {{ encore_entry_script_tags('accept/application') }}
 {% endblock %}
 {% block body %}
     <div id="applications" universe="{{ universe.id }}">

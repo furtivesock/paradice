@@ -2,6 +2,8 @@
 {% block title %}Hello!{% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('filter/top-universe') }}
+    {{ encore_entry_script_tags('status/story') }}
     <script>
         function goToChapter(idUniverse, idStory, idChapter) {
             document.location = '/universe/' + idUniverse + '/story/' + idStory + '/chapter/' + idChapter
