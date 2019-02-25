@@ -17,6 +17,7 @@ class CreateStoryFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        ->setAction($options['action'])
         ->add('name', TextType::class, ['label' => 'Nom de l\'histoire'])
         ->add('description', TextareaType::class, ['label' => 'Description'])
         ->add('startDate', DateTimeType::class, ['label' => 'Date de lancement'])

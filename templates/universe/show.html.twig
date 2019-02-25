@@ -7,19 +7,24 @@
 {% block body %}
     <h2>
         {{ universe.getName }}</h2>
+    {% if user is defined and user is not null %}
+        {% if not (universe.isMember(user) or universe.isCreator(user) or universe.isModerator(user) or universe.isApplicant(user)) %}
+            <p><a href="/universe/{{ universe.id }}/application/new">Joindre {{ universe.name }}</a></p>
+        {% endif %}
+    {% endif %}
     <!-- wiki -->
     <h4>Le wiki</h4>
     <ul>
-        {% for type in universe.getTypes if type.parentType is null %}
+        {% for type in universe.types if type.parentType is null %}
             <li>
-                <a href="/universe/{{ universe.getId }}/type/{{ type.getId }}">
-                    {{ type.getName }}</a>
+                <a href="/universe/{{ universe.id }}/type/{{ type.id }}">
+                    {{ type.name }}</a>
             </li>
             <ul>
-                {% for subType in type.getSubTypes %}
+                {% for subType in type.subTypes %}
                     <li>
-                        <a href="/universe/{{ universe.getId }}/type/{{ subType.getId }}">
-                            {{ subType.getName }}</a>
+                        <a href="/universe/{{ universe.id }}/type/{{ subType.id }}">
+                            {{ subType.name }}</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -27,7 +32,7 @@
     </ul>
     <!-- stories -->
     <h4>Les Histoires</h4>
-    {% if user is defined and user is not null and universe.isMember(user) %}
+    {% if user is defined and user is not null and universe.canCreateStory(user) %}
         <div>
             <a href="{{ path('story_new', {idUniverse: universe.getId})}}" >
                 Créer une nouvelle histoire

@@ -1,8 +1,3 @@
-// Constant used for creating paths 
-const idUniverse = document.getElementById('messages').getAttribute('universe')
-const idStory = document.getElementById('messages').getAttribute('story')
-const idChapter = document.getElementById('messages').getAttribute('chapter')
-const intervalReload = 1000 // time interval between each request
 
 /**
  * The main strategy for having a chat :
@@ -14,13 +9,17 @@ const intervalReload = 1000 // time interval between each request
  *      - Because of the time interval between getting the current date and insertion in the database,
  *      some messages can be omitted (ex : insertion at 10h22m32s when creation date is set at 10h22m30s )
  */
-var vm = new Vue({
+var vmMessages = new Vue({
     el: "#messages",
     data: {
         messages: [], // messages in the view
         lastMessages: [], // last messages from the last update
         dateBefore: new Date(), 
         dateAfter: null,
+        idUniverse: null,
+        idStory: null,
+        idChapter: null,
+        intervalReload: 1000
     },
     computed: {
         /* Get the most recent message at first */
@@ -33,9 +32,9 @@ var vm = new Vue({
         loadMessages: function () {
             this.dateBefore = new Date().toUTCString();
 
-            const path = '/universe/' + idUniverse +
-                '/story/' + idStory +
-                '/chapter/' + idChapter +
+            const path = '/universe/' + this.idUniverse +
+                '/story/' + this.idStory +
+                '/chapter/' + this.idChapter +
                 '/message/get/' + this.dateBefore + '/' +
                 (this.dateAfter === null ? '' : this.dateAfter)
 
@@ -51,25 +50,25 @@ var vm = new Vue({
                     for (; i < response.data.length; i++) {
                         let j = 0
                         // We check if there is no duplicate here
-                        for (; j < vm.lastMessages.length; j++) {
-                            if (vm.lastMessages[j].id === response.data[i].id) {
+                        for (; j < vmMessages.lastMessages.length; j++) {
+                            if (vmMessages.lastMessages[j].id === response.data[i].id) {
                                 break
                             }
                         }
 
                         // if there isn't any duplicate we add the message to the view
-                        if (j >= vm.lastMessages.length) {
-                            vm.messages.push(response.data[i])
+                        if (j >= vmMessages.lastMessages.length) {
+                            vmMessages.messages.push(response.data[i])
                         }
 
                         newLastMessages.push(response.data[i])
                     }
 
-                    vm.lastMessages = newLastMessages
+                    vmMessages.lastMessages = newLastMessages
 
                     // change the afterDate to the last message if there is one
-                    if (vm.messages.length > 0) { 
-                        vm.dateAfter = vm.messages[vm.messages.length - 1].creationDate.date
+                    if (vmMessages.messages.length > 0) { 
+                        vmMessages.dateAfter = vmMessages.messages[vmMessages.messages.length - 1].creationDate.date
                     }
                 })
                 .catch(function (error) {
@@ -78,7 +77,7 @@ var vm = new Vue({
                 .then(function () { 
                     // Always try to load new message n seconds after the response of the last request
                     // in order to avoid a new request to finish before an older one
-                    setTimeout(vm.loadMessages, intervalReload)
+                    setTimeout(vmMessages.loadMessages, vmMessages.intervalReload)
                 })
 
         },
@@ -90,9 +89,9 @@ var vm = new Vue({
                 return
             }
             
-            axios.post('/universe/' + idUniverse +
-                '/story/' + idStory +
-                '/chapter/' + idChapter +
+            axios.post('/universe/' + this.idUniverse +
+                '/story/' + this.idStory +
+                '/chapter/' + this.idChapter +
                 '/message/post', {
                     message: message.value.trim()
                 })
@@ -107,6 +106,9 @@ var vm = new Vue({
         }
     },
     created: function () {
+        this.idUniverse = document.getElementById('messages').getAttribute('universe')
+        this.idStory = document.getElementById('messages').getAttribute('story')
+        this.idChapter = document.getElementById('messages').getAttribute('chapter')
         this.loadMessages()
     },
     delimiters: ['${', '}']

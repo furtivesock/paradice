@@ -1,6 +1,4 @@
-const topLimit = 5 // Maximum number of universes in the top
-
-var vm = new Vue({
+var vmTop = new Vue({
     el: "#top5",
     data: {
         topUniversesFilter: null, // chosen filter
@@ -11,7 +9,8 @@ var vm = new Vue({
             ['year', 'CETTE ANNEE'],
             ['all', 'DE TOUS LES TEMPS'],
         ],
-        topUniverses: []
+        topUniverses: [],
+        topLimit: 5
     },
     watch: {
         /* Update the top when the filter changes */
@@ -54,13 +53,14 @@ var vm = new Vue({
             // Get the new top
             axios.get('/universe/get/top/' + (date === null ? '' : date.toUTCString()))
                 .then(function (response) {
-                    vm.topUniverses = []
-                    for (let i = 0; i < response.data.length && i < topLimit; i++) {
-                        vm.topUniverses.push(response.data[i])
+                    vmTop.topUniverses = []
+                    console.log(this.topLimit)
+                    for (let i = 0; i < response.data.length && i < vmTop.topLimit; i++) {
+                        vmTop.topUniverses.push(response.data[i])
                     }
 
-                    for (let i = response.data.length; i < topLimit; i++) {
-                        vm.topUniverses.push({ id: -1 * i, name: '...' })
+                    for (let i = response.data.length; i < vmTop.topLimit; i++) {
+                        vmTop.topUniverses.push({ id: -1 * i, name: '...' })
                     }
                 })
                 .catch(function (error) {

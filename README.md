@@ -137,15 +137,15 @@ Here are the current available feature in our app
 - [ ] Universe
   - [ ] Show all
   - [x] Show one
-  - [ ] Creation
+  - [x] Creation
   - [ ] Show support forum
-  - [ ] Accept or reject application
-  - [ ] Apply to a universe
+  - [x] Accept or reject application
+  - [x] Apply to a universe
 - [ ] Story
   - [x] Show all from a universe
   - [x] Show one
   - [x] Creation
-  - [ ] Change status
+  - [x] Change status
   - [ ] Close inscription
   - [ ] Add players
   - [ ] Accept or reject application

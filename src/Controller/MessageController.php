@@ -61,7 +61,7 @@ class MessageController extends AbstractController
      * @param int $idChapter Id of the chapter for the message 
      * @param Request $request Request object to collect and use POST data
      */
-    public function postMessages(
+    public function create(
         int $idUniverse,
         int $idStory,
         int $idChapter,

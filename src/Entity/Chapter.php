@@ -50,6 +50,9 @@ class Chapter
      * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Location")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull(
+     *      message="Un lieu doit être donné à votre chapitre !"
+     * )
      */
     private $location;
 

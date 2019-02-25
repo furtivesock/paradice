@@ -70,7 +70,7 @@ class ChapterController extends AbstractController
      * @param int $idStory Id of the chapter's story
      * @param Request $request Request object to collect and use POST data
      */
-    public function createChapter(
+    public function create(
         int $idUniverse,
         int $idStory,
         Request $request
@@ -79,10 +79,10 @@ class ChapterController extends AbstractController
         // Get the story from the database
         $story = $this->getDoctrine()
             ->getRepository(Story::class)
-            ->findOneByUniverseAndStoryId(
-                $idUniverse,
-                $idStory
-            );
+            ->findOneBy(array(
+                'id' => $idStory,
+                'universe' => $idUniverse
+            ));
 
         // If story is null then it doesn't exist
         if (is_null($story)) {
@@ -129,12 +129,14 @@ class ChapterController extends AbstractController
             return $this->redirectToRoute('story_show', [
                 'idUniverse' => $story->getUniverse()->getId(),
                 'idStory' => $story->getId(),
+                'user' => $this->getUser()
             ]);
         }
 
         return $this->render('chapter/new.html.twig', [
             'newChapterForm' => $form->createView(),
-            'numero' => is_null($lastChapter) ? 1 : $lastChapter->getNumero() + 1
+            'numero' => is_null($lastChapter) ? 1 : $lastChapter->getNumero() + 1,
+            'user' => $this->getUser()
         ]);
 
 
