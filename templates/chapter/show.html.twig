@@ -10,7 +10,7 @@
     {% if user is defined and user is not null %}
         {% set universe = chapter.story.universe %}
         {% if not (universe.isMember(user) or universe.isCreator(user) or universe.isModerator(user) or universe.isApplicant(user)) %}
-            <p><a href="/universe/{{ universe.id }}/application/new">Joindre {{ universe.name }}</a></p>
+            <p><a href="{{ path('universe_application_new', {idUniverse: universe.id}) }}">Joindre {{ universe.name }}</a></p>
         {% endif %}
         
     {% endif %}
@@ -32,7 +32,7 @@
 
         {# Show the messages #}
         <div :key="message.id" v-for="message in reverseMessages">
-            <h5 :href="'/user/' + message.id + '/profile'">
+            <h5 :href="'/user/' + message.id">
                 <span v-if="message.sender.is_author">${ message.sender.name } (MJ)</span>
                 <span v-else>${ message.sender.firstname } ${ message.sender.lastname }</span>
             </h5>

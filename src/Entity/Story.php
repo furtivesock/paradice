@@ -25,9 +25,6 @@ class Story
      * @var string
      * 
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(
-     *      message="Un nom doit être donné à votre histoire !"
-     * )
      */
     private $name;
 
@@ -49,10 +46,6 @@ class Story
      * @var \DateTime
      * 
      * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\GreaterThan(
-     *      propertyPath = "endRegistrationDate",
-     *      message = "Cette date doit être supérieure à la date de fin des inscriptions"
-     * )
      */
     private $startDate;
 
@@ -60,10 +53,6 @@ class Story
      * @var \DateTime
      * 
      * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\GreaterThanOrEqual(
-     *      "now",
-     *      message = "Cette date doit être supérieure ou égale à la date d'aujourdhui"
-     * )
      */
     private $endRegistrationDate;
 

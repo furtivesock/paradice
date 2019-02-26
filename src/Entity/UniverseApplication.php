@@ -33,9 +33,6 @@ class UniverseApplication
      * @var string
      * 
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(
-     *      message="Votre demande devrait être motivée !"
-     * )
      */
     private $motivation;
 

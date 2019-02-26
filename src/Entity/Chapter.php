@@ -25,9 +25,6 @@ class Chapter
      * @var string
      * 
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(
-     *      message="Un nom doit être donné à votre chapitre !"
-     * )
      */
     private $name;
 
@@ -50,9 +47,6 @@ class Chapter
      * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Location")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotNull(
-     *      message="Un lieu doit être donné à votre chapitre !"
-     * )
      */
     private $location;
 
