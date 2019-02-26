@@ -29,7 +29,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/show.html.twig', [
-            'user' => $user,
+            'userProfile' => $user,
             'me' => $me
         ]);
     }
@@ -58,7 +58,8 @@ class UserController extends AbstractController
         ]);
 
         return $this->render('user/edit.html.twig', [
-            'editUserForm' => $form->createView()
+            'editUserForm' => $form->createView(),
+            'user' => $this->getUser()
         ]);
     }
 
@@ -81,7 +82,8 @@ class UserController extends AbstractController
 
         $form = $this->createForm(UpdateUserFormType::class, $user, [
             'action' => $this->generateUrl('user_update', [
-                'idUser' => $user->getId()
+                'idUser' => $user->getId(),
+                'user' => $this->getUser()
             ])
         ]);
 
@@ -102,7 +104,8 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/edit.html.twig', [
-            'editUserForm' => $form->createView()
+            'editUserForm' => $form->createView(),
+            'user' => $this->getUser()
         ]);
     }
 }

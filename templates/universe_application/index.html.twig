@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Hello !{% endblock %}
 {% block javascripts %}    
+    {{ parent() }}
     {{ encore_entry_script_tags('accept/application') }}
 {% endblock %}
 {% block body %}

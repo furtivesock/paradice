@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LocationController!{% endblock %}
+
+{% block body %}
+<h2>Lieux de l'univers {{ universe.name }}</h2>
+{% include "location/sublocation.html.twig" with {'locations':locations, 'universe': universe, 'user':user} only %}
+{% endblock %}

@@ -1,0 +1,13 @@
+
+<ul>
+{% for location in locations %}
+    <li>{{ location.name }}
+    {% if location.subLocations|length > 0 %}
+        {% include "location/sublocation.html.twig" with {'locations': location.subLocations, 'universe': universe, 'user':user} only %}
+    {% endif %}
+    </li>
+{% endfor %}
+{% if user is defined and user is not null and universe.isCreator(user) %}
+    <li><a href="">Ajouter un lieu</a></li>
+{% endif %}
+</ul>
