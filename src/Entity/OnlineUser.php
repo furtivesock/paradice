@@ -29,7 +29,6 @@ class OnlineUser implements UserInterface
      * @var string
      * 
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank(message="Le nom d'utilisateur est obligatoire")
      */
     private $username;
 
@@ -65,10 +64,15 @@ class OnlineUser implements UserInterface
      * @var string
      * 
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank(message="L'email est obligatoire")
-     * @Assert\Email(message="L'email donné n'est pas valide")
      */
     private $email;
+
+    /**
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="App\Entity\Universe", mappedBy="creator", orphanRemoval=true)
+     */
+    private $createdUniverses;
 
     /**
      * @var ArrayCollection
@@ -120,7 +124,8 @@ class OnlineUser implements UserInterface
     private $messages;
 
     public function __construct()
-    {
+    {   
+        $this->createdUniverses = new ArrayCollection();
         $this->moderatedUniverses = new ArrayCollection();
         $this->universeMembers = new ArrayCollection();
         $this->universeApplications = new ArrayCollection();
@@ -233,6 +238,34 @@ class OnlineUser implements UserInterface
     public function setEmail(string $email) : self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Universe[]
+     */
+    public function getCreatedUniverses() : Collection
+    {
+        return $this->createdUniverses;
+    }
+
+    public function addCreatedUniverse(Universe $createdUniverse) : self
+    {
+        if (!$this->createdUniverses->contains($createdUniverse)) {
+            $this->createdUniverses[] = $createdUniverse;
+            $createdUniverse->addModerator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedUniverse(Universe $createdUniverse) : self
+    {
+        if ($this->createdUniverses->contains($createdUniverse)) {
+            $this->createdUniverses->removeElement($createdUniverse);
+            $createdUniverse->removeModerator($this);
+        }
 
         return $this;
     }

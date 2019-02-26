@@ -8,7 +8,7 @@
         <h4>En attente de confirmation</h4>
         <div v-for="application in waitedApplication">
             <h5>
-                <a :href="'/user/' + application.applicant.id + '/profile'">${ application.applicant.username }</a>
+                <a :href="'/user/' + application.applicant.id">${ application.applicant.username }</a>
             </h5>
             <p>${ application.motivation } | ${ application.application_date.date }</p>
             <button @click="accept(application.applicant.id, true)">Accepter</button>
@@ -17,14 +17,14 @@
         <h4>Acceptés</h4>
         <div v-for="application in acceptedApplication">
             <h5>
-                <a :href="'/user/' + application.applicant.id + '/profile'">${ application.applicant.username }</a>
+                <a :href="'/user/' + application.applicant.id">${ application.applicant.username }</a>
             </h5>
             <p>${ application.motivation } | ${ application.application_date.date }</p>
         </div>
         <h4>Refusés</h4>
         <div v-for="application in refusedApplication">
             <h5>
-                <a :href="'/user/' + application.applicant.id + '/profile'">${ application.applicant.username }</a>
+                <a :href="'/user/' + application.applicant.id">${ application.applicant.username }</a>
             </h5>
             <p>${ application.motivation } | ${ application.application_date.date }</p>
         </div>

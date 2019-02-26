@@ -15,7 +15,7 @@
     {% if user is defined and user is not null %}
         {% set universe = story.universe %}
         {% if not (universe.isMember(user) or universe.isCreator(user) or universe.isModerator(user) or universe.isApplicant(user)) %}
-            <p><a href="/universe/{{ universe.id }}/application/new">Joindre {{ universe.name }}</a></p>
+            <p><a href="{{ path('universe_application_new', {idUniverse: universe.id}) }}">Joindre {{ universe.name }}</a></p>
         {% endif %}
         {% if story.isAuthor(user) %}
             <div id="status" universe="{{ universe.id }}" story="{{ story.id }}">

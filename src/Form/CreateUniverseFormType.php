@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CreateUniverseFormType extends AbstractType
 {
@@ -15,7 +16,14 @@ class CreateUniverseFormType extends AbstractType
     {
         $builder
             ->setAction($options['action'])
-            ->add('name', TextType::class, ['label' => 'Nom de l\'univers'])
+            ->add('name', TextType::class, [
+                'label' => 'Nom de l\'univers',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Un nom doit être donné à votre univers !'
+                    ])
+                ]
+            ])
             ->add('description', TextareaType::class, ['label' => 'Description'])
             ->add('logoURL', TextType::class, ['label' => 'Logo'])
             ->add('bannerURL', TextType::class, ['label' => 'Banner'])

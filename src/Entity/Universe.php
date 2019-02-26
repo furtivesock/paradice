@@ -25,9 +25,6 @@ class Universe
      * @var string
      * 
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(
-     *      message="Un nom doit être donné à votre univers !"
-     * )
      */
     private $name;
 
@@ -48,13 +45,13 @@ class Universe
     /**
      * @var OnlineUser
      * 
-     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser")
+     * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="createdUniverses")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $creator;
 
     /**
-     * @var OnlineUser
+     * @var ArrayCollection
      * 
      * @ORM\ManyToMany(targetEntity="App\Entity\OnlineUser", inversedBy="moderatedUniverses")
      */

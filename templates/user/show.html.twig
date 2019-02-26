@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block body %}
+<h2>{{ user.username }}</h2>
+<p>{{ user.email }}</p>
+<img src="{{ user.avatarURL }}" alt="avatar_{{ user.username }}" />
+{% if me %}
+    {{ render(controller('App\\Controller\\UserController::edit', { 'idUser': user.id })) }}
+{% endif %}
+
+
+
+<h3>Univers créés :</h3>
+{% for universe in user.createdUniverses %}
+    <p><a href="{{ path('universe_show', {idUniverse: universe.id}) }}" >{{ universe.name }}</a></p>
+{% endfor %}
+
+<h3>Univers modérés :</h3>
+{% for universe in user.moderatedUniverses %}
+    <p><a href="{{ path('universe_show', {idUniverse: universe.id}) }}" >{{ universe.name }}</a></p>
+{% endfor %}
+
+<h3>Membre des univers :</h3>
+{% for universeMember in user.universeMembers %}
+    {% set universe = universeMember.universe %}
+    <p><a href="{{ path('universe_show', {idUniverse: universe.id}) }}" >{{ universe.name }}</a></p>
+{% endfor %}
+
+<h3>Personas</h3>
+{% for persona in user.personas %}
+    <p><a href="">{{ persona.firstName }} {{ persona.lastName }}</a></p>
+{% endfor %}
+
+{% endblock %}
