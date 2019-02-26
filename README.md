@@ -127,8 +127,8 @@ Here are the current available feature in our app
 
 - [ ] User
   - [ ] Show all
-  - [ ] Show one Profile
-  - [ ] Modification of profile
+  - [x] Show one Profile
+  - [x] Modification of profile
   - [x] Creation
   - [x] Login
   - [ ] Notification of new message
@@ -159,7 +159,7 @@ Here are the current available feature in our app
   - [x] Send a message in a chapter
 - [ ] Persona
   - [ ] Creation
-  - [ ] Show all from a user
+  - [x] Show all from a user
   - [ ] Show one
   - [ ] Add modification to your persona
 - [ ] Type
