@@ -114,8 +114,7 @@ class StoryController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('universe_show', [
-                'idUniverse' => $story->getUniverse()->getId(),
-                'user' => $this->getUser()
+                'idUniverse' => $story->getUniverse()->getId()
             ]);
         }
 

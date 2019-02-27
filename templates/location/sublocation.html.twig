@@ -8,6 +8,6 @@
     </li>
 {% endfor %}
 {% if user is defined and user is not null and universe.isCreator(user) %}
-    <li><a href="">Ajouter un lieu</a></li>
+    <li><a href="{{ path('location_new', {idUniverse: universe.id}) }}">Ajouter un lieu</a></li>
 {% endif %}
 </ul>

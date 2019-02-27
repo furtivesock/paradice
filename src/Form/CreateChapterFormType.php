@@ -29,7 +29,7 @@ class CreateChapterFormType extends AbstractType
             ->add('location', EntityType::class, [
                 'class' => Location::class,
                 'query_builder' => function (LocationRepository $er) use ($options) {
-                    return $er->findLocationsByUniverseId($options['id']);
+                    return $er->findLocationsByUniverseId($options['universe_id']);
                 },
                 'choice_label' => 'name',
                 'label' => 'Lieu',
@@ -45,7 +45,7 @@ class CreateChapterFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Chapter::class,
-            'id' => null,
+            'universe_id' => null
         ]);
     }
 }

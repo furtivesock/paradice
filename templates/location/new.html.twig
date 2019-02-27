@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nouveau lieu{% endblock %}
+{% block body %}
+    <div class="row mt-5">
+        <div class="container mt-5">
+            <div class="offset-md-3 offset-lg-3 col-xs-12 col-sm-12 col-md-6 col-lg-6 align-middle">
+                <h1 class="mt-5 h3 mb-4 font-weight-normal text-center">Nouveau lieu</h1>
+                {{ form_start(newLocationForm, {attr: {id: 'new-location-form'} }) }}
+                    
+                    {# Location's name  #}
+                    {{ form_row(newLocationForm.name , {attr: {class: 'form-control mb-3'} }) }}
+
+                    {# Location's description  #}
+                    {{ form_row(newLocationForm.description , {attr: {class: 'form-control mb-3'} }) }}
+
+                    {# Location's image  #}
+                    {{ form_row(newLocationForm.imageURL , {attr: {class: 'form-control mb-3'} }) }}
+
+                    {# Parent location  #}
+                    {{ form_row(newLocationForm.parentLocation , {attr: {class: 'form-control mb-3'} }) }}
+
+                    <button class="btn btn-lg btn-primary" style="width: 100%;">Créer</button>
+                {{ form_end(newLocationForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

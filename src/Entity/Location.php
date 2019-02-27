@@ -100,12 +100,12 @@ class Location
         return $this;
     }
 
-    public function getImageURL(): ?string
+    public function getImageURL()
     {
         return $this->imageURL;
     }
 
-    public function setImageURL(?string $imageURL): self
+    public function setImageURL($imageURL): self
     {
         $this->imageURL = $imageURL;
 

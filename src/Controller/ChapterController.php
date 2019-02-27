@@ -6,11 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Chapter;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Location;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\Story;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\CreateChapterFormType;
 
@@ -106,7 +102,7 @@ class ChapterController extends AbstractController
         $form = $this->createForm(
             CreateChapterFormType::class, 
             $chapter, 
-            array('id' => $story->getUniverse()->getId())
+            array('universe_id' => $story->getUniverse()->getId())
         );
 
         $form->handleRequest($request);
