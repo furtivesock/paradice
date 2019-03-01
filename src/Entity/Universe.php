@@ -72,15 +72,11 @@ class Universe
     private $universeApplications;
 
     /**
-     * @var string
-     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $logoURL;
 
     /**
-     * @var string
-     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $bannerURL;
@@ -258,12 +254,12 @@ class Universe
         return $this;
     }
 
-    public function getLogoURL() : ? string
+    public function getLogoURL()
     {
         return $this->logoURL;
     }
 
-    public function setLogoURL(? string $logoURL) : self
+    public function setLogoURL($logoURL) : self
     {
 
         $this->logoURL = $logoURL;
@@ -271,12 +267,12 @@ class Universe
         return $this;
     }
 
-    public function getBannerURL() : ? string
+    public function getBannerURL()
     {
         return $this->bannerURL;
     }
 
-    public function setBannerURL(? string $bannerURL) : self
+    public function setBannerURL($bannerURL) : self
     {
         $this->bannerURL = $bannerURL;
 

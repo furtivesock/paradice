@@ -5,7 +5,7 @@
 {% block body %}
 <h2>{{ userProfile.username }}</h2>
 <p>{{ userProfile.email }}</p>
-<img src="{{ userProfile.avatarURL }}" alt="avatar_{{ userProfile.username }}" />
+<img src="{{ img_directory }}/{{ userProfile.avatarURL }}" alt="avatar_{{ userProfile.username }}" />
 {% if me %}
     {{ render(controller('App\\Controller\\UserController::edit', { 'idUser': userProfile.id })) }}
 {% endif %}

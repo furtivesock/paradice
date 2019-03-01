@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\CreateUniverseFormType;
+use App\Service\FileUploaderService;
 
 class UniverseController extends AbstractController
 {
@@ -70,7 +71,7 @@ class UniverseController extends AbstractController
      * 
      * @param Request $request Request object to collect and use POST data
      */
-    public function create(Request $request) : Response
+    public function create(Request $request, FileUploaderService $fileUploader) : Response
     {    
         // Check if the user is a member of this universe
         if (is_null($this->getUser())) {
@@ -87,16 +88,20 @@ class UniverseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $filenameBanner = $fileUploader->upload($universe->getBannerURL());
+            $filenameLogo = $fileUploader->upload($universe->getLogoURL());
+
             $universe = $form->getData();
 
             // Insert the new story in the database 
-
             $entityManager = $this->getDoctrine()->getManager();
 
             $universe->setName(trim($universe->getName()));
             $universe->setDescription(trim($universe->getDescription()));
             $universe->setCreator($this->getUser());
             $universe->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
+            $universe->setBannerURL($filenameBanner);
+            $universe->setLogoURL($filenameLogo);
 
             $entityManager->persist($universe);
             $entityManager->flush();

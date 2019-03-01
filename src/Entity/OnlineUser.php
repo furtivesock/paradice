@@ -54,8 +54,6 @@ class OnlineUser implements UserInterface
     private $creationDate;
 
     /**
-     * @var string
-     * 
      * @ORM\Column(type="string", length=180, nullable=true)
      */
     private $avatarURL;
@@ -218,12 +216,12 @@ class OnlineUser implements UserInterface
         return $this;
     }
 
-    public function getAvatarURL() : ? string
+    public function getAvatarURL()
     {
         return $this->avatarURL;
     }
 
-    public function setAvatarURL(? string $avatarURL) : self
+    public function setAvatarURL($avatarURL) : self
     {
         $this->avatarURL = $avatarURL;
 

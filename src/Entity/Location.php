@@ -35,8 +35,6 @@ class Location
     private $description;
 
     /**
-     * @var string
-     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageURL;

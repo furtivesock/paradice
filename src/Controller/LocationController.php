@@ -89,9 +89,7 @@ class LocationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-             /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            $file = $location->getimageURL();
-            $filename = $fileUploader->upload($file);
+            $filename = $fileUploader->upload($location->getimageURL());
 
             $location = $form->getData();
         

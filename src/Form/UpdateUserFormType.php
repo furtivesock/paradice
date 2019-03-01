@@ -6,7 +6,8 @@ use App\Entity\OnlineUser;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class UpdateUserFormType extends AbstractType
 {
@@ -14,8 +15,18 @@ class UpdateUserFormType extends AbstractType
     {
         $builder
             ->setAction($options['action'])
-            ->add('avatarURL', TextType::class, [
+            ->add('avatarURL', FileType::class, [
+                'data_class' => null,
                 'label' => 'Votre avatar',
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/png'
+                        ],
+                        'mimeTypesMessage' => 'Format accepté : PNG',
+                    ])
+                ]
             ])
         ;
     }

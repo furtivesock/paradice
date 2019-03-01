@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\UpdateUserFormType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\OnlineUser;
+use App\Service\FileUploaderService;
 
 class UserController extends AbstractController
 {
@@ -24,7 +25,7 @@ class UserController extends AbstractController
         }
 
         $me = true;
-        if (!is_null($this->getUser()) && $this->getUser()->getId() !== $user->getId()) {
+        if (is_null($this->getUser()) || $this->getUser()->getId() !== $user->getId()) {
             $me = false;
         }
 
@@ -47,7 +48,7 @@ class UserController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        if (!is_null($this->getUser()) && $this->getUser()->getId() !== $user->getId()) {
+        if (is_null($this->getUser()) || $this->getUser()->getId() !== $user->getId()) {
             throw $this->createAccessDeniedException();
         }
 
@@ -66,7 +67,7 @@ class UserController extends AbstractController
     /**
      * @Route("/user/{idUser}", methods={"POST"}, name="user_update")
      */
-    public function update(Request $request, int $idUser)
+    public function update(Request $request, FileUploaderService $fileUploader, int $idUser)
     {
         $user = $this->getDoctrine()
             ->getRepository(OnlineUser::class)
@@ -90,11 +91,12 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
+            $filename = $fileUploader->upload($user->getAvatarURL());
 
             // Update the user in the database 
-
             $entityManager = $this->getDoctrine()->getManager();
+
+            $user->setAvatarURL($filename);
             $entityManager->persist($user);
             $entityManager->flush();
 

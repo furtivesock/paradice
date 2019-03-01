@@ -33,7 +33,6 @@ class Characteristic
     private $description;
 
     /**
-     * @var string
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -77,12 +76,12 @@ class Characteristic
         return $this;
     }
 
-    public function getImageURL(): ?string
+    public function getImageURL()
     {
         return $this->imageURL;
     }
 
-    public function setImageURL(?string $imageURL): self
+    public function setImageURL($imageURL): self
     {
         $this->imageURL = $imageURL;
 
