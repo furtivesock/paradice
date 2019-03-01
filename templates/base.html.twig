@@ -17,10 +17,9 @@ Else, it shows a way to log into its account or to create an new one.
         {# This stylesheets will be used in every view #}
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
-            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('css/main') }}
             <!-- Renders a link tag (if your module requires any CSS)
             <link rel="stylesheet" href="/build/app.css"> -->
-            <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" rel="stylesheet"/>
         {% endblock %}
 
         {# Thanks to the cache, Vue.js and axios will only be loaded once 
@@ -55,7 +54,7 @@ Else, it shows a way to log into its account or to create an new one.
 
         {# Javascript related code will be loaded here #}
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+            {# encore_entry_script_tags('app') #}
 
             <!-- Renders app.js & a webpack runtime.js file
             <script src="/build/runtime.js"></script>
