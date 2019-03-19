@@ -13,13 +13,12 @@ Else, it shows a way to log into its account or to create an new one.
         <title>
             {% block title %}Welcome!{% endblock %}
         </title>
-
+        {# Fonts #}
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,600i,700,700i,800,800i" rel="stylesheet">
         {# This stylesheets will be used in every view #}
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
-            {{ encore_entry_link_tags('css/main') }}
-            <!-- Renders a link tag (if your module requires any CSS)
-            <link rel="stylesheet" href="/build/app.css"> -->
+            {{ encore_entry_link_tags('css/app') }}
         {% endblock %}
 
         {# Thanks to the cache, Vue.js and axios will only be loaded once 
@@ -54,11 +53,12 @@ Else, it shows a way to log into its account or to create an new one.
 
         {# Javascript related code will be loaded here #}
         {% block javascripts %}
-            {# encore_entry_script_tags('app') #}
+            {{ encore_entry_script_tags('app') }}
 
             <!-- Renders app.js & a webpack runtime.js file
             <script src="/build/runtime.js"></script>
             <script src="/build/app.js"></script> -->
         {% endblock %}
     </body>
+
 </html>

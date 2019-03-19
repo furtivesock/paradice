@@ -1,8 +1,7 @@
 // assets/css/global.scss
+@import "_customVariables";
 
 // customize some Bootstrap variables
-$brand-primary: darken(MediumSeaGreen, 20%);
-
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";

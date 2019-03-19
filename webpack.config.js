@@ -17,7 +17,7 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
-    .addStyleEntry('css/main', './assets/css/main.scss')
+    .addStyleEntry('css/app', './assets/sass/app.scss')
     .addEntry('js/order/stories', './assets/js/order/stories.js')
     .addEntry('js/filter/top-universe', './assets/js/filter/top-universe.js')
     .addEntry('js/chat/messages', './assets/js/chat/messages.js')
