@@ -15,6 +15,8 @@ Else, it shows a way to log into its account or to create an new one.
         </title>
         {# Fonts #}
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,600i,700,700i,800,800i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
+        
         {# This stylesheets will be used in every view #}
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
@@ -53,7 +55,6 @@ Else, it shows a way to log into its account or to create an new one.
 
         {# Javascript related code will be loaded here #}
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
 
             <!-- Renders app.js & a webpack runtime.js file
             <script src="/build/runtime.js"></script>

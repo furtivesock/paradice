@@ -1,20 +1,23 @@
 // Color palette
 
-$primary: #6E4468;
-$primary-light: #896378;
-$primary-dark: #4B2A53;
+$primary: #A2D5AC;
+$base: #E6EFC2;
 
-$secondary: #271637;
-$secondary-dark: #0C081C;
+$secondary: #3AAFA9;
+$secondary-dark: #557C83;
 
-$neutral: #A5878F;
-$neutral-light: #C0B2B2;
+$neutral: #5B5150;
+$neutral-light: #756867;
 
-// Font
+// Fonts
 
 $main-font: "Open Sans";
+$secondary-font: "Sriracha", cursive;
 
-// Customized Bootstrap variables
+/* Customized Bootstrap variables */
 
-$body-bg: $neutral;
+// Colors
+$body-bg: $base;
+
+// Fonts
 $font-family-sans-serif: $main-font;
