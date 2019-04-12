@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}Paradice &#8734; {{ universe.getName }}{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('js/order/stories') }}
+{% endblock %}
+{% block body %}
+    <!-- Wikibar -->
+    <div class="wiki-navbar">
+        <h4>Le wiki</h4>
+        <ul class="wiki-list">
+            {% for type in universe.types if type.parentType is null %}
+                <li>
+                    <a href="/universe/{{ universe.id }}/type/{{ type.id }}">
+                        {{ type.name }}</a>
+                </li>
+                <ul>
+                    {% for subType in type.subTypes %}
+                        <li>
+                            <a href="/universe/{{ universe.id }}/type/{{ subType.id }}">
+                                {{ subType.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- / Wikibar -->
+    <div class="universe-content">
+        {% block universe%}
+            <!-- Header -->
+                <h1>{{ universe.getName }}</h1>
+            <!-- /Header -->
+        {% endblock %}
+    </div>
+{% endblock %}

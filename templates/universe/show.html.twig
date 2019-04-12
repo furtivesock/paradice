@@ -1,52 +1,46 @@
-{% extends 'base.html.twig' %}
-{% block title %}Hello!{% endblock %}
+{% extends 'universe/base.html.twig' %}
+{% block title %}{{ parent() }}{% endblock %}
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('js/order/stories') }}
 {% endblock %}
-{% block body %}
-    <h2>
-        {{ universe.getName }}</h2>
+{% block universe %}
+    {{ parent() }}
+    <!-- Inscription to universe -->
     {% if user is defined and user is not null %}
         {% if not (universe.isMember(user) or universe.isCreator(user) or universe.isModerator(user) or universe.isApplicant(user)) %}
             <p><a href="{{ path('universe_application_new', {idUniverse: universe.id}) }}">Joindre {{ universe.name }}</a></p>
         {% endif %}
     {% endif %}
-    <!-- wiki -->
-    <h4>Le wiki</h4>
-    <ul>
-        {% for type in universe.types if type.parentType is null %}
-            <li>
-                <a href="/universe/{{ universe.id }}/type/{{ type.id }}">
-                    {{ type.name }}</a>
-            </li>
-            <ul>
-                {% for subType in type.subTypes %}
-                    <li>
-                        <a href="/universe/{{ universe.id }}/type/{{ subType.id }}">
-                            {{ subType.name }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-    </ul>
-    <!-- stories -->
-    <h4>Les Histoires</h4>
-    {% if user is defined and user is not null and universe.canCreateStory(user) %}
-        <div>
-            <a href="{{ path('story_new', {idUniverse: universe.getId})}}" >
-                Créer une nouvelle histoire
-            </a>
-        </div>
-    {% endif %}
+    <!-- /Inscription to universe -->
+    <!-- Stories list -->
+    
     <div id="stories" universe="{{ universe.getId }}">
-        <select v-model:value="storiesOrder">
-            <option :value="order[0]" v-for="order in storiesTypeOrder">${ order[1] }</option>
-        </select>
-        <div class="story-row" @click="goToStory(story.id)" :key="story.id" v-for="story in stories">
-            <h5>${ story.name }</h5>
-            <p><i><b>${ story.description }</b></i></p>
-            <p><i>${ story.summary }</i><p>
+        <div class="story-list">
+            <div class="ribbon">
+                <h2 class="ribbon-content">Les Histoires</h2>
+                {% if user is defined and user is not null and universe.canCreateStory(user) %}
+                    <div class="create-button">
+                        <a href="{{ path('story_new', {idUniverse: universe.getId})}}" >
+                            Créer une nouvelle histoire
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Story filter -->
+            <div class="select">Filtrer par :
+                <select v-model:value="storiesOrder">
+                    <option :value="order[0]" v-for="order in storiesTypeOrder">${ order[1] }</option>
+                </select>
+            </div>
+
+            <div class="story-row" @click="goToStory(story.id)" :key="story.id" v-for="story in stories">
+                <h3>&#10002; ${ story.name }</h3>
+                <div class="story-description">${ story.description }</div>
+                <div class="story-summary">${ story.summary }</div>
+            </div>
         </div>
     </div>
+    <!-- /Stories list -->
 {% endblock %}
