@@ -213,16 +213,16 @@ Here are the current available feature in our app
   - [x] Show top universes
 - [ ] Universe
   - [ ] Show all
-  - [ ] Show one
-  - [ ] Create
+  - [X] Show one
+  - [X] Create
   - [ ] Show support forum
   - [ ] Accept or reject application
   - [ ] Apply to a universe
   - [ ] Delete (Moderators)
 - [ ] Story
-  - [ ] Show all from a Universe
-  - [ ] Show one
-  - [ ] Create
+  - [X] Show all from a Universe
+  - [X] Show one
+  - [X] Create
   - [ ] Change status
   - [ ] Close inscription
   - [ ] Add players
@@ -230,12 +230,12 @@ Here are the current available feature in our app
   - [ ] Apply to a story
   - [ ] Delete
 - [ ] Chapter
-  - [ ] Show all from a Story
-  - [ ] Show one
-  - [ ] Create
+  - [X] Show all from a Story
+  - [X] Show one
+  - [X] Create
   - [ ] End a chapter
-- [ ] Message
-  - [ ] Send a message in a chapter
+- [X] Message
+  - [X] Send a message in a chapter
 - [ ] Persona
   - [ ] Create
   - [ ] Show all from a user
