@@ -1,5 +1,5 @@
-// assets/js/app.js
+// app.js
 
-require('../css/app.css');
-
-console.log('Hello Webpack Encore');
+const $ = require('jquery');
+// this "modifies" the jquery module: adding behavior to it
+require('bootstrap')

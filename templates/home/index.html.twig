@@ -1,26 +1,37 @@
 {% extends 'base.html.twig' %}
-{% block title %}Hello !{% endblock %}
+{% block title %}Bienvenue sur Paradice !{% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('filter/top-universe') }}
+    {{ encore_entry_script_tags('js/filter/top-universe') }}
 {% endblock %}
 {% block body %}
+    <h1>
+        Bonjour et bienvenu à toi, {% if user is defined and user is not null %} {{ user.getUsername }} {% else %} cher visiteur {% endif %} !
+    </h1>
+    Paradice est, mis à part un cabaret, une plateforme qui regroupe des univers Role Play textuels où vous pouvez y écrire
+    à travers des histoires collaboratives ou/et simplement rédiger vos wikis pour le relier à votre plateforme de role play
+    (forums, Discord...).
+    <br>Malencontreusement, le site est en cours de construction, mais vous pouvez explorer certaines pages qui ne sont pas totalement
+    abouties.
+     
     <div class="row">
-        <div class="container">
-            <div class="col-md-6 p-0" id="top5">
-                {# Select field for the filter of the top 5 universes  #}
-                <h3 class="text-center heading-top p-1">TOP 5 UNIVERS
-                    <select v-model:value="topUniversesFilter">
+        <div class="col-md-6 p-0" id="top5">
+            {# Select field for the filter of the top 5 universes  #}
+            {# Show the top 5 universes #}
+            <table style="width: 100%;" class="table-top-universe">
+                <thead>
+                    <td colspan="2">
+                        TOP 5 UNIVERS
+                        <select v-model:value="topUniversesFilter">
                         <option :value="type[0]" v-for="type in topUniversesTypeFilter">${ type[1] }</option>
-                    </select>
-                </h3>
-
-                {# Show the top 5 universes #}
-                <table style="width: 100%;">
-                    <tr>
-                        <th class="text-center">Classement</th>
-                        <th class="text-center">Universe</th>
-                    </tr>
+                        </select>
+                    </td>
+                </thead>
+                <tr class="table-top-universe-column-names">
+                    <td class="text-center">Classement</td>
+                    <td class="text-center">Univers</td>
+                </tr>
+                <tbody>
                     <tr :key="universe.id" @click="goToUniverse(universe.id)" class="top-universe-row" 
                     v-for="(universe, index) in topUniverses">
                         <td class="text-center">
@@ -30,8 +41,8 @@
                             ${ universe.name }
                         </td>
                     </tr>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}

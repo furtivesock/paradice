@@ -1,0 +1,54 @@
+$border-radius-base: 0px;
+$border-radius-small: 0px;
+$border-radius-large: 0px;
+
+// Color palette
+
+$primary:  #5ab9a8;
+$primary-dark: #1e606e;
+$base: #c4f0c2;
+
+$secondary: #050403;
+
+$neutral: #e6efc2;
+
+// Fonts
+
+$main-font: "Open Sans";
+$secondary-font: "Sriracha", cursive;
+
+/* Customized Bootstrap variables */
+
+// Colors
+$body-bg: $base;
+
+$brand-primary: $primary;
+
+// Fonts
+$font-family-sans-serif: $main-font;
+$text-color: $secondary;
+
+// Inputs
+$input-border-focus: $primary;
+$input-border: $neutral;
+$input-bg: $neutral;
+$input-color: $primary;
+$placeholder-color: rgba(0,0,0,0.2);
+
+// Buttons
+$btn-default-color: $primary;
+$btn-default-bg: $primary-dark;
+$btn-default-border: $primary-dark;
+
+$btn-primary-color: $primary;
+$btn-primary-bg: $primary-dark;
+$btn-primary-border: $primary-dark;
+
+// Navbar
+$navbar-brand-width: '100%';
+$navbar-brand-height: auto;
+
+$navbar-max-width: 175px;
+$navbar-inverse-bg: $primary-dark;
+$navbar-inverse-color: $primary;
+$navbar-inverse-link-color: $primary;

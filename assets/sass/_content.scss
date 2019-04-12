@@ -1,0 +1,24 @@
+.main-content {
+  padding: 20px;
+}
+
+.main-content h1 {
+  color: $primary-dark;
+  font-family: $secondary-font;
+}
+  
+@media (min-width: 768px) {
+  .main-content {
+    margin-left: 200px;
+    padding: 20px;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 576px) {
+
+  .main-content {
+    padding: 0 20px;
+  }
+
+}
+

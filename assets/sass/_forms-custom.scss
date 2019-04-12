@@ -1,0 +1,21 @@
+.form-control {
+    width: 100%!important;
+}
+
+// Placeholder
+
+.form-control::-webkit-input-placeholder { color: $placeholder-color!important; }  /* WebKit, Blink, Edge */
+.form-control:-moz-placeholder { color: $placeholder-color!important; }  /* Mozilla Firefox 4 to 18 */
+.form-control::-moz-placeholder { color: $placeholder-color!important; } 
+
+// Search bar
+
+.form-search {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.form-search .form-control {
+    width: 70%!important;
+}

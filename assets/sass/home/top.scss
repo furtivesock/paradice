@@ -1,0 +1,27 @@
+.table-top-universe thead {
+    background-color: $primary;
+    color: $neutral;
+    font-size: 20px;
+}
+
+.table-top-universe td {
+    text-align: center;
+    padding: 10px;
+}
+
+.table-top-universe thead select {
+    color: $primary-dark;
+    background-color: $neutral;
+}
+
+.table-top-universe-column-names {
+    background-color: darken($primary,10%)!important;
+}
+
+.table-top-universe tbody {
+    background-color: $neutral;
+}
+
+.table-top-universe tbody tr:nth-child(odd) {
+    background-color: rgba(0,0,0,0.1);
+}

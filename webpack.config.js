@@ -8,6 +8,13 @@ Encore
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 
+    // Images
+
+    .copyFiles({
+        from: './assets/images',
+        to: 'images/[path][name].[ext]'
+    })
+
     /*
      * ENTRY CONFIG
      *
@@ -17,17 +24,20 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
-    .addEntry('app', './assets/js/app.js')
-    .addEntry('order/stories', './assets/js/order/stories.js')
-    .addEntry('filter/top-universe', './assets/js/filter/top-universe.js')
-    .addEntry('chat/messages', './assets/js/chat/messages.js')
-    .addEntry('accept/application', './assets/js/accept/application.js')
-    .addEntry('status/story', './assets/js/status/story.js')
-    //.addEntry('folder/filename_without_extension', './assets/css_or_js/folder/file')
+    .addStyleEntry('css/app', './assets/sass/app.scss')
+    
+    .addEntry('js/app', './assets/js/app.js')
+    .addEntry('js/order/stories', './assets/js/order/stories.js')
+    .addEntry('js/filter/top-universe', './assets/js/filter/top-universe.js')
+    .addEntry('js/chat/messages', './assets/js/chat/messages.js')
+    .addEntry('js/accept/application', './assets/js/accept/application.js')
+    .addEntry('js/status/story', './assets/js/status/story.js')
+    //.addEntry('js/folder/filename_without_extension', './assets/js/folder/file.js')
+    //.addStyleEntry('css/folder/your_cssfile_without_extension', './assets/css/your_file.scss')
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
-    .enableSingleRuntimeChunk()
+    .disableSingleRuntimeChunk()
 
     /*
      * FEATURE CONFIG
@@ -49,7 +59,7 @@ Encore
     //.enableTypeScriptLoader()
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
