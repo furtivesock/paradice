@@ -80,6 +80,12 @@ About the front, you have to type this command which will install Encore, Bootst
 yarn install
 ```
 
+Then, build once the assets/ files into public/build/ folder :
+
+```sh
+yarn encore dev
+```
+
 If you want some data to test our website you can type this command to insert data from the DataFixtures directory in your newly created database :
 
 ```sh
