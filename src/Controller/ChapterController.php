@@ -129,7 +129,7 @@ class ChapterController extends AbstractController
             return $this->redirectToRoute('story_show', [
                 'idUniverse' => $story->getUniverse()->getId(),
                 'idStory' => $story->getId(),
-                'user' => $this->getUser()
+                'user' => $this->getUser(),
             ]);
         }
 
