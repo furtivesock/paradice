@@ -9,14 +9,17 @@ Else, it shows a way to log into its account or to create an new one.
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8"/>
+        <meta charset="UTF-8" />
         <title>
-            {% block title %}Welcome!{% endblock %}
+            {% block title %}Welcome!
+            {% endblock %}
         </title>
         {# Fonts #}
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:600,600i,700,700i,800,800i" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
-        
+        <link
+        crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet">
+
         {# This stylesheets will be used in every view #}
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
@@ -24,42 +27,80 @@ Else, it shows a way to log into its account or to create an new one.
         {% endblock %}
 
         {# Thanks to the cache, Vue.js and axios will only be loaded once 
-        so that's why it is loaded for all the views #}
+                        so that's why it is loaded for all the views #}
         {% block vue %}
             <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         {% endblock %}
     </head>
     <body>
-        {# Show user related information if he is connected #}
-        {% block user %}
-            {% if user is defined and user is not null %}
-                <p>Bonjour {{ user.getUsername }}!</p>
-                <a href="/user/{{ user.getId }}/profile">Mon profil</a>
-                <a href="{{ path('app_logout') }}">Me déconnecter</a>
-                <a href="{{ path('universe_new') }}">Créer mon univers</a>
-                {% for universeMember in user.getUniverseMembers %}
-                    {% set universe = universeMember.getUniverse %}
-                    <a href="{{ path('universe_show', {'idUniverse': universe.getId})}}">
-                        {{ universe.getName }}
-                    </a>
-                {% endfor %}
-            {% else %}
-                <a href="{{ path('app_login') }}">Me connecter</a>    
-                <a href="{{ path('app_register') }}">Créer un compte</a>               
-            {% endif %}
-        {% endblock %}
+        <nav class="navbar navbar-inverse" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img src="{{ asset('build/images/logo.png') }}"></a>
+            </div>
 
-        {# Content from the view will be loaded here #}
-        {% block body %}{% endblock %}
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul
+                    class="nav navbar-nav">
+                    {# Show user related information if he is connected #}
+                    {% block user %}
+                        {% if user is defined and user is not null %}
+                            <li>
+                                <p>{{ user.getUsername }}!</p>
+                            </li>
+                            <li>
+                                <a href="/user/{{ user.getId }}/profile">Mon profil</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('app_logout') }}">Me déconnecter</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('universe_new') }}">Créer mon univers</a>
+                            </li>
+                            {% for universeMember in user.getUniverseMembers %}
+                                {% set universe = universeMember.getUniverse %}
+                                <li>
+                                    <a href="{{ path('universe_show', {'idUniverse': universe.getId})}}">
+                                        {{ universe.getName }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li>
+                                <a href="{{ path('app_login') }}">Me connecter</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('app_register') }}">Créer un compte</a>
+                            </li>
+                        {% endif %}
+                    {% endblock %}
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">Support</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
 
-        {# Javascript related code will be loaded here #}
+        <div class="main-content">
+            {# Content from the view will be loaded here #}
+            {% block body %}{% endblock %}
+        </div>
+
         {% block javascripts %}
-
-            <!-- Renders app.js & a webpack runtime.js file
-            <script src="/build/runtime.js"></script>
-            <script src="/build/app.js"></script> -->
+            <script src="{{ asset('build/js/app.js') }}"></script>
         {% endblock %}
+
     </body>
 
 </html>

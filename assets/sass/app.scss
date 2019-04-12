@@ -1,7 +1,30 @@
-// assets/css/global.scss
-@import "_customVariables";
+@import "_variables-custom";
 
-// customize some Bootstrap variables
+//Bootstrap variables
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_variables";
+// Bootstrap Mixins
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_mixins";
 
-// the ~ allows you to reference things in node_modules
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "_vertical-navbar";
+@import "_content";
+@import "_forms-custom";
+
+// Bootstrap styles
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_scaffolding";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_normalize";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_grid";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_media";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_print";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_utilities";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_responsive-utilities";
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_forms";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_buttons";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_input-groups";
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_component-animations";
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_navs";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_navbar";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_close";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/_dropdowns";
