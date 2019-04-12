@@ -1,5 +1,6 @@
-{% extends 'base.html.twig' %}
-{% block title %}Hello!{% endblock %}
+{% extends 'universe/base.html.twig' %}
+{% set universe = story.universe %}
+{% block title %}{{ parent() }} Chapitres{% endblock %}
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('js/filter/top-universe') }}
@@ -10,10 +11,10 @@
         }
     </script>
 {% endblock %}
-{% block body %}
+{% block universe %}
+    {{ parent() }}
     <h2>{{ story.getName }}</h2>
     {% if user is defined and user is not null %}
-        {% set universe = story.universe %}
         {% if not (universe.isMember(user) or universe.isCreator(user) or universe.isModerator(user) or universe.isApplicant(user)) %}
             <p><a href="{{ path('universe_application_new', {idUniverse: universe.id}) }}">Joindre {{ universe.name }}</a></p>
         {% endif %}
@@ -31,11 +32,11 @@
     {# If the user is the author of this story, we propose to him to 
     start a new chapter if he wants #}
     {% if user is defined and user is not null and story.isAuthor(user) %}
-        <div>
-            <a href="{{ path('chapter_new', {idUniverse: story.getUniverse.getId, idStory: story.getId })}}" >
-                Démarrer un nouveau chapitre
-            </a>
-        </div>
+            
+        <a class="btn-create" href="{{ path('chapter_new', {idUniverse: story.getUniverse.getId, idStory: story.getId })}}">
+            Démarrer un nouveau chapitre
+        </a>
+
     {% endif %}
 
     {# Show all chapters from this story #}

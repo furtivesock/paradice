@@ -1,0 +1,44 @@
+.chapter-name {
+    background-color: $primary-dark;
+    color: $neutral;
+    width: 100%;
+    padding: 10px;
+}
+.chapter-content {
+
+    background-color: darken($neutral,5%);
+    min-height: 75vh;
+
+    .chapter-message {
+        background-color: $neutral;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+
+    .chapter-message-info {
+        font-size: 12px;
+        color: $primary;
+    }
+
+    textarea {
+        background-color: lighten($neutral,10%);
+        border: none;
+        width: 100%;
+        padding: 10px;
+        resize: none;
+        transition: background-color 0.3s ease;
+        
+        &:hover, &:focus {
+            background-color: lighten($neutral,20%)
+        }
+    }
+
+    .chapter-post {
+        margin-bottom: 10px;
+        text-align: right;
+    }
+
+    .btn-create {
+        right: 0;
+    }
+}

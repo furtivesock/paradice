@@ -1,0 +1,84 @@
+@media (min-width: 768px) {
+    .universe-content {
+        margin-left: $wiki-navbar-max-width;
+    }
+}
+
+// Stories list
+
+.universe-content {
+    .ribbon {
+        position: relative;
+        background: $primary-dark;
+        color: $neutral;
+        text-align: center;
+        margin-left: -18px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        h2 {
+            text-align: center;
+            margin: auto;
+        }
+    }
+       
+    .ribbon .ribbon-content:before {
+        content: "";
+        position: absolute;
+        display: block;
+        border-style: solid;
+        border-color: darken($primary-dark,10%) transparent transparent transparent;
+        bottom: -18px;
+    }
+
+    .ribbon .ribbon-content:before {
+        left: 0;
+        border-width: 18px 0 0 18px;
+    }
+}
+
+.story-list {
+    background-color: darken($neutral,5%);
+    min-height: 70vh;
+
+    .select {
+        margin: 5px;
+    }
+
+    select {
+        background-color: $neutral;
+        border: none;
+        color: $primary-dark;
+    }
+}
+
+.story-row {
+    background-color: $neutral;
+    padding: 10px;
+    margin: 10px auto;
+
+    .story-description {
+        margin-bottom: 10px;
+    }
+}
+
+.story-row h3 {
+    color: $primary;
+}
+
+.btn-create {
+    padding: 10px;
+    width: 230px;
+    right: 10px;
+    text-align: center;
+    background-color: $primary;
+    transition: 0.3s ease background-color;
+    color: $neutral;
+
+    &:hover {
+        background-color: lighten($primary,10%);
+        color: $neutral;
+        text-decoration: none;
+    }
+}

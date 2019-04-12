@@ -1,0 +1,53 @@
+.wiki-navbar {
+    background-color: $wiki-navbar-bg;
+    padding: 10px;
+    ul {
+        list-style: none;
+    }
+
+    ul:first-of-type {
+        padding: 0;
+        
+        li:before {
+            content: "\25c8";
+            color: $neutral;
+        }
+
+        li {
+            margin-bottom: 15px;
+        }
+
+        ul > li:before {
+            content: "\2711";
+            color: $base;
+        }
+
+        ul > li {
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.wiki-navbar ul li a {
+    color: $neutral;
+}
+
+.wiki-navbar h4 {
+    font-family: $secondary-font;
+    font-size: 20px;
+    color: $base;
+}
+
+@media (min-width: 768px) {
+    .wiki-navbar {
+        border-right: 4px double $base;
+        width: $wiki-navbar-max-width;
+        background-color: $wiki-navbar-bg;
+        position: absolute;
+        height: 100vh;
+        top: 0;
+        position:fixed;
+        padding: 10px;
+        left: $navbar-max-width;   
+    }
+}

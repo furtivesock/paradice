@@ -5,11 +5,12 @@
 .main-content h1 {
   color: $primary-dark;
   font-family: $secondary-font;
+  text-shadow: 0 1px 0 #fff;
 }
   
 @media (min-width: 768px) {
   .main-content {
-    margin-left: 200px;
+    margin-left: $navbar-max-width;
     padding: 20px;
   }
 }

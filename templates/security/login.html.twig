@@ -7,33 +7,33 @@
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-    <div class="row mt-5">
-            <div class="offset-md-3 offset-lg-3 col-xs-12 col-sm-12 col-md-6 col-lg-6 align-middle">
-                <h1 class="mt-5 h3 mb-4 font-weight-normal text-center">Connexion</h1>
-                
-                {# User's username #}
-                <div class="form-group">
-                    <label for="inputUsername" class="sr-only">Username</label>
-                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control mb-3" placeholder="Nom d'utilisateur" required autofocus>
-                </div>
-
-                {# User's password #}
-                <div class="form-group">
-                    <label for="inputPassword" class="sr-only">Password</label>
-                    <input type="password" name="password" id="inputPassword" class="form-control mb-3" placeholder="Mot de passe" required>
-                </div>
-
-                {# CSRF token to avoid request from an unknown origin #}
-                <input type="hidden" name="_csrf_token"
-                    value="{{ csrf_token('authenticate') }}"
-                >
-
-                <button class="btn btn-lg btn-primary" type="submit" style="width: 100%;">
-                    Entrer dans le portail interdimensionnel
-                </button>
-
-                <a href="{{ path('app_register') }}">Créer un compte</a>
+    <div class="row">
+        <div class="col-lg-5">
+            <h1>Connexion</h1>
+            
+            {# User's username #}
+            <div class="form-group">
+                <label for="inputUsername" class="sr-only">Username</label>
+                <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control mb-3" placeholder="Nom d'utilisateur" required autofocus>
             </div>
+
+            {# User's password #}
+            <div class="form-group">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control mb-3" placeholder="Mot de passe" required>
+            </div>
+
+            {# CSRF token to avoid request from an unknown origin #}
+            <input type="hidden" name="_csrf_token"
+                value="{{ csrf_token('authenticate') }}"
+            >
+
+            <button class="btn btn-lg btn-primary" type="submit" style="width: 100%;">
+                Entrer dans le portail interdimensionnel
+            </button>
+
+            <a href="{{ path('app_register') }}">Créer un compte</a>
+        </div>
     </div>
 </form>
 {% endblock %}

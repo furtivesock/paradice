@@ -2,9 +2,29 @@
   top:0;
 }
 
+.navbar-universe {
+  text-align: center;
+  padding: 30px!important;
+  text-transform: uppercase;
+  color: #fff!important;
+  background-position: center;
+  background-size: 100%;
+  filter: grayscale(0.5);
+  transition: 0.3s all ease;
+
+  &:hover {
+    filter: grayscale(0);
+  }
+}
+
 .navbar-collapse {
   padding-left: 0!important;
   padding-right: 0!important;
+}
+
+.navbar-username {
+  text-align: center;
+  font-size: 20px;
 }
 
 @media (min-width: 768px) {
@@ -42,7 +62,7 @@
     margin-right: 0;
     margin-left: 0;
     height: 100vh;
-    position: absolute!important;
+    position: fixed!important;
   }	
   
   .navbar-nav,

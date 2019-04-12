@@ -129,14 +129,15 @@ class ChapterController extends AbstractController
             return $this->redirectToRoute('story_show', [
                 'idUniverse' => $story->getUniverse()->getId(),
                 'idStory' => $story->getId(),
-                'user' => $this->getUser()
+                'user' => $this->getUser(),
             ]);
         }
 
         return $this->render('chapter/new.html.twig', [
             'newChapterForm' => $form->createView(),
             'numero' => is_null($lastChapter) ? 1 : $lastChapter->getNumero() + 1,
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
+            'story' => $story
         ]);
 
 
