@@ -20,11 +20,9 @@
             <div class="ribbon">
                 <h2 class="ribbon-content">Les Histoires</h2>
                 {% if user is defined and user is not null and universe.canCreateStory(user) %}
-                    <div class="create-button">
-                        <a href="{{ path('story_new', {idUniverse: universe.getId})}}" >
-                            Créer une nouvelle histoire
-                        </a>
-                    </div>
+                    <a class="btn-create" href="{{ path('story_new', {idUniverse: universe.getId})}}" >
+                        Créer une nouvelle histoire
+                    </a>
                 {% endif %}
             </div>
             
