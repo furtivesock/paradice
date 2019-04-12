@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Nouvel univers{% endblock %}
+{% block title %}{{ parent() }} Nouvel univers{% endblock %}
 {% block body %}
     <div class="row mt-5">
         <div class="offset-md-3 offset-lg-3 col-xs-12 col-sm-12 col-md-6 col-lg-6 align-middle">
@@ -21,7 +21,7 @@
                 <div class="form-group">
                     {{ form_row(newUniverseForm.bannerURL , {attr: {class: 'form-control mb-3'}}) }}
                 </div>
-                
+
                 <button class="btn btn-lg btn-primary" style="width: 100%;">Créer</button>
             {{ form_end(newUniverseForm) }}
         </div>

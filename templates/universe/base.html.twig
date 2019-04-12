@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Paradice &#8734; {{ universe.getName }}{% endblock %}
+{% block title %}{{ parent() }} {{ universe.getName }}{% endblock %}
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('js/order/stories') }}
@@ -27,7 +27,7 @@
     </div>
     <!-- / Wikibar -->
     <div class="universe-content">
-        {% block universe%}
+        {% block universe %}
             <!-- Header -->
                 <h1>{{ universe.getName }}</h1>
             <!-- /Header -->
