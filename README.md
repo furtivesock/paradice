@@ -19,6 +19,7 @@ The only rule is to use your imagination the best as you can!
 
 - PHP 7.2+
 - Composer
+- Yarn
 - MySQL
 
 ## Installation
@@ -73,6 +74,12 @@ This will create a new database in your MySQL's server. You can then **apply mig
 php bin/console doctrine:migrations:migrate
 ```
 
+About the front, you have to type this command which will install Encore, Bootstrap Sass, JQuery and Popper.js (used for Bootstrap JS) :
+
+```sh
+yarn install
+```
+
 If you want some data to test our website you can type this command to insert data from the DataFixtures directory in your newly created database :
 
 ```sh
@@ -98,6 +105,7 @@ paradice
 │        └───security.yaml # configurations for encoding algorithms
 ├──public # resources used in the views
 │   ├───css
+│   ├───images
 │   ├───js
 │   └───index.php # main point of the app used to redirect to the correct controller
 ├──src # Contains the majority of the php code
@@ -193,10 +201,10 @@ Here are the current available feature in our app
   - [ ] Show all
   - [ ] Show one Profile
   - [ ] Modification of profile
-  - [ ] Create
-  - [ ] Login
-- [ ] Home
-  - [ ] Show top universes
+  - [x] Create
+  - [x] Login
+- [x] Home
+  - [x] Show top universes
 - [ ] Universe
   - [ ] Show all
   - [ ] Show one
