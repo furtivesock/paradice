@@ -14,19 +14,19 @@ class TypeFixtures extends Fixture implements DependentFixtureInterface
     {
         $type1 = new Type();
         $type1->setName('RACE');
-        $type1->setParentType(NULL);
+        $type1->setParentType(null);
         $type1->setUniverse($this->getReference('The-Universe'));
         $manager->persist($type1);
 
         $type2 = new Type();
         $type2->setName('CLASSE');
-        $type2->setParentType(NULL);
+        $type2->setParentType(null);
         $type2->setUniverse($this->getReference('The-Universe'));
         $manager->persist($type2);
 
         $type3 = new Type();
         $type3->setName('ARME');
-        $type3->setParentType(NULL);
+        $type3->setParentType(null);
         $type3->setUniverse($this->getReference('The-Universe'));
         $manager->persist($type3);
 
@@ -43,7 +43,7 @@ class TypeFixtures extends Fixture implements DependentFixtureInterface
 
         $type1 = new Type();
         $type1->setName('RACE');
-        $type1->setParentType(NULL);
+        $type1->setParentType(null);
         $type1->setUniverse($this->getReference('Lune-Noire'));
         $manager->persist($type1);
 
@@ -55,7 +55,7 @@ class TypeFixtures extends Fixture implements DependentFixtureInterface
 
         $type3 = new Type();
         $type3->setName('ARME');
-        $type3->setParentType(NULL);
+        $type3->setParentType(null);
         $type3->setUniverse($this->getReference('Lune-Noire'));
         $manager->persist($type3);
 

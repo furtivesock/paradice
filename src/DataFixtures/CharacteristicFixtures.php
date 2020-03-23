@@ -15,7 +15,7 @@ class CharacteristicFixtures extends Fixture implements DependentFixtureInterfac
         $characteristic->setName('Humain');
         $characteristic->setDescription('Race humaine');
         $characteristic->setType($this->getReference('Race'));
-        $characteristic->setImageURL(NULL);
+        $characteristic->setImageURL(null);
 
         $manager->persist($characteristic);
 
@@ -26,7 +26,7 @@ class CharacteristicFixtures extends Fixture implements DependentFixtureInterfac
         'Un sorcier vert à par ailleurs de nombreux avantages dans le domaine de la politique '.
         'grâce à son expérience acquise dans ses nombreuses campagnes politiques dans le monde entier.');
         $characteristic->setType($this->getReference('Classe'));
-        $characteristic->setImageURL(NULL);
+        $characteristic->setImageURL(null);
 
         $manager->persist($characteristic);
 
@@ -35,7 +35,7 @@ class CharacteristicFixtures extends Fixture implements DependentFixtureInterfac
         $characteristic->setDescription('Une arme redoutable qui permettait, d\'après la légende,'.
         'de soigner des personnes en phase terminale du cancer.');
         $characteristic->setType($this->getReference('Arc'));
-        $characteristic->setImageURL(NULL);
+        $characteristic->setImageURL(null);
         
         $manager->persist($characteristic);
 
@@ -43,7 +43,7 @@ class CharacteristicFixtures extends Fixture implements DependentFixtureInterfac
         $characteristic->setName('Magie noire');
         $characteristic->setDescription('Magie noire, très très noire');
         $characteristic->setType($this->getReference('Magie'));
-        $characteristic->setImageURL(NULL);
+        $characteristic->setImageURL(null);
 
         $manager->persist($characteristic);
 

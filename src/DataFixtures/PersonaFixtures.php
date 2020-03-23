@@ -69,7 +69,7 @@ class PersonaFixtures extends Fixture implements DependentFixtureInterface
         // Cröw
         $persona = new Persona();
         $persona->setFirstName('Cröw');
-        $persona->setLastName(NULL);
+        $persona->setLastName(null);
         $persona->setPhysicalDescription('Cröw est une fée du néant, elle fait 20 cm. Elle porte un large 
         chapeau de sorcière semblant trop grand pour elle qui cache ses yeux en permanence. Lorsqu\'ils sont 
         visibles, on peut voir des yeux vairons. L\'oeil gauche est de couleur violacée tandis que le droit est 
@@ -89,7 +89,7 @@ class PersonaFixtures extends Fixture implements DependentFixtureInterface
         // Akan
         $persona = new Persona();
         $persona->setFirstName('Akan');
-        $persona->setLastName(NULL);
+        $persona->setLastName(null);
         $persona->setPhysicalDescription('Akan est un ange déchu ayant une apparence de diable.');
         $persona->setPersonality('C\'est un pirate, piller, tuer, voler, s\'alcooliser. Voilà ce qui le décrit le mieux.');
         $persona->setBackground('L\'ennui l\'a poussé à se détourner de sa divinité, préférant la piraterie à la bonté.');

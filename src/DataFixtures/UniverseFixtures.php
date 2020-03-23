@@ -20,8 +20,8 @@ class UniverseFixtures extends Fixture implements DependentFixtureInterface
         $universe->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $universe->setCreator($this->getReference('Sloky'));
         $universe->addModerator($this->getReference('Sloky'));
-        $universe->setLogoURL(NULL);
-        $universe->setBannerURL(NULL);
+        $universe->setLogoURL(null);
+        $universe->setBannerURL(null);
         $manager->persist($universe);
         $this->addReference('The-Universe', $universe);
 
@@ -33,8 +33,8 @@ class UniverseFixtures extends Fixture implements DependentFixtureInterface
         $universe->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $universe->setCreator($this->getReference('Landry'));
         $universe->addModerator($this->getReference('Eggoer'));
-        $universe->setLogoURL(NULL);
-        $universe->setBannerURL(NULL);
+        $universe->setLogoURL(null);
+        $universe->setBannerURL(null);
         $manager->persist($universe);
         
         $this->addReference('Lune-Noire', $universe);
@@ -45,8 +45,8 @@ class UniverseFixtures extends Fixture implements DependentFixtureInterface
         $universe->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $universe->setCreator($this->getReference('Sloky'));
         $universe->addModerator($this->getReference('Sloky'));
-        $universe->setLogoURL(NULL);
-        $universe->setBannerURL(NULL);
+        $universe->setLogoURL(null);
+        $universe->setBannerURL(null);
 
         $manager->persist($universe);
 

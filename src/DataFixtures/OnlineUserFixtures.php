@@ -23,7 +23,7 @@ class OnlineUserFixtures extends Fixture
         $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'jesuisunmdp'));
         $onlineUser->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $onlineUser->setEmail('email@info.fr');
-        $onlineUser->setAvatarURL(NULL);
+        $onlineUser->setAvatarURL(null);
         $manager->persist($onlineUser);
         $this->addReference('Sloky', $onlineUser);
         
@@ -33,7 +33,7 @@ class OnlineUserFixtures extends Fixture
         $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'bonjour'));
         $onlineUser->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $onlineUser->setEmail('cyrela@yahoo.fr');
-        $onlineUser->setAvatarURL(NULL);
+        $onlineUser->setAvatarURL(null);
         $manager->persist($onlineUser);
 
         // Eggoer
@@ -42,7 +42,7 @@ class OnlineUserFixtures extends Fixture
         $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'EggoerMdp'));
         $onlineUser->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $onlineUser->setEmail('eggoer@info.fr');
-        $onlineUser->setAvatarURL(NULL);
+        $onlineUser->setAvatarURL(null);
         $manager->persist($onlineUser);
 
         $this->addReference('Eggoer', $onlineUser);
@@ -53,7 +53,7 @@ class OnlineUserFixtures extends Fixture
         $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'jesuisunmdp'));
         $onlineUser->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $onlineUser->setEmail('landry@info.fr');
-        $onlineUser->setAvatarURL(NULL);
+        $onlineUser->setAvatarURL(null);
         $manager->persist($onlineUser);
 
         $this->addReference('Landry', $onlineUser);
@@ -64,7 +64,7 @@ class OnlineUserFixtures extends Fixture
         $onlineUser->setPassword($this->encoder->encodePassword($onlineUser, 'jesuisunmdp'));
         $onlineUser->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $onlineUser->setEmail('sequentia@info.fr');
-        $onlineUser->setAvatarURL(NULL);
+        $onlineUser->setAvatarURL(null);
         $manager->persist($onlineUser);
 
         $this->addReference('Sequentia', $onlineUser);
