@@ -5,6 +5,9 @@
 
 # Paradice
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/769badb588f6446198fb80cf43665da7)](https://app.codacy.com/manual/furtivesock/paradice?utm_source=github.com&utm_medium=referral&utm_content=furtivesock/paradice&utm_campaign=Badge_Grade_Settings)
+
+
 Paradice is an online textual role play platform that you can self-host in your own servers.
 
 ## Table of contents
