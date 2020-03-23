@@ -19,16 +19,85 @@ This file is a guide detailing the step to contribute to this amazing project
 
 ## <a id="first-step">First step</a>
 
+Well, as we do still not have a Docker, you need to follow these steps manually... Good luck!
+
 ### <a id="clone-repo">Clone the repository</a>
 
-First, you should **clone** the repository :
+**Clone** the repository :
 
-```bash
-git clone "https://gitlab.com/alerycserrania/pweb.git"
+```sh
+git clone "https://gitlab.com/alerycserrania/pweb.git" paradice
+cd paradice
 ```
 
-And... that's it! Nothing else to do for now!
+This will create a new directory named `paradice` with the project inside.
 
+Create a **local environment file** named `.env.local` at the root of `paradice` and copy this code :
+
+```sh
+###> symfony/framework-bundle ###
+APP_ENV=dev
+APP_SECRET=447cedadc84a5a64ca75339ef51c5ec7
+###< symfony/framework-bundle ###
+
+###> doctrine/doctrine-bundle ###
+DATABASE_URL=mysql://<db_user>:<db_password>@127.0.0.1:3306/paradice
+###< doctrine/doctrine-bundle ###
+
+###> symfony/swiftmailer-bundle ###
+MAILER_URL=null://localhost
+###< symfony/swiftmailer-bundle ###
+```
+
+This code will define the **environment variables** used in the website. You just need to **replace** `<db_user>` with your MySQL's username and `<db_password>` with your MySQL's password. **In case there is no password for this user, just let it blank like this** :
+
+```sh
+DATABASE_URL=mysql://aleryc:@127.0.0.1:3306/paradice
+```
+
+Now you can **install the dependencies** needed for this project :
+
+```sh
+composer install
+```
+
+**Create** the database :
+
+```sh
+php bin/console doctrine:database:create
+```
+
+This will create a new database in your MySQL's server. You can then **apply migrations** in the database :
+
+```sh
+php bin/console doctrine:migrations:migrate
+```
+
+About the front, you have to type this command which will install Encore, Bootstrap Sass, JQuery and Popper.js (used for Bootstrap JS) :
+
+```sh
+yarn install
+```
+
+Then, build once the assets/ files into public/build/ folder :
+
+```sh
+yarn encore dev
+```
+
+If you want some data to test our website you can type this command to insert data from the DataFixtures directory in your newly created database :
+
+```sh
+php bin/console doctrine:fixtures:load
+```
+
+Finally, you can **run the server** :
+
+```sh
+php bin/console server:run
+```
+
+Open your browser and go to `localhost:8000` to start your wonderful journey :)
 
 
 ## <a id="new-feature">Propose a new task</a>
