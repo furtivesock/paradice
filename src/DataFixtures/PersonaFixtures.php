@@ -2,15 +2,14 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
-use App\DataFixtures\UniverseFixtures;
 use App\Entity\Persona;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class PersonaFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager) 
+    public function load(ObjectManager $manager)
     {
         // Xeyh Silver-Scale
         $persona = new Persona();
@@ -65,7 +64,6 @@ class PersonaFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($persona);
         $this->addReference('Xarah', $persona);
 
-
         // Cröw
         $persona = new Persona();
         $persona->setFirstName('Cröw');
@@ -85,7 +83,7 @@ class PersonaFixtures extends Fixture implements DependentFixtureInterface
         $persona->setUser($this->getReference('Eggoer'));
         $manager->persist($persona);
         $this->addReference('Cröw', $persona);
-        
+
         // Akan
         $persona = new Persona();
         $persona->setFirstName('Akan');
@@ -104,9 +102,9 @@ class PersonaFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return array(
-            OnlineUserFixtures::class, 
+        return [
+            OnlineUserFixtures::class,
             UniverseFixtures::class,
-        );
+        ];
     }
 }

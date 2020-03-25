@@ -4,8 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Chapter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\Query\Expr\OrderBy;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method Chapter|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,14 +21,14 @@ class ChapterRepository extends ServiceEntityRepository
     }
 
     /**
-     * Returns the last chapter of story
-     * 
+     * Returns the last chapter of story.
+     *
      * @param int $idUniverse Id of the story's universe
-     * @param int $idStory Id of the story
-     * 
+     * @param int $idStory    Id of the story
+     *
      * @return Chapter|null
      */
-    public function findLastChapterOfStory(int $idUniverse, int $idStory) : ?Chapter
+    public function findLastChapterOfStory(int $idUniverse, int $idStory): ?Chapter
     {
         return $this->createQueryBuilder('c')
             ->leftJoin('c.story', 's')
@@ -41,7 +41,6 @@ class ChapterRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
-
 
     // /**
     //  * @return Chapter[] Returns an array of Chapter objects
@@ -60,7 +59,7 @@ class ChapterRepository extends ServiceEntityRepository
     }
     */
 
-    public function findOneByIds(int $idUniverse, int $idStory, int $idChapter) : ? Chapter
+    public function findOneByIds(int $idUniverse, int $idStory, int $idChapter): ?Chapter
     {
         return $this->createQueryBuilder('c')
             ->leftJoin('c.story', 's')

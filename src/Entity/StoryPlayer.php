@@ -9,11 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class StoryPlayer
 {
-
-
     /**
      * @var Story
-     * 
+     *
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Story", inversedBy="storyPlayers")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -22,7 +20,7 @@ class StoryPlayer
 
     /**
      * @var Persona
-     * 
+     *
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Persona", inversedBy="storyPlayers")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -31,11 +29,10 @@ class StoryPlayer
 
     /**
      * @var \DateTime
-     * 
+     *
      * @ORM\Column(type="datetime")
      */
     private $acceptationDate;
-
 
     public function getStory(): ?Story
     {

@@ -2,15 +2,15 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\StoryPlayer;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class StoryPlayerFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
-    {   
+    {
         // Xeyh
         $storyPlayer = new StoryPlayer();
         $storyPlayer->setPlayer($this->getReference('Xeyh'));
@@ -19,7 +19,7 @@ class StoryPlayerFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($storyPlayer);
 
-        // Xarah        
+        // Xarah
         $storyPlayer = new StoryPlayer();
         $storyPlayer->setPlayer($this->getReference('Xarah'));
         $storyPlayer->setStory($this->getReference('Solitaire'));
@@ -43,15 +43,14 @@ class StoryPlayerFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($storyPlayer);
 
-
         $manager->flush();
     }
 
-    public function getDependencies() 
+    public function getDependencies()
     {
-        return array(
+        return [
             PersonaFixtures::class,
-            StoryFixtures::class
-        );
+            StoryFixtures::class,
+        ];
     }
 }

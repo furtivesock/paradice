@@ -2,10 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\StoryApplication;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class StoryApplicationFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -29,7 +29,6 @@ class StoryApplicationFixtures extends Fixture implements DependentFixtureInterf
 
         $manager->persist($storyApplication);
 
-
         $storyApplication = new StoryApplication();
         $storyApplication->setApplicant($this->getReference('Cröw'));
         $storyApplication->setStory($this->getReference('VraimentOuf'));
@@ -38,7 +37,6 @@ class StoryApplicationFixtures extends Fixture implements DependentFixtureInterf
         $storyApplication->setAccepted(false);
 
         $manager->persist($storyApplication);
-
 
         $storyApplication = new StoryApplication();
         $storyApplication->setApplicant($this->getReference('Akan'));
@@ -49,18 +47,14 @@ class StoryApplicationFixtures extends Fixture implements DependentFixtureInterf
 
         $manager->persist($storyApplication);
 
-
-
-
-
         $manager->flush();
     }
 
-    public function getDependencies() 
+    public function getDependencies()
     {
-        return array(
+        return [
             PersonaFixtures::class,
-            StoryFixtures::class
-        );
+            StoryFixtures::class,
+        ];
     }
 }

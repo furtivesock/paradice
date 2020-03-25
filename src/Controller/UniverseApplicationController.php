@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
-use App\Entity\UniverseApplication;
-use App\Form\UniverseApplicationFormType;
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Universe;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\UniverseApplication;
 use App\Entity\UniverseMember;
+use App\Form\UniverseApplicationFormType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 class UniverseApplicationController extends AbstractController
 {
@@ -38,7 +38,7 @@ class UniverseApplicationController extends AbstractController
 
         return $this->render('universe_application/index.html.twig', [
             'universe' => $universe,
-            'user' => $this->getUser()
+            'user'     => $this->getUser(),
         ]);
     }
 
@@ -65,9 +65,9 @@ class UniverseApplicationController extends AbstractController
 
         $applications = $this->getDoctrine()
             ->getRepository(UniverseApplication::class)
-            ->findBy(array(
-                'universe' => $idUniverse
-            ));
+            ->findBy([
+                'universe' => $idUniverse,
+            ]);
 
         return new JsonResponse(
             array_map(function (UniverseApplication $uApplication) {
@@ -98,7 +98,7 @@ class UniverseApplicationController extends AbstractController
 
             return $this->redirectToRoute('universe_show', [
                 'idUniverse' => $universe->getId(),
-                'user' => $this->getUser()
+                'user'       => $this->getUser(),
             ]);
         }
 
@@ -111,27 +111,25 @@ class UniverseApplicationController extends AbstractController
 
             return $this->redirectToRoute('universe_show', [
                 'idUniverse' => $universe->getId(),
-                'user' => $this->getUser()
+                'user'       => $this->getUser(),
             ]);
         }
 
         $application = new UniverseApplication();
 
-        // Build the form 
+        // Build the form
         $form = $this->createForm(
             UniverseApplicationFormType::class,
             $application,
-            array(
-                'action' => $this->generateUrl('universe_application_create', ['idUniverse' => $idUniverse])
-            )
+            [
+                'action' => $this->generateUrl('universe_application_create', ['idUniverse' => $idUniverse]),
+            ]
         );
 
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $application = $form->getData();
-
 
             $application->setApplicant($this->getUser());
             $application->setUniverse($universe);
@@ -146,14 +144,14 @@ class UniverseApplicationController extends AbstractController
 
             return $this->redirectToRoute('universe_show', [
                 'idUniverse' => $universe->getId(),
-                'user' => $this->getUser()
+                'user'       => $this->getUser(),
             ]);
         }
 
         return $this->render('universe_application/new.html.twig', [
             'newApplicationForm' => $form->createView(),
-            'universe' => $universe,
-            'user' => $this->getUser()
+            'universe'           => $universe,
+            'user'               => $this->getUser(),
         ]);
     }
 
@@ -180,7 +178,7 @@ class UniverseApplicationController extends AbstractController
 
             return $this->redirectToRoute('universe_show', [
                 'idUniverse' => $universe->getId(),
-                'user' => $this->getUser()
+                'user'       => $this->getUser(),
             ]);
         }
 
@@ -193,25 +191,25 @@ class UniverseApplicationController extends AbstractController
 
             return $this->redirectToRoute('universe_show', [
                 'idUniverse' => $universe->getId(),
-                'user' => $this->getUser()
+                'user'       => $this->getUser(),
             ]);
         }
 
         $application = new UniverseApplication();
 
-        // Build the form 
+        // Build the form
         $form = $this->createForm(
             UniverseApplicationFormType::class,
             $application,
-            array(
-                'action' => $this->generateUrl('universe_application_create', ['idUniverse' => $idUniverse])
-            )
+            [
+                'action' => $this->generateUrl('universe_application_create', ['idUniverse' => $idUniverse]),
+            ]
         );
 
         return $this->render('universe_application/new.html.twig', [
             'newApplicationForm' => $form->createView(),
-            'universe' => $universe,
-            'user' => $this->getUser()
+            'universe'           => $universe,
+            'user'               => $this->getUser(),
         ]);
     }
 
@@ -223,7 +221,6 @@ class UniverseApplicationController extends AbstractController
         int $idApplicant,
         Request $request
     ): JsonResponse {
-
         $universe = $this->getDoctrine()
             ->getRepository(Universe::class)
             ->find($idUniverse);
@@ -234,10 +231,10 @@ class UniverseApplicationController extends AbstractController
 
         $application = $this->getDoctrine()
             ->getRepository(UniverseApplication::class)
-            ->findOneBy(array(
-                'universe' => $idUniverse,
-                'applicant' => $idApplicant
-            ));
+            ->findOneBy([
+                'universe'  => $idUniverse,
+                'applicant' => $idApplicant,
+            ]);
 
         if (is_null($application)) {
             throw $this->createNotFoundException('Application Not Found');
@@ -271,7 +268,6 @@ class UniverseApplicationController extends AbstractController
         if ($post_data['accept']) {
             $application->setAccepted(true);
 
-
             $uMember = new UniverseMember();
             $uMember->setMember($application->getApplicant());
             $uMember->setUniverse($application->getUniverse());
@@ -281,7 +277,6 @@ class UniverseApplicationController extends AbstractController
         } else {
             $application->setAccepted(false);
         }
-
 
         $entityManager->persist($application);
         $entityManager->flush();

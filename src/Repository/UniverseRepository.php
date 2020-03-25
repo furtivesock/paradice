@@ -4,9 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Universe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
-use Doctrine\ORM\Query\Expr\OrderBy;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Expr\OrderBy;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method Universe|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,19 +22,19 @@ class UniverseRepository extends ServiceEntityRepository
     }
 
     /**
-     * Returns list of all universes after a given date and 
-     * with a specific order
-     * 
-     * @param string $order The type of order. It can be :
-     *      - "update" : sort by last update 
-     *      - "create" : sort by creation date 
-     *      - "top" : sort by activity (number of message in this universe)
+     * Returns list of all universes after a given date and
+     * with a specific order.
+     *
+     * @param string    $order The type of order. It can be :
+     *                         - "update" : sort by last update
+     *                         - "create" : sort by creation date
+     *                         - "top" : sort by activity (number of message in this universe)
      * @param \DateTime $after (optional) Start date limit (inclusive)
+     *
      * @return ArrayCollection
      */
     public function findAfterWithOrder(string $order, ?\DateTime $after)
     {
-
         switch ($order) {
             case 'update':
                 $results = $this->createQueryBuilder('u')
@@ -61,7 +61,7 @@ class UniverseRepository extends ServiceEntityRepository
         }
 
         if (!is_null($after)) {
-            $results = $results  
+            $results = $results
                 ->andWhere('u.creationDate > :date')
                 ->setParameter('date', $after);
         }

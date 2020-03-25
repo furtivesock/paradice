@@ -4,10 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Story;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Query\Expr\OrderBy;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Expr\OrderBy;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method Story|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,22 +21,21 @@ class StoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Story::class);
     }
 
-    /** 
-     * Returns list of all stories from a universe 
-     * after a given date and with a specific order
-     * 
-     * @param int $idUniverse Id of the story's universe
-     * @param string $order The type of order. It can be :
-     *      - "update" : sort by last update 
-     *      - "create" : sort by creation date 
-     *      - "top" : sort by activity (number of message in this story)
-     * @param \DateTime $after (optional) Start date limit (inclusive)
+    /**
+     * Returns list of all stories from a universe
+     * after a given date and with a specific order.
+     *
+     * @param int       $idUniverse Id of the story's universe
+     * @param string    $order      The type of order. It can be :
+     *                              - "update" : sort by last update
+     *                              - "create" : sort by creation date
+     *                              - "top" : sort by activity (number of message in this story)
+     * @param \DateTime $after      (optional) Start date limit (inclusive)
+     *
      * @return ArrayCollection
      */
-    public function findAfterWithOrder(int $idUniverse, string $order, ? \DateTime $after)
+    public function findAfterWithOrder(int $idUniverse, string $order, ?\DateTime $after)
     {
-
-
         switch ($order) {
             case 'update':
                 $results = $this->createQueryBuilder('s')
@@ -77,7 +75,6 @@ class StoryRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
-
         if ($order === 'create') {
             return new ArrayCollection($results);
         }
@@ -90,13 +87,14 @@ class StoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Returns a story with its id
-     * 
+     * Returns a story with its id.
+     *
      * @param int $idUniverse Id of the story's universe
-     * @param int $idStory Id of the story
-     * @return Story|null 
+     * @param int $idStory    Id of the story
+     *
+     * @return Story|null
      */
-    public function findOneByUniverseAndStoryId(int $idUniverse, int $idStory) : ? Story
+    public function findOneByUniverseAndStoryId(int $idUniverse, int $idStory): ?Story
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.universe = :id_universe')
@@ -106,5 +104,4 @@ class StoryRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
-
 }

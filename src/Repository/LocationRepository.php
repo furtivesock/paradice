@@ -4,8 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Location;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method Location|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,10 +21,10 @@ class LocationRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return all locations from a universe
-     * 
+     * Return all locations from a universe.
+     *
      * @param int $idUniverse Id of the universe
-     * 
+     *
      * @return ArrayCollection Returns an array of Location objects
      */
     public function findLocationsByUniverseId(int $idUniverse)

@@ -2,11 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-
 use App\Entity\Type;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class TypeFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -40,7 +39,6 @@ class TypeFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference('Classe', $type2);
         $this->addReference('Arc', $type3);
 
-
         $type1 = new Type();
         $type1->setName('RACE');
         $type1->setParentType(null);
@@ -72,6 +70,6 @@ class TypeFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return array(UniverseFixtures::class);
+        return [UniverseFixtures::class];
     }
 }

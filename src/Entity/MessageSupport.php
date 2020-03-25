@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 class MessageSupport
 {
     /**
-     * @var int 
-     * 
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -20,21 +20,21 @@ class MessageSupport
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="text")
      */
     private $contents;
 
     /**
      * @var \DateTime
-     * 
+     *
      * @ORM\Column(type="datetime")
      */
     private $creationDate;
 
     /**
      * @var OnlineUser
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="messageSupports")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -42,7 +42,7 @@ class MessageSupport
 
     /**
      * @var Universe
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="messageSupports")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */

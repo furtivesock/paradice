@@ -2,12 +2,10 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Universe;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-
-use App\Entity\{OnlineUser, Universe};
-
+use Doctrine\Common\Persistence\ObjectManager;
 
 class UniverseFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -25,7 +23,6 @@ class UniverseFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($universe);
         $this->addReference('The-Universe', $universe);
 
-
         // Lune-Noire
         $universe = new Universe();
         $universe->setName('Lune-Noire');
@@ -36,7 +33,7 @@ class UniverseFixtures extends Fixture implements DependentFixtureInterface
         $universe->setLogoURL(null);
         $universe->setBannerURL(null);
         $manager->persist($universe);
-        
+
         $this->addReference('Lune-Noire', $universe);
 
         $universe = new Universe();
@@ -50,12 +47,11 @@ class UniverseFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($universe);
 
-
         $manager->flush();
     }
 
     public function getDependencies()
     {
-        return array(OnlineUserFixtures::class);
+        return [OnlineUserFixtures::class];
     }
 }

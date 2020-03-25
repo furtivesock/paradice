@@ -11,7 +11,7 @@ class Status
 {
     /**
      * @var int
-     * 
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -20,7 +20,7 @@ class Status
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -42,11 +42,11 @@ class Status
         return $this;
     }
 
-    public function toJson() : array 
+    public function toJson(): array
     {
-        return array(
-            'id' => $this->id,
-            'name' => $this->name
-        );
+        return [
+            'id'   => $this->id,
+            'name' => $this->name,
+        ];
     }
 }

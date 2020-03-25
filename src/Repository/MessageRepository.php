@@ -4,9 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Message;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Expr\OrderBy;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method Message|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,17 +22,17 @@ class MessageRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return a list of messages from a chapter within a certain range of date
-     * 
+     * Return a list of messages from a chapter within a certain range of date.
+     *
      * If afterDate is omitted, it will give all stories from the
      * creation of the chapter
-     * 
-     * @param int $idUniverse Id of the chapter's universe
-     * @param int $idStory Id of the chapter's story
-     * @param int $idChapter Id of the chapter for the message
-     * @param \DateTime $beforeDate inclusive end date 
-     * @param \DateTime $afterDate inclusive start date, if omitted get all date 
-
+     *
+     * @param int       $idUniverse Id of the chapter's universe
+     * @param int       $idStory    Id of the chapter's story
+     * @param int       $idChapter  Id of the chapter for the message
+     * @param \DateTime $beforeDate inclusive end date
+     * @param \DateTime $afterDate  inclusive start date, if omitted get all date
+     *
      * @return ArrayCollection Returns an array of Message objects
      */
     public function findAfterAndBeforeDate(
@@ -40,7 +40,7 @@ class MessageRepository extends ServiceEntityRepository
         int $idStory,
         int $idChapter,
         \DateTime $beforeDate,
-        ? \DateTime $afterDate
+        ?\DateTime $afterDate
     ) {
         $results = $this->createQueryBuilder('m')
             ->leftJoin('m.chapter', 'c')
@@ -65,7 +65,6 @@ class MessageRepository extends ServiceEntityRepository
 
         return new ArrayCollection($results);
     }
-    
 
     /*
     public function findOneBySomeField($value): ?Message

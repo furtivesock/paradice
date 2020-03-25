@@ -2,12 +2,12 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\OnlineUser;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use App\Entity\OnlineUser;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class OnlineUserFixtures extends Fixture 
+class OnlineUserFixtures extends Fixture
 {
     private $encoder;
 
@@ -26,7 +26,7 @@ class OnlineUserFixtures extends Fixture
         $onlineUser->setAvatarURL(null);
         $manager->persist($onlineUser);
         $this->addReference('Sloky', $onlineUser);
-        
+
         // Cyrela
         $onlineUser = new OnlineUser();
         $onlineUser->setUsername('Cyrela');
@@ -46,7 +46,7 @@ class OnlineUserFixtures extends Fixture
         $manager->persist($onlineUser);
 
         $this->addReference('Eggoer', $onlineUser);
-        
+
         // Landry
         $onlineUser = new OnlineUser();
         $onlineUser->setUsername('Landry');
@@ -57,7 +57,7 @@ class OnlineUserFixtures extends Fixture
         $manager->persist($onlineUser);
 
         $this->addReference('Landry', $onlineUser);
-        
+
         // Sequentia
         $onlineUser = new OnlineUser();
         $onlineUser->setUsername('Sequentia');
@@ -68,12 +68,7 @@ class OnlineUserFixtures extends Fixture
         $manager->persist($onlineUser);
 
         $this->addReference('Sequentia', $onlineUser);
-        
-
 
         $manager->flush();
-
-
-        
     }
 }

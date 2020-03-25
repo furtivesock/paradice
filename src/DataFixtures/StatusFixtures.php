@@ -2,11 +2,11 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Status;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use App\Entity\Status;
 
-class StatusFixtures extends Fixture 
+class StatusFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
@@ -14,7 +14,7 @@ class StatusFixtures extends Fixture
         $status->setName('FINISHED');
         $manager->persist($status);
         $this->addReference('FINISHED', $status);
-        
+
         $status = new Status();
         $status->setName('IN_PROGRESS');
         $manager->persist($status);
@@ -30,10 +30,6 @@ class StatusFixtures extends Fixture
         $manager->persist($status);
         $this->addReference('INSCRIPTION', $status);
 
-
-
         $manager->flush();
-
-        
     }
 }

@@ -2,11 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-
 use App\Entity\Location;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class LocationFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -27,13 +26,10 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $location2->setUniverse($this->getReference('The-Universe'));
         $location2->setParentLocation($location1);
         $location2->setImageURL(null);
-        
+
         $manager->persist($location2);
         $this->addReference('Fossilis', $location1);
 
-
-        
-        
         $location1 = new Location();
         $location1->setName('Rionto');
         $location1->setDescription('Terres des créatures mi-animales.');
@@ -49,19 +45,15 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $location2->setUniverse($this->getReference('Lune-Noire'));
         $location2->setParentLocation($location1);
         $location2->setImageURL(null);
-        
+
         $manager->persist($location2);
         $this->addReference('Rionto', $location1);
-        
-        
-        
+
         $manager->flush();
-
-
     }
 
     public function getDependencies()
     {
-        return array(UniverseFixtures::class);
+        return [UniverseFixtures::class];
     }
 }

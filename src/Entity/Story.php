@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StoryRepository")
@@ -14,7 +13,7 @@ class Story
 {
     /**
      * @var int
-     * 
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -23,42 +22,42 @@ class Story
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var \DateTime
-     * 
+     *
      * @ORM\Column(type="datetime")
      */
     private $creationDate;
 
     /**
      * @var \DateTime
-     * 
+     *
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $startDate;
 
     /**
      * @var \DateTime
-     * 
+     *
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $endRegistrationDate;
 
     /**
      * @var OnlineUser
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="stories")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -66,7 +65,7 @@ class Story
 
     /**
      * @var Visibility
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Visibility")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -74,7 +73,7 @@ class Story
 
     /**
      * @var Status
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Status")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -82,28 +81,28 @@ class Story
 
     /**
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\StoryPlayer", mappedBy="story", orphanRemoval=true)
      */
     private $storyPlayers;
 
     /**
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\StoryApplication", mappedBy="story", orphanRemoval=true)
      */
     private $storyApplications;
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="text", nullable=true)
      */
     private $summary;
 
     /**
      * @var Universe
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="stories")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
@@ -111,7 +110,7 @@ class Story
 
     /**
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\Chapter", mappedBy="story", orphanRemoval=true)
      */
     private $chapters;
@@ -123,106 +122,104 @@ class Story
         $this->chapters = new ArrayCollection();
     }
 
-    public function getId() : ? int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName() : ? string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getDescription() : ? string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(? string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getCreationDate() : ? \DateTimeInterface
+    public function getCreationDate(): ?\DateTimeInterface
     {
         return $this->creationDate;
     }
 
-    public function setCreationDate(\DateTimeInterface $creationDate) : self
+    public function setCreationDate(\DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
 
         return $this;
     }
 
-    public function getStartDate() : ? \DateTimeInterface
+    public function getStartDate(): ?\DateTimeInterface
     {
         return $this->startDate;
     }
 
-    public function setStartDate(? \DateTimeInterface $startDate) : self
+    public function setStartDate(?\DateTimeInterface $startDate): self
     {
         $this->startDate = $startDate;
 
         return $this;
     }
 
-    public function getEndRegistrationDate() : ? \DateTimeInterface
+    public function getEndRegistrationDate(): ?\DateTimeInterface
     {
         return $this->endRegistrationDate;
     }
 
-    public function setEndRegistrationDate(? \DateTimeInterface $endRegistrationDate) : self
+    public function setEndRegistrationDate(?\DateTimeInterface $endRegistrationDate): self
     {
         $this->endRegistrationDate = $endRegistrationDate;
 
         return $this;
     }
 
-
-    public function getVisibility() : ? Visibility
+    public function getVisibility(): ?Visibility
     {
         return $this->visibility;
     }
 
-    public function setVisibility(? Visibility $visibility) : self
+    public function setVisibility(?Visibility $visibility): self
     {
         $this->visibility = $visibility;
 
         return $this;
     }
 
-    public function getStatus() : ? Status
+    public function getStatus(): ?Status
     {
         return $this->status;
     }
 
-    public function setStatus(? Status $status) : self
+    public function setStatus(?Status $status): self
     {
         $this->status = $status;
 
         return $this;
     }
 
-
     /**
      * @return Collection|StoryPlayer[]
      */
-    public function getStoryPlayers() : Collection
+    public function getStoryPlayers(): Collection
     {
         return $this->storyPlayers;
     }
 
-    public function addStoryPlayer(StoryPlayer $storyPlayer) : self
+    public function addStoryPlayer(StoryPlayer $storyPlayer): self
     {
         if (!$this->storyPlayers->contains($storyPlayer)) {
             $this->storyPlayers[] = $storyPlayer;
@@ -232,7 +229,7 @@ class Story
         return $this;
     }
 
-    public function removeStoryPlayer(StoryPlayer $storyPlayer) : self
+    public function removeStoryPlayer(StoryPlayer $storyPlayer): self
     {
         if ($this->storyPlayers->contains($storyPlayer)) {
             $this->storyPlayers->removeElement($storyPlayer);
@@ -248,12 +245,12 @@ class Story
     /**
      * @return Collection|StoryApplication[]
      */
-    public function getStoryApplications() : Collection
+    public function getStoryApplications(): Collection
     {
         return $this->storyApplications;
     }
 
-    public function addStoryApplication(StoryApplication $storyApplication) : self
+    public function addStoryApplication(StoryApplication $storyApplication): self
     {
         if (!$this->storyApplications->contains($storyApplication)) {
             $this->storyApplications[] = $storyApplication;
@@ -263,7 +260,7 @@ class Story
         return $this;
     }
 
-    public function removeStoryApplication(StoryApplication $storyApplication) : self
+    public function removeStoryApplication(StoryApplication $storyApplication): self
     {
         if ($this->storyApplications->contains($storyApplication)) {
             $this->storyApplications->removeElement($storyApplication);
@@ -279,12 +276,12 @@ class Story
     /**
      * @return Collection|Chapter[]
      */
-    public function getChapters() : Collection
+    public function getChapters(): Collection
     {
         return $this->chapters;
     }
 
-    public function addChapter(Chapter $chapter) : self
+    public function addChapter(Chapter $chapter): self
     {
         if (!$this->chapters->contains($chapter)) {
             $this->chapters[] = $chapter;
@@ -294,7 +291,7 @@ class Story
         return $this;
     }
 
-    public function removeChapter(Chapter $chapter) : self
+    public function removeChapter(Chapter $chapter): self
     {
         if ($this->chapters->contains($chapter)) {
             $this->chapters->removeElement($chapter);
@@ -307,36 +304,36 @@ class Story
         return $this;
     }
 
-    public function getSummary() : ? string
+    public function getSummary(): ?string
     {
         return $this->summary;
     }
 
-    public function setSummary(? string $summary) : self
+    public function setSummary(?string $summary): self
     {
         $this->summary = $summary;
 
         return $this;
     }
 
-    public function getUniverse() : ? Universe
+    public function getUniverse(): ?Universe
     {
         return $this->universe;
     }
 
-    public function setUniverse(? Universe $universe) : self
+    public function setUniverse(?Universe $universe): self
     {
         $this->universe = $universe;
 
         return $this;
     }
 
-    public function getAuthor() : ? OnlineUser
+    public function getAuthor(): ?OnlineUser
     {
         return $this->author;
     }
 
-    public function setAuthor(? OnlineUser $author) : self
+    public function setAuthor(?OnlineUser $author): self
     {
         $this->author = $author;
 
@@ -345,12 +342,13 @@ class Story
 
     /**
      * Check if a given user has the permission to see
-     * this story
-     * 
+     * this story.
+     *
      * @param OnlineUser $user (optional) The user
+     *
      * @return bool True if the user can see this story, else false
      */
-    public function isVisibleByUser(? OnlineUser $user) : bool
+    public function isVisibleByUser(?OnlineUser $user): bool
     {
         if (is_null($user)) {
             return strcmp($this->visibility->getName(), 'ALL') === 0;
@@ -373,12 +371,13 @@ class Story
     }
 
     /**
-     * Check if a given user is a player of this story
-     * 
+     * Check if a given user is a player of this story.
+     *
      * @param OnlineUser $user The user
+     *
      * @return bool True if the user is a player, else false
      */
-    public function isPlayer(OnlineUser $user) : bool
+    public function isPlayer(OnlineUser $user): bool
     {
         return $this->storyPlayers->exists(function (int $key, StoryPlayer $sPlayer) use ($user) {
             return $sPlayer->getPlayer()->getUser()->getId() === $user->getId();
@@ -386,21 +385,23 @@ class Story
     }
 
     /**
-     * Check if a given user is the author of this story
-     * 
+     * Check if a given user is the author of this story.
+     *
      * @param OnlineUser $user (optional) The user
+     *
      * @return bool True if the user is the author, else false
      */
-    public function isAuthor(OnlineUser $user) : bool
+    public function isAuthor(OnlineUser $user): bool
     {
         return $this->author->getId() === $user->getId();
     }
 
     /**
      * @param OnlineUser $user (optional) The user
+     *
      * @return Persona|null The user's persona in this story
      */
-    public function getPersonaByUser(OnlineUser $user) : ? Persona
+    public function getPersonaByUser(OnlineUser $user): ?Persona
     {
         foreach ($this->storyPlayers as $sPlayers) {
             if ($sPlayers->getPlayer()->getUser()->getId() === $user->getId()) {
@@ -409,25 +410,25 @@ class Story
         }
 
         return null;
-    }   
-    
+    }
+
     /**
      * @return array This story formatted as a json array
      */
-    public function toJson() : array
+    public function toJson(): array
     {
-        return array(
-            'id' => $this->getId(),
-            'name' => $this->getName(),
-            'description' => $this->getDescription(),
-            'creationDate' => $this->getCreationDate(),
-            'startDate' => $this->getStartDate(),
+        return [
+            'id'                  => $this->getId(),
+            'name'                => $this->getName(),
+            'description'         => $this->getDescription(),
+            'creationDate'        => $this->getCreationDate(),
+            'startDate'           => $this->getStartDate(),
             'endRegistrationDate' => $this->getEndRegistrationDate(),
-            'summary' => $this->getSummary(),
-            'status' => array(
-                'id' => $this->getStatus()->getId(),
-                'name' => $this->getStatus()->getName()
-            )
-        );
+            'summary'             => $this->getSummary(),
+            'status'              => [
+                'id'   => $this->getStatus()->getId(),
+                'name' => $this->getStatus()->getName(),
+            ],
+        ];
     }
 }

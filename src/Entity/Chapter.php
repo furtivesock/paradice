@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ChapterRepository")
@@ -14,7 +13,7 @@ class Chapter
 {
     /**
      * @var int
-     * 
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -23,28 +22,28 @@ class Chapter
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var int
-     * 
+     *
      * @ORM\Column(type="integer")
      */
     private $numero;
 
     /**
      * @var bool
-     * 
+     *
      * @ORM\Column(type="boolean")
      */
     private $end;
 
     /**
      * @var Location
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Location")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -52,7 +51,7 @@ class Chapter
 
     /**
      * @var Story
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Story", inversedBy="chapters")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
@@ -60,7 +59,7 @@ class Chapter
 
     /**
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="chapter", orphanRemoval=true)
      */
     private $messages;
