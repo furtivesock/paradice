@@ -5,8 +5,10 @@
 
 # Paradice
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/769badb588f6446198fb80cf43665da7)](https://app.codacy.com/manual/furtivesock/paradice?utm_source=github.com&utm_medium=referral&utm_content=furtivesock/paradice&utm_campaign=Badge_Grade_Settings)
-
+<div align="center">
+  <a href="https://app.codacy.com/manual/furtivesock/paradice?utm_source=github.com&utm_medium=referral&utm_content=furtivesock/paradice&utm_campaign=Badge_Grade_Settings"><img src="https://api.codacy.com/project/badge/Grade/769badb588f6446198fb80cf43665da7" alt="Codacy Badge"></a>
+  <a href="https://github.styleci.io/repos/242159657"><img src="https://github.styleci.io/repos/242159657/shield?branch=dev" alt="StyleCI"></a>
+</div>
 
 Paradice is an online textual role play platform that you can self-host in your own servers.
 
