@@ -2,10 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Characteristic;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class CharacteristicFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -36,7 +36,7 @@ class CharacteristicFixtures extends Fixture implements DependentFixtureInterfac
         'de soigner des personnes en phase terminale du cancer.');
         $characteristic->setType($this->getReference('Arc'));
         $characteristic->setImageURL(null);
-        
+
         $manager->persist($characteristic);
 
         $characteristic = new Characteristic();
@@ -50,10 +50,10 @@ class CharacteristicFixtures extends Fixture implements DependentFixtureInterfac
         $manager->flush();
     }
 
-    public function getDependencies() 
+    public function getDependencies()
     {
-        return array(
-            TypeFixtures::class
-        );
+        return [
+            TypeFixtures::class,
+        ];
     }
 }

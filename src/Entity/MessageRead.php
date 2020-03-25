@@ -9,10 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class MessageRead
 {
-
     /**
-     * @var int 
-     * 
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\OnlineUser", inversedBy="messagesRead")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -20,8 +19,8 @@ class MessageRead
     private $user;
 
     /**
-     * @var int 
-     * 
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\ManyToOne(targetEntity="App\Entity\Message", inversedBy="messagesRead")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
@@ -30,7 +29,7 @@ class MessageRead
 
     /**
      * @var bool
-     * 
+     *
      * @ORM\Column(type="boolean")
      */
     private $seen;

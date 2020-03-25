@@ -4,15 +4,15 @@ namespace App\Form;
 
 use App\Entity\Story;
 use App\Entity\Visibility;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CreateStoryFormType extends AbstractType
 {
@@ -21,38 +21,38 @@ class CreateStoryFormType extends AbstractType
         $builder
             ->setAction($options['action'])
             ->add('name', TextType::class, [
-                'label' => 'Nom de l\'histoire',
+                'label'       => 'Nom de l\'histoire',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Un nom doit être donné à votre histoire !'
-                    ])
-                ]
+                        'message' => 'Un nom doit être donné à votre histoire !',
+                    ]),
+                ],
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description'
+                'label' => 'Description',
             ])
             ->add('startDate', DateTimeType::class, [
-                'label' => 'Date de lancement',
+                'label'       => 'Date de lancement',
                 'constraints' => [
                     new GreaterThan([
                         'propertyPath' => 'endRegistrationDate',
-                        'message' => 'Cette date doit être supérieure à la date de fin des inscriptions'
-                    ])
-                ]
+                        'message'      => 'Cette date doit être supérieure à la date de fin des inscriptions',
+                    ]),
+                ],
             ])
             ->add('endRegistrationDate', DateTimeType::class, [
-                'label' => 'Date de fin des inscriptions',
+                'label'       => 'Date de fin des inscriptions',
                 'constraints' => [
                     new GreaterThan([
-                        'value' => 'now',
-                        'message' => 'Cette date doit être supérieure ou égale à la date d\'aujourdhui'
-                    ])
-                ]
+                        'value'   => 'now',
+                        'message' => 'Cette date doit être supérieure ou égale à la date d\'aujourdhui',
+                    ]),
+                ],
 
             ])
             ->add('visibility', EntityType::class, [
-                'label' => 'Visibilité',
-                'class' => Visibility::class,
+                'label'        => 'Visibilité',
+                'class'        => Visibility::class,
                 'choice_label' => function (Visibility $visibility) {
                     switch ($visibility->getName()) {
                         case 'ALL':
@@ -62,7 +62,7 @@ class CreateStoryFormType extends AbstractType
                         case 'STORY':
                             return 'Par les joueurs de cette histoire';
                     }
-                }
+                },
             ]);
     }
 

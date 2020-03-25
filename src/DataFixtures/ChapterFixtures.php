@@ -2,11 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-
 use App\Entity\Chapter;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class ChapterFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -22,8 +21,6 @@ class ChapterFixtures extends Fixture implements DependentFixtureInterface
 
         $this->addReference('ChapterOne', $chapter);
 
-
-
         $chapter = new Chapter();
         $chapter->setName('Le début de la fin');
         $chapter->setNumero(1);
@@ -34,17 +31,14 @@ class ChapterFixtures extends Fixture implements DependentFixtureInterface
 
         $this->addReference('ChapterDeux', $chapter);
 
-
-
         $manager->flush();
-
     }
 
     public function getDependencies()
     {
-        return array(
+        return [
             LocationFixtures::class,
-            StoryFixtures::class
-        );
+            StoryFixtures::class,
+        ];
     }
 }

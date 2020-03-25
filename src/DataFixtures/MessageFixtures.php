@@ -2,11 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Entity\Message;
-
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class MessageFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -14,12 +13,11 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
     {
         $message = new Message();
         $message->setContents('Coucou les copinous');
-        $message->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));;
+        $message->setCreationDate(new \DateTime('now', new \DateTimeZone('UTC')));
         $message->setSender($this->getReference('Sloky'));
         $message->setChapter($this->getReference('ChapterOne'));
 
         $manager->persist($message);
-
 
         $message = new Message();
         $message->setContents('Salam les Kheys');
@@ -50,9 +48,9 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return array(
+        return [
             OnlineUserFixtures::class,
-            ChapterFixtures::class
-        );
+            ChapterFixtures::class,
+        ];
     }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Form\UpdateUserFormType;
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\OnlineUser;
+use App\Form\UpdateUserFormType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
@@ -18,7 +18,7 @@ class UserController extends AbstractController
         $user = $this->getDoctrine()
             ->getRepository(OnlineUser::class)
             ->find($idUser);
-        
+
         if (is_null($user)) {
             throw $this->createNotFoundException();
         }
@@ -30,7 +30,7 @@ class UserController extends AbstractController
 
         return $this->render('user/show.html.twig', [
             'user' => $user,
-            'me' => $me
+            'me'   => $me,
         ]);
     }
 
@@ -42,7 +42,7 @@ class UserController extends AbstractController
         $user = $this->getDoctrine()
             ->getRepository(OnlineUser::class)
             ->find($idUser);
-        
+
         if (is_null($user)) {
             throw $this->createNotFoundException();
         }
@@ -53,12 +53,12 @@ class UserController extends AbstractController
 
         $form = $this->createForm(UpdateUserFormType::class, $user, [
             'action' => $this->generateUrl('user_update', [
-                'idUser' => $user->getId()
-            ])
+                'idUser' => $user->getId(),
+            ]),
         ]);
 
         return $this->render('user/edit.html.twig', [
-            'editUserForm' => $form->createView()
+            'editUserForm' => $form->createView(),
         ]);
     }
 
@@ -70,7 +70,7 @@ class UserController extends AbstractController
         $user = $this->getDoctrine()
             ->getRepository(OnlineUser::class)
             ->find($idUser);
-        
+
         if (is_null($user)) {
             throw $this->createNotFoundException();
         }
@@ -81,8 +81,8 @@ class UserController extends AbstractController
 
         $form = $this->createForm(UpdateUserFormType::class, $user, [
             'action' => $this->generateUrl('user_update', [
-                'idUser' => $user->getId()
-            ])
+                'idUser' => $user->getId(),
+            ]),
         ]);
 
         $form->handleRequest($request);
@@ -90,7 +90,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
 
-            // Update the user in the database 
+            // Update the user in the database
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -102,7 +102,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/edit.html.twig', [
-            'editUserForm' => $form->createView()
+            'editUserForm' => $form->createView(),
         ]);
     }
 }

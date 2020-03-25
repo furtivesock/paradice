@@ -2,34 +2,30 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Chapter;
-use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Location;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\Story;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\Response;
 use App\Form\CreateChapterFormType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ChapterController extends AbstractController
 {
     /**
      * @Route("/universe/{idUniverse<\d+>}/story/{idStory<\d+>}/chapter/{idChapter<\d+>}", name="chapter_show")
-     * 
+     *
      * Show a chapter identified by its id
-     * 
+     *
      * @param int $idUniverse Id of the chapter's universe
-     * @param int $idStory Id of the chapter's story
-     * @param int $idChapter Id of the chapter
+     * @param int $idStory    Id of the chapter's story
+     * @param int $idChapter  Id of the chapter
      */
     public function show(
         int $idUniverse,
         int $idStory,
         int $idChapter
-    ) : Response {
+    ): Response {
 
         // Get the chapter from the database
         $chapter = $this->getDoctrine()
@@ -39,50 +35,50 @@ class ChapterController extends AbstractController
                 $idStory,
                 $idChapter
             );
-        
+
         // If chapter is null then it doesn't exist
         if (is_null($chapter)) {
             throw $this->createNotFoundException('Not Found');
         }
 
-        // If the current user doesn't have the permission to see 
+        // If the current user doesn't have the permission to see
         // this chapter, we don't show him
         if (!$chapter->getStory()->isVisibleByUser($this->getUser())) {
             return $this->render('story/private.html.twig', [
-                'story' => $chapter->getStory()
+                'story' => $chapter->getStory(),
             ]);
         }
 
         return $this->render('chapter/show.html.twig', [
             'chapter' => $chapter,
-            'user' => $this->getUser()
+            'user'    => $this->getUser(),
         ]);
     }
 
     /**
      * @Route("/universe/{idUniverse<\d+>}/story/{idStory<\d+>}/chapter/new", methods={"GET","POST"}, name="chapter_new")
-     * 
+     *
      * POST : Insert the new chapter in the database
      * GET : Show a form to create a new chapter
      * Show a chapter identified by its id
-     * 
-     * @param int $idUniverse Id of the chapter's universe
-     * @param int $idStory Id of the chapter's story
-     * @param Request $request Request object to collect and use POST data
+     *
+     * @param int     $idUniverse Id of the chapter's universe
+     * @param int     $idStory    Id of the chapter's story
+     * @param Request $request    Request object to collect and use POST data
      */
     public function create(
         int $idUniverse,
         int $idStory,
         Request $request
-    ) : Response {
+    ): Response {
 
         // Get the story from the database
         $story = $this->getDoctrine()
             ->getRepository(Story::class)
-            ->findOneBy(array(
-                'id' => $idStory,
-                'universe' => $idUniverse
-            ));
+            ->findOneBy([
+                'id'       => $idStory,
+                'universe' => $idUniverse,
+            ]);
 
         // If story is null then it doesn't exist
         if (is_null($story)) {
@@ -102,15 +98,14 @@ class ChapterController extends AbstractController
 
         $chapter = new Chapter();
 
-        // Build the form 
+        // Build the form
         $form = $this->createForm(
-            CreateChapterFormType::class, 
-            $chapter, 
-            array('id' => $story->getUniverse()->getId())
+            CreateChapterFormType::class,
+            $chapter,
+            ['id' => $story->getUniverse()->getId()]
         );
 
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $chapter = $form->getData();
@@ -128,19 +123,16 @@ class ChapterController extends AbstractController
 
             return $this->redirectToRoute('story_show', [
                 'idUniverse' => $story->getUniverse()->getId(),
-                'idStory' => $story->getId(),
-                'user' => $this->getUser(),
+                'idStory'    => $story->getId(),
+                'user'       => $this->getUser(),
             ]);
         }
 
         return $this->render('chapter/new.html.twig', [
             'newChapterForm' => $form->createView(),
-            'numero' => is_null($lastChapter) ? 1 : $lastChapter->getNumero() + 1,
-            'user' => $this->getUser(),
-            'story' => $story
+            'numero'         => is_null($lastChapter) ? 1 : $lastChapter->getNumero() + 1,
+            'user'           => $this->getUser(),
+            'story'          => $story,
         ]);
-
-
     }
-
 }

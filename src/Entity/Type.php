@@ -13,7 +13,7 @@ class Type
 {
     /**
      * @var int
-     * 
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -22,21 +22,21 @@ class Type
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\Characteristic", mappedBy="type", orphanRemoval=true)
      */
     private $characteristics;
 
     /**
      * @var Universe
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="types")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
@@ -44,7 +44,7 @@ class Type
 
     /**
      * @var Type
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="subTypes")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
@@ -52,7 +52,7 @@ class Type
 
     /**
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\Type", mappedBy="parentType", orphanRemoval=true)
      */
     private $subTypes;
@@ -62,7 +62,6 @@ class Type
         $this->characteristics = new ArrayCollection();
         $this->subTypes = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -80,8 +79,6 @@ class Type
 
         return $this;
     }
-
-    
 
     /**
      * @return Collection|Characteristic[]

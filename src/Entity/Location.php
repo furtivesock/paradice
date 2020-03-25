@@ -13,7 +13,7 @@ class Location
 {
     /**
      * @var int
-     * 
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -22,28 +22,28 @@ class Location
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageURL;
 
     /**
      * @var Location
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="subLocations")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
@@ -51,7 +51,7 @@ class Location
 
     /**
      * @var Universe
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Universe", inversedBy="locations")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
@@ -59,17 +59,15 @@ class Location
 
     /**
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="parentLocation", orphanRemoval=true)
      */
     private $subLocations;
-
 
     public function __construct()
     {
         $this->subLocations = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -111,7 +109,6 @@ class Location
 
         return $this;
     }
-
 
     public function getParentLocation(): ?self
     {

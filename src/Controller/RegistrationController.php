@@ -16,28 +16,27 @@ class RegistrationController extends AbstractController
 {
     /**
      * @Route("/register", name="app_register")
-     * 
-     * Register a new user 
-     * 
-     * @param Request $request Request object to collect and use POST data
+     *
+     * Register a new user
+     *
+     * @param Request                      $request         Request object to collect and use POST data
      * @param UserPasswordEncoderInterface $passwordEncoder Interface to get the encoding algorithm
-     * @param GuardAuthenticatorHandler $guardHandler Interface to check authentication
-     * @param LoginAuthenticator $authenticator Interface to get the login authenticator
+     * @param GuardAuthenticatorHandler    $guardHandler    Interface to check authentication
+     * @param LoginAuthenticator           $authenticator   Interface to get the login authenticator
      */
     public function register(
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
         GuardAuthenticatorHandler $guardHandler,
         LoginAuthenticator $authenticator
-    ) : Response {
-        
+    ): Response {
         $user = new OnlineUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Encode the plain password (see config/packages/security.yaml 
+            // Encode the plain password (see config/packages/security.yaml
             // for the encoding algorithm)
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -52,7 +51,6 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,

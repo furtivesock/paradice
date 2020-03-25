@@ -2,11 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
-use App\DataFixtures\UniverseFixtures;
 use App\Entity\MessageSupport;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class MessageSupportFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -24,6 +23,6 @@ class MessageSupportFixtures extends Fixture implements DependentFixtureInterfac
 
     public function getDependencies()
     {
-        return array(OnlineUserFixtures::class, UniverseFixtures::class);
+        return [OnlineUserFixtures::class, UniverseFixtures::class];
     }
 }

@@ -2,11 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Story;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class StoryFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -68,16 +67,16 @@ class StoryFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($story);
         $this->addReference('Piraterie', $story);
 
-        $manager->flush(); 
+        $manager->flush();
     }
 
     public function getDependencies()
     {
-        return array(
-            OnlineUserFixtures::class, 
-            VisibilityFixtures::class, 
-            StatusFixtures::class, 
-            UniverseFixtures::class
-        );
+        return [
+            OnlineUserFixtures::class,
+            VisibilityFixtures::class,
+            StatusFixtures::class,
+            UniverseFixtures::class,
+        ];
     }
 }
