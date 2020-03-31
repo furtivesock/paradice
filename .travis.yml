@@ -16,6 +16,7 @@ before_script:
   - docker-compose up -d --build
 
 script:
+  - docker-compose exec php-fpm composer install
   - docker-compose exec php-fpm bin/phpunit
 
 after_script:
