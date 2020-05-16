@@ -5,7 +5,6 @@ security:
             algorithm: argon2i
             memory_cost: 16384 # Amount in KiB. 16 MiB
             time_cost: 2 # Number of iterations
-            threads: 4 # Number of parallel threads
             
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
